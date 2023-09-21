@@ -1,0 +1,1 @@
+exports.base_data_url = './data'
