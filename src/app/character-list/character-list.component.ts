@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { BASE_URL } from '../helpers/constants'
 import { characterList } from '../models/character-list'
+import { Dialog } from '@angular/cdk/dialog'
+import { AddCharacterDialogComponent } from '../add-character-dialog/add-character-dialog.component'
 
 @Component({
   selector: 'app-character-list',
@@ -11,7 +13,7 @@ import { characterList } from '../models/character-list'
 export class CharacterListComponent implements OnInit {
   characters: characterList[] = []
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dialog: Dialog) { }
 
   ngOnInit() {
     this.loadCharacters()
@@ -23,17 +25,19 @@ export class CharacterListComponent implements OnInit {
     })
   }
 
-  addCharacter() {
-    let character = new characterList
-    character.id = crypto.randomUUID()
-    character.name = 'Maxis'
-    this.http.post(`${BASE_URL}/character/add`, character).subscribe({
-        next: () => {
-            this.loadCharacters()
-        },
-        error: (error) => {
-            console.log(error)
-        }
+  addCharacterDialog() {
+    const dialogRef = this.dialog.open(AddCharacterDialogComponent, {
+      minWidth: '500px'
+    })
+
+    dialogRef.closed.subscribe(result => {
+      this.loadCharacters()
+    })
+  }
+
+  deleteCharacter(characterId: string) {
+    this.http.delete(`${BASE_URL}/character/delete/${characterId}`).subscribe((res) => {
+      this.loadCharacters()
     })
   }
 

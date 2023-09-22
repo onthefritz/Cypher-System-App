@@ -1,4 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-.background-setup {
-    background-color: aliceblue;
+@font-face {
+    font-family: "Nunito";
+    src: url("./fonts/nunito-variablefont_wght-webfont.woff2") format("woff2");
 }
+
+* {
+    font-family: Nunito, sans-serif !important;
+    font-weight: bold !important;
+    /* Add !important to overwrite all elements */
+}
+
+html, body { height: 100%; }
+body { margin: 0; background-color: #303030; }

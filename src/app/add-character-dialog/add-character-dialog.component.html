@@ -1,0 +1,26 @@
+<mat-card class="custom-dialog">
+    <mat-card-header>
+        <mat-card-title>Add Character</mat-card-title>
+        <mat-card-subtitle><i>No Fields are required.</i></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="name" />
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="full-width">
+            <mat-label>Descriptor</mat-label>
+            <input matInput [(ngModel)]="descriptor" />
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="full-width">
+            <mat-label>Focus</mat-label>
+            <input matInput [(ngModel)]="focus" />
+        </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button (click)="addCharacter()">SAVE</button>
+        <button mat-button (click)="close()">CANCEL</button>
+    </mat-card-actions>
+</mat-card>

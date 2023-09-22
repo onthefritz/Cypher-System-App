@@ -19,10 +19,18 @@ router.get('/:characterId', async (req, res) => {
 })
 
 router.post('/add', async (req, res) => {
-    await characterService.addCharacter(req.body)
+    await characterService.addCharacterToList(req.body)
+	await characterService.addCharacter(req.body)
 
     res.status(201)
     res.end()
+})
+
+router.delete('/delete/:characterId', async (req, res) => {
+	await characterService.deleteCharacter(req.params.characterId)
+
+	res.status(202)
+	res.end()
 })
 
 module.exports = router
