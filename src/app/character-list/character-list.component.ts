@@ -4,6 +4,7 @@ import { BASE_URL } from '../helpers/constants'
 import { characterList } from '../models/character-list'
 import { Dialog } from '@angular/cdk/dialog'
 import { AddCharacterDialogComponent } from '../add-character-dialog/add-character-dialog.component'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-character-list',
@@ -13,7 +14,8 @@ import { AddCharacterDialogComponent } from '../add-character-dialog/add-charact
 export class CharacterListComponent implements OnInit {
   characters: characterList[] = []
 
-  constructor(private http: HttpClient, private dialog: Dialog) { }
+  constructor(private http: HttpClient, private dialog: Dialog,
+    private router: Router) { }
 
   ngOnInit() {
     this.loadCharacters()
@@ -41,7 +43,11 @@ export class CharacterListComponent implements OnInit {
     })
   }
 
-  goToCharacter(id: string) {
-    console.log(id)
+  openSheet(id: string) {
+    this.router.navigateByUrl(`/sheet/${id}`)
+  }
+
+  openSheetEditor(id: string) {
+    
   }
 }

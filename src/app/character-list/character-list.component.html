@@ -13,8 +13,8 @@
             <mat-label>Focus: {{character.focus}}</mat-label>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-button>OPEN</button>
-            <button mat-button>EDIT</button>
+            <button mat-button (click)="openSheet(character.id)">OPEN</button>
+            <button mat-button (click)="openSheetEditor(character.id)">EDIT</button>
             <button mat-button (click)="deleteCharacter(character.id)">DELETE</button>
         </mat-card-actions>
     </mat-card>

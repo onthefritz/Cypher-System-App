@@ -14,13 +14,15 @@ import { MatCardModule } from '@angular/material/card'
 import { DialogModule } from '@angular/cdk/dialog'
 import { MatInputModule } from '@angular/material/input'
 import { TextFieldModule } from '@angular/cdk/text-field'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CharacterSheetComponent } from './character-sheet/character-sheet.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     CharacterListComponent,
-    AddCharacterDialogComponent
+    AddCharacterDialogComponent,
+    CharacterSheetComponent
   ],
   imports: [
     BrowserModule,

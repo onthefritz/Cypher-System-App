@@ -12,8 +12,8 @@ exports.getCharacters = async function() {
 
 exports.getCharacter = async function(id) {
     let character = {}
-    await fs.readFile(`${constants.base_data_url}/${id}.json`, 'utf-8', (err, data) => {
-        character = data
+    await fs.readFile(`${constants.base_data_url}/${id}.json`, 'utf-8').then((data) => {
+        character = JSON.parse(data)
     })
 
     return character
