@@ -18,4 +18,11 @@ router.get('/:characterId', async (req, res) => {
 	res.end()
 })
 
+router.post('/add', async (req, res) => {
+    await characterService.addCharacter(req.body)
+
+    res.status(201)
+    res.end()
+})
+
 module.exports = router

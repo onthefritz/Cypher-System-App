@@ -18,3 +18,14 @@ exports.getCharacter = async function(id) {
 
     return character
 }
+
+exports.addCharacter = async function(characterData) {
+    let foundData = []
+    await fs.readFile(`${constants.base_data_url}/characters.json`, 'utf-8').then((data) => {
+        foundData = JSON.parse(data)
+    })
+
+    foundData.push(characterData)
+
+    await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(foundData))
+}

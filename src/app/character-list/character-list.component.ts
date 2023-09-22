@@ -24,10 +24,20 @@ export class CharacterListComponent implements OnInit {
   }
 
   addCharacter() {
-    console.log('woo thing')
+    let character = new characterList
+    character.id = crypto.randomUUID()
+    character.name = 'Maxis'
+    this.http.post(`${BASE_URL}/character/add`, character).subscribe({
+        next: () => {
+            this.loadCharacters()
+        },
+        error: (error) => {
+            console.log(error)
+        }
+    })
   }
 
-  goToCharacter(id: number) {
+  goToCharacter(id: string) {
     console.log(id)
   }
 }
