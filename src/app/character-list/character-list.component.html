@@ -6,8 +6,12 @@
     <mat-card class="character" *ngFor="let character of characters">
         <mat-card-header>
             <mat-card-title>{{character.name}}</mat-card-title>
-            <mat-card-subtitle>Some character info</mat-card-subtitle>
         </mat-card-header>
+        <mat-card-content>
+            <mat-label>Descriptor: {{character.descriptor}}</mat-label>
+            <br/>
+            <mat-label>Focus: {{character.focus}}</mat-label>
+        </mat-card-content>
         <mat-card-actions align="end">
             <button mat-button>OPEN</button>
             <button mat-button>EDIT</button>
