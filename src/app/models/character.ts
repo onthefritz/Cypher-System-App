@@ -5,6 +5,7 @@ export class character {
     public abilities: ability[] = []
     public equipment: equipment = new equipment
     public skills: skill[] = []
+    public settings: settings = new settings
 }
 
 class baseInfo {
@@ -128,4 +129,10 @@ class skill {
     public inability: boolean = false
     public trained: boolean = false
     public specialized: boolean = false
+}
+
+class settings {
+    public altSheet: boolean = false
+    public ac: boolean = false
+    public damageDice: boolean = false
 }

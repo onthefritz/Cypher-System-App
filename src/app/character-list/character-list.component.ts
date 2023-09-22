@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http'
 import { BASE_URL } from '../helpers/constants'
 import { characterList } from '../models/character-list'
 import { Dialog } from '@angular/cdk/dialog'
-import { AddCharacterDialogComponent } from '../add-character-dialog/add-character-dialog.component'
+import { AddCharacterDialogComponent } from '../dialogs/add-character-dialog/add-character-dialog.component'
+import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component'
 import { Router } from '@angular/router'
 
 @Component({
@@ -37,9 +38,14 @@ export class CharacterListComponent implements OnInit {
     })
   }
 
-  deleteCharacter(characterId: string) {
-    this.http.delete(`${BASE_URL}/character/delete/${characterId}`).subscribe((res) => {
-      this.loadCharacters()
+  deleteCharacterDialog(characterId: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+        minWidth: '300px',
+        data: characterId
+    })
+
+    dialogRef.closed.subscribe(result => {
+        this.loadCharacters()
     })
   }
 

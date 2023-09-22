@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { characterList } from '../models/character-list';
-import { BASE_URL } from '../helpers/constants';
+import { characterList } from '../../models/character-list';
+import { BASE_URL } from '../../helpers/constants';
 import { HttpClient } from '@angular/common/http';
 import { DialogRef } from '@angular/cdk/dialog'
 
