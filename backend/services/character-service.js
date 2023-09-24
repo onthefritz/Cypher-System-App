@@ -24,8 +24,14 @@ exports.addCharacterToList = async function(characterData) {
     await fs.readFile(`${constants.base_data_url}/characters.json`, 'utf-8').then((data) => {
         foundData = JSON.parse(data)
     })
-
-    foundData.push(characterData)
+    
+    let characterListData = {
+        id: characterData.id,
+        name: characterData.baseInfo.name,
+        descriptor: characterData.baseInfo.descriptor,
+        focus: characterData.baseInfo.focus
+    }
+    foundData.push(characterListData)
 
     await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(foundData))
 }

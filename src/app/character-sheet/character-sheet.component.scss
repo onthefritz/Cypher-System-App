@@ -1,0 +1,24 @@
+.character-name-info {
+  font-size: large;
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.grid mat-card {
+  margin: 5px 2% 5px 2%;
+}
+
+.grid.character-name {
+  flex-grow: 2;
+  min-width: 300px;
+}
+
+.grid.character-tier {
+  flex-grow: 1;
+  min-width: 150px;
+}

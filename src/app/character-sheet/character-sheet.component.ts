@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BASE_URL } from '../helpers/constants';
-import { Subscription } from 'rxjs';
+import { character } from '../models/character';
 
 @Component({
   selector: 'app-character-sheet',
@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./character-sheet.component.scss']
 })
 export class CharacterSheetComponent implements OnInit {
+  characterInfo: character = new character
   private characterId: string = ''
 
   constructor(private http: HttpClient, private dialog: Dialog,
@@ -26,7 +27,7 @@ export class CharacterSheetComponent implements OnInit {
 
   loadCharacter() {
     this.http.get(`${BASE_URL}/character/${this.characterId}`).subscribe((res) => {
-      console.log(res)
+      this.characterInfo = res as character
     })
   }
 }

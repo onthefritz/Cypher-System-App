@@ -17,6 +17,10 @@ import { TextFieldModule } from '@angular/cdk/text-field'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CharacterSheetComponent } from './character-sheet/character-sheet.component';
 import { DeleteConfirmationComponent } from './dialogs/delete-confirmation/delete-confirmation.component'
+import { NgIf } from '@angular/common'
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatSelectModule } from '@angular/material/select';
+import { StatsComponent } from './stats/stats.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,8 @@ import { DeleteConfirmationComponent } from './dialogs/delete-confirmation/delet
     CharacterListComponent,
     AddCharacterDialogComponent,
     CharacterSheetComponent,
-    DeleteConfirmationComponent
+    DeleteConfirmationComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,10 @@ import { DeleteConfirmationComponent } from './dialogs/delete-confirmation/delet
     DialogModule,
     MatInputModule,
     TextFieldModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSidenavModule,
+    NgIf,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

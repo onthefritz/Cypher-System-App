@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { characterList } from '../../models/character-list';
+import { character } from '../../models/character';
 import { BASE_URL } from '../../helpers/constants';
 import { HttpClient } from '@angular/common/http';
 import { DialogRef } from '@angular/cdk/dialog'
@@ -17,12 +17,12 @@ export class AddCharacterDialogComponent {
   constructor(private http: HttpClient, private dialogRef: DialogRef) { }
 
   addCharacter() {
-    let character = new characterList
-    character.id = crypto.randomUUID()
-    character.name = this.name
-    character.descriptor = this.descriptor
-    character.focus = this.focus
-    this.http.post(`${BASE_URL}/character/add`, character).subscribe({
+    let characterInfo = new character
+    characterInfo.id = crypto.randomUUID()
+    characterInfo.baseInfo.name = this.name
+    characterInfo.baseInfo.descriptor = this.descriptor
+    characterInfo.baseInfo.focus = this.focus
+    this.http.post(`${BASE_URL}/character/add`, characterInfo).subscribe({
         next: () => {
             this.dialogRef.close()
         },

@@ -1,1 +1,31 @@
-<p>character-sheet works!</p>
+<div class="grid">
+  <mat-card class="character-name">
+    <mat-card-content>
+        <p>
+          <span class="character-name-info">{{characterInfo.baseInfo.name}}</span> is 
+          <span class="character-name-info">{{characterInfo.baseInfo.descriptor}}</span> and
+          <span class="character-name-info">{{characterInfo.baseInfo.focus}}</span>
+        </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="character-tier">
+    <mat-card-header>Tier</mat-card-header>
+    <mat-card-content>
+        {{characterInfo.baseInfo.tier}}
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="character-tier">
+    <mat-card-header>XP</mat-card-header>
+    <mat-card-content>
+        {{characterInfo.baseInfo.xp}}
+    </mat-card-content>
+  </mat-card>
+
+
+</div>
+
+
+<div>
+  <app-stats></app-stats>
+</div>
