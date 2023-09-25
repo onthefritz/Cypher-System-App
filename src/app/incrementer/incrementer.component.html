@@ -1,9 +1,13 @@
-<div>
-  <input type="text" class="incrementer-text" value="{{numberValueCurrent}}" />
-  <button mat-flat-button>
-    &and;
-  </button>
-  <button mat-flat-button>
-    &or;
-  </button>
+<div class="incrementer-component">
+  <input type="text" class="incrementer-text" value="{{currentVal}}"
+    (focusin)="clearText()" (keydown.enter)="applyChange($event)"
+    (keydown)="textChange($event)" #numberInput />
+  <div class="incrementers" *ngIf="showIncrementers">
+    <button mat-flat-button class="small-button" (click)="incrementUp()">
+      &and;
+    </button>
+    <button mat-flat-button class="small-button" (click)="incrementDown()">
+      &or;
+    </button>
+  </div>
 </div>

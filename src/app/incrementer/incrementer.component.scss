@@ -1,7 +1,28 @@
+.incrementer-component {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.incrementers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
 .incrementer-text {
   background: rgba(0, 0, 0, 0);
-  width: 30px;
+  width: 40px;
   border: none;
-  font-size: x-large;
+  font-size: 50px;
   text-align: center;
+  padding-top: 9px;
+}
+
+.small-button {
+  font-size: 10px;
+  width: 25px!important;
+  height: 20px!important;
+  min-width: unset!important;
+  min-height: unset!important;
 }
