@@ -8,7 +8,7 @@ export class character {
     public settings: settings = new settings
 }
 
-class baseInfo {
+export class baseInfo {
     public name: string = ''
     public descriptor: string = ''
     public focus: string = ''
@@ -20,20 +20,30 @@ class baseInfo {
     public tierAdvancementHistory: tierAdvancement[] = []
 }
 
-class stats {
+export class stats {
     public might: number = 0
+    public mightCurrent: number = 0
     public mightEdge: number = 0
+    public mightEdgeCurrent: number = 0
 
     public speed: number = 0
+    public speedCurrent: number = 0
     public speedEdge: number = 0
+    public speedEdgeCurrent: number = 0
 
     public intellect: number = 0
+    public intellectCurrent: number = 0
     public intellectEdge: number = 0
+    public intellectEdgeCurrent: number = 0
 
     public charm: number = 0
+    public charmCurrent: number = 0
     public charmEdge: number = 0
+    public charmEdgeCurrent: number = 0
 
     public effort: number = 0
+    public effortCurrent: number = 0
+    
     public movement: number = 0
     public exhaustion: number = 0
     public damageTrack: damageTrack = new damageTrack
@@ -41,7 +51,7 @@ class stats {
     public shortRestsSinceLongRest: number = 0
 }
 
-class statHistory {
+export class statHistory {
     public tier: number = 0
 
     public pointsToMight: number = 0
@@ -61,7 +71,7 @@ class statHistory {
     public pointToAbilityPoints: number = 0
 }
 
-class tierAdvancement {
+export class tierAdvancement {
     public pointsToStatPools: boolean = false
     public pointToEdge: boolean = false
     public pointToEffort: boolean = false
@@ -70,28 +80,28 @@ class tierAdvancement {
     public other: boolean = false
 }
 
-class damageTrack {
+export class damageTrack {
     public impaired: boolean = false
     public debilitated: boolean = false
     public unconscious: boolean = false
     public dead: boolean = false
 }
 
-class attack {
+export class attack {
     public name: string = ''
     public modifier: number = 0
     public damage: number = 0
     public range: number = 0
 }
 
-class ability {
+export class ability {
     public name: string = ''
     public cost: number = 0
     public costType: string = ''
     public description: string = ''
 }
 
-class equipment {
+export class equipment {
     public cypherCount: number = 0
     public cyphers: cypher[] = []
     public items: item[] = []
@@ -100,38 +110,38 @@ class equipment {
     public money: money[] = []
 }
 
-class cypher {
+export class cypher {
     public name: string = ''
     public tier: number = 0
     public description: string = ''
 }
 
-class item {
+export class item {
     public name: string = ''
     public count: number = 0
     public description: string = ''
 }
 
-class weapon {
+export class weapon {
     public name: string = ''
     public count: number = 0
     public type: string = ''
     public description: string = ''
 }
 
-class money {
+export class money {
     public name: string = ''
     public amount: number = 0
 }
 
-class skill {
+export class skill {
     public name: string = ''
     public inability: boolean = false
     public trained: boolean = false
     public specialized: boolean = false
 }
 
-class settings {
+export class settings {
     public altSheet: boolean = false
     public ac: boolean = false
     public damageDice: boolean = false

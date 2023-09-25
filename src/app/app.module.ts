@@ -21,6 +21,8 @@ import { NgIf } from '@angular/common'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatSelectModule } from '@angular/material/select';
 import { StatsComponent } from './stats/stats.component';
+import { IncrementerComponent } from './incrementer/incrementer.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { StatsComponent } from './stats/stats.component';
     AddCharacterDialogComponent,
     CharacterSheetComponent,
     DeleteConfirmationComponent,
-    StatsComponent
+    StatsComponent,
+    IncrementerComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { StatsComponent } from './stats/stats.component';
     MatFormFieldModule,
     MatSidenavModule,
     NgIf,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
