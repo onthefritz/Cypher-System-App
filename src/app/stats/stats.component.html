@@ -1,4 +1,20 @@
 
-<app-incrementer [numberValueTotal]="characterStats.might" [numberValueCurrent]="characterStats.mightCurrent" [showIncrementers]="true"></app-incrementer>
-
-<app-incrementer [numberValueTotal]="200" [numberValueCurrent]="100" [showIncrementers]="true"></app-incrementer>
+<mat-card class="container">
+  <mat-card-content>
+    <span class="might-label">MIGHT</span>
+    <span class="might-total">{{characterStats.might}}</span>
+    <app-incrementer class="might-current"
+      [numberValueTotal]="characterStats.might" 
+      [numberValueCurrent]="characterStats.mightCurrent" 
+      [fontSize]="20">
+    </app-incrementer>
+    <div class="might-edge">
+      <span class="edge-title">Edge</span>
+      <app-incrementer 
+        [numberValueTotal]="characterStats.mightEdge" 
+        [numberValueCurrent]="characterStats.mightEdgeCurrent" 
+        [fontSize]="20">
+      </app-incrementer>
+  </div>
+  </mat-card-content>
+</mat-card>

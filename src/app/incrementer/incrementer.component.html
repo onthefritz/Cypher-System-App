@@ -1,7 +1,7 @@
 <div class="incrementer-component">
-  <input type="text" class="incrementer-text" value="{{currentVal}}"
+  <input type="text" class="incrementer-text" value="{{currentVal}}" [disabled]="disableEdit"
     (focusin)="clearText()" (keydown.enter)="applyChange($event)"
-    (keydown)="textChange($event)" #numberInput />
+    (keyup)="keyUp($event)" (blur)="loseFocus($event)" #numberInput />
   <div class="incrementers" *ngIf="showIncrementers">
     <button mat-flat-button class="small-button" (click)="incrementUp()">
       &and;

@@ -1,5 +1,5 @@
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { Component, Input, Output, OnInit, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
 import { character } from '../models/character';
 
 @Component({
@@ -7,19 +7,26 @@ import { character } from '../models/character';
   templateUrl: './incrementer.component.html',
   styleUrls: ['./incrementer.component.scss']
 })
-export class IncrementerComponent implements OnInit {
+export class IncrementerComponent implements OnInit, AfterViewInit {
   @Input() numberValueTotal: number = 0
   @Input() numberValueCurrent: number = 0
   @Input() showIncrementers: boolean = false
+  @Input() fontSize: number = 50
+  @Input() disableEdit: boolean = false
 
   @ViewChild('numberInput') numberInput: any;
 
   currentVal: string = '0'
+  fontSizeWidthAdjustment: number = 50
 
   ngOnInit(): void {
     this.currentVal = this.numberValueCurrent.toString()
-    console.log(this.numberInput)
-    this.numberInput.style.width = ((this.numberInput.value.length) * 40) + 'px'
+    this.fontSizeWidthAdjustment = this.fontSize
+  }
+
+  ngAfterViewInit() {
+    this.numberInput.nativeElement.style.width = ((this.numberInput.nativeElement.value.length) * this.fontSizeWidthAdjustment) + 'px'
+    this.numberInput.nativeElement.style.fontSize = `${this.fontSize}px` 
   }
 
   clearText() {
@@ -35,36 +42,60 @@ export class IncrementerComponent implements OnInit {
       this.numberValueCurrent = parseInt(newValue)
       this.currentVal = this.numberValueCurrent.toString()
     }
-    else {
+    else if (mathSign === '+' || mathSign === '-') {
       let mathValue = parseInt(newValue.substring(1))
       this.numberValueCurrent = this.preformOperation(mathSign, this.numberValueCurrent, mathValue)
       this.currentVal = this.numberValueCurrent.toString()
     }
+    else {
+      this.currentVal = this.numberValueCurrent.toString()
+    }
 
-    target.style.width = ((this.currentVal.length) * 40) + 'px'
+    console.log(this.currentVal.length)
+    target.style.width = ((this.currentVal.length) * this.fontSizeWidthAdjustment) + 'px'
+    console.log(target.style.width)
 
     target.blur()
   }
 
-  textChange(event: any) {
+  keyUp(event: any) {
+    if (event.key === "Enter") {
+      return
+    }
+
+    let target = event.target || event.srcElement || event.currentTarget
+    let newValue: string = target.value
+    
+    let currentLength = target.style.width
+    let currentLengthNumber = currentLength.substring(0, currentLength.length - 2)
+    let newLength = ((newValue.length) * this.fontSizeWidthAdjustment)
+    
+    if (newLength > currentLengthNumber) {
+      target.style.width = `${newLength}px`
+    }
+  }
+
+  loseFocus(event: any) {
     let target = event.target || event.srcElement || event.currentTarget
     let newValue: string = target.value
 
-    let currentLength = target.style.width
-    console.log(currentLength)
-    let newLength = ((newValue.length) * 40)
-    
-    if (newLength > currentLength) {
-      target.style.width = ((newValue.length) * 40) + 'px'
+    if (newValue === '') {
+      this.currentVal = this.numberValueCurrent.toString()
     }
   }
 
   incrementUp() {
     this.numberValueCurrent = this.numberValueCurrent + 1
+    this.currentVal = this.numberValueCurrent.toString()
+
+    this.numberInput.nativeElement.style.width = ((this.currentVal.length) * this.fontSizeWidthAdjustment) + 'px'
   }
 
   incrementDown() {
     this.numberValueCurrent = this.numberValueCurrent - 1
+    this.currentVal = this.numberValueCurrent.toString()
+
+    this.numberInput.nativeElement.style.width = ((this.currentVal.length) * this.fontSizeWidthAdjustment) + 'px'
   }
 
   private preformOperation(mathSign: string, currentValue: number, mathValue: number): number {
