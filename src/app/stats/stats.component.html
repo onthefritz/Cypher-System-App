@@ -1,20 +1,39 @@
 
-<mat-card class="container">
-  <mat-card-content>
-    <span class="might-label">MIGHT</span>
-    <span class="might-total">{{characterStats.might}}</span>
-    <app-incrementer class="might-current"
-      [numberValueTotal]="characterStats.might" 
-      [numberValueCurrent]="characterStats.mightCurrent" 
-      [fontSize]="20">
-    </app-incrementer>
-    <div class="might-edge">
-      <span class="edge-title">Edge</span>
-      <app-incrementer 
-        [numberValueTotal]="characterStats.mightEdge" 
-        [numberValueCurrent]="characterStats.mightEdgeCurrent" 
-        [fontSize]="20">
-      </app-incrementer>
+<div class="container">
+  <div class="pool-area">
+    <app-pool-stat
+      poolName="MIGHT"
+      [poolTotal]="characterStats.might"
+      [poolCurrent]="characterStats.mightCurrent"
+      [poolEdgeTotal]="characterStats.mightEdge"
+      [poolEdgeCurrent]="characterStats.mightEdgeCurrent"
+    ></app-pool-stat>
   </div>
-  </mat-card-content>
-</mat-card>
+  <div class="pool-area">
+    <app-pool-stat
+      poolName="SPEED"
+      [poolTotal]="characterStats.speed"
+      [poolCurrent]="characterStats.speedCurrent"
+      [poolEdgeTotal]="characterStats.speedEdge"
+      [poolEdgeCurrent]="characterStats.speedEdgeCurrent"
+    ></app-pool-stat>
+  </div>
+  <div class="pool-area">
+    <app-pool-stat
+      poolName="INTELLECT"
+      [poolTotal]="characterStats.intellect"
+      [poolCurrent]="characterStats.intellectCurrent"
+      [poolEdgeTotal]="characterStats.intellectEdge"
+      [poolEdgeCurrent]="characterStats.intellectEdgeCurrent"
+    ></app-pool-stat>
+  </div>
+  <div class="pool-area">
+    <app-pool-stat
+      poolName="CHARM"
+      [poolTotal]="characterStats.charm"
+      [poolCurrent]="characterStats.charmCurrent"
+      [poolEdgeTotal]="characterStats.charmEdge"
+      [poolEdgeCurrent]="characterStats.charmEdgeCurrent"
+    ></app-pool-stat>
+  </div>
+</div>

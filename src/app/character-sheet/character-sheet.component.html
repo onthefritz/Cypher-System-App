@@ -1,31 +1,64 @@
-<div class="grid">
-  <mat-card class="character-name">
-    <mat-card-content>
-        <p>
-          <span class="character-name-info">{{characterInfo.baseInfo.name}}</span> is 
-          <span class="character-name-info">{{characterInfo.baseInfo.descriptor}}</span> and
-          <span class="character-name-info">{{characterInfo.baseInfo.focus}}</span>
-        </p>
-    </mat-card-content>
-  </mat-card>
+<div *ngIf="characterLoaded">
 
-  <mat-card class="character-tier">
-    <mat-card-header>Tier</mat-card-header>
-    <mat-card-content>
-        {{characterInfo.baseInfo.tier}}
-    </mat-card-content>
-  </mat-card>
-  <mat-card class="character-tier">
-    <mat-card-header>XP</mat-card-header>
-    <mat-card-content>
-        {{characterInfo.baseInfo.xp}}
-    </mat-card-content>
-  </mat-card>
+  <div class="grid">
+    <mat-card class="character-name">
+      <mat-card-content>
+          <p>
+            <span class="character-name-info">{{characterInfo.baseInfo.name}}</span> is 
+            <span class="character-name-info">{{characterInfo.baseInfo.descriptor}}</span> and
+            <span class="character-name-info">{{characterInfo.baseInfo.focus}}</span>
+          </p>
+      </mat-card-content>
+    </mat-card>
 
+    <mat-card class="character-tier">
+      <mat-card-header>Tier</mat-card-header>
+      <mat-card-content>
+          {{characterInfo.baseInfo.tier}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="character-tier">
+      <mat-card-header>XP</mat-card-header>
+      <mat-card-content>
+          {{characterInfo.baseInfo.xp}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="character-tier">
+      <mat-card-header>Effort</mat-card-header>
+      <mat-card-content>
+          {{characterInfo.baseInfo.stats.effort}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="character-tier">
+      <mat-card-header>Armor</mat-card-header>
+      <mat-card-content>
+          {{characterInfo.baseInfo.stats.armor}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="character-tier">
+      <mat-card-header>Exhaustion</mat-card-header>
+      <mat-card-content>
+          {{characterInfo.baseInfo.stats.exhaustion}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="character-tier">
+      <mat-card-header>Movement</mat-card-header>
+      <mat-card-content>
+          {{characterInfo.baseInfo.stats.movement}}
+      </mat-card-content>
+    </mat-card>
 
-</div>
+  </div>
 
+  <div class="grid">
 
-<div>
-  <app-stats [characterStats]="characterInfo.baseInfo.stats"></app-stats>
+    <div class="stats">
+      <app-stats [characterStats]="characterInfo.baseInfo.stats"></app-stats>
+    </div>
+
+    <div class="skills">
+      <app-skills [skillsData]="characterInfo.skills"></app-skills>
+    </div>
+
+  </div>
 </div>

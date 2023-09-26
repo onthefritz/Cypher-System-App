@@ -44,6 +44,7 @@ export class stats {
     public effort: number = 0
     public effortCurrent: number = 0
     
+    public armor: number = 0
     public movement: number = 0
     public exhaustion: number = 0
     public damageTrack: damageTrack = new damageTrack

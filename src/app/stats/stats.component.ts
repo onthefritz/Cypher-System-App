@@ -1,11 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { stats } from '../models/character';
+import { Component, Input, OnInit } from '@angular/core';
+import { character, stats } from '../models/character';
 
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss']
 })
-export class StatsComponent {
-  @Input() characterStats: stats = new stats
+export class StatsComponent implements OnInit {
+  @Input() characterStats: any
+
+  ngOnInit(): void {
+    console.log(this.characterStats)
+  }
 }
