@@ -17,7 +17,7 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
   private characterId: string = ''
 
   constructor(private http: HttpClient, private dialog: Dialog,
-    private route: ActivatedRoute) { }
+    private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -37,5 +37,9 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
     
       this.characterLoaded = true
     })
+  }
+
+  characterList() {
+    this.router.navigateByUrl(`/`)
   }
 }
