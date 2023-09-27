@@ -26,8 +26,13 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatDividerModule } from '@angular/material/divider'
 import { PoolStatComponent } from './pool-stat/pool-stat.component'
 import { MatPaginatorModule } from '@angular/material/paginator'
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table'
 import { SkillsComponent } from './skills/skills.component'
+import { CheckboxComponent } from './checkbox/checkbox.component'
+import { MatTabsModule } from '@angular/material/tabs'
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AttacksComponent } from './attacks/attacks.component';
+import { SpecialAbilitiesComponent } from './special-abilities/special-abilities.component'
 
 @NgModule({
   declarations: [
@@ -39,7 +44,10 @@ import { SkillsComponent } from './skills/skills.component'
     StatsComponent,
     IncrementerComponent,
     PoolStatComponent,
-    SkillsComponent
+    SkillsComponent,
+    CheckboxComponent,
+    AttacksComponent,
+    SpecialAbilitiesComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +68,9 @@ import { SkillsComponent } from './skills/skills.component'
     MatIconModule,
     MatDividerModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

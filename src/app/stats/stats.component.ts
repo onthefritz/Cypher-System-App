@@ -7,9 +7,9 @@ import { character, stats } from '../models/character';
   styleUrls: ['./stats.component.scss']
 })
 export class StatsComponent implements OnInit {
-  @Input() characterStats: any
+  @Input() baseCharacterInfo: any
 
   ngOnInit(): void {
-    console.log(this.characterStats)
+    
   }
 }

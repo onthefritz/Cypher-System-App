@@ -4,8 +4,29 @@
   margin-top: 5px;
 }
 
+.character-name {
+  font-size: 20px;
+  text-align: center;
+  line-height: 25px;
+}
+
+.tier-advancements {
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+.advancement {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .character-name-info {
-  font-size: large;
+  font-size: 30px;
 }
 
 .grid {
@@ -20,22 +41,28 @@
   margin: 5px 0 5px 0;
 }
 
+.left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 48%;
+  min-width: 575px;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 48%;
+  min-width: 575px;
+}
+
 .stats {
-  width: 50%;
+  width: 100%;
   min-width: 430px;
 }
 
-.skills {
-  width: 20%;
+.list-areas {
+  width: 100%;
   min-width: 200px;
-}
-
-.grid.character-name {
-  flex-grow: 2;
-  min-width: 300px;
-}
-
-.grid.character-tier {
-  flex-grow: 1;
-  min-width: 150px;
 }

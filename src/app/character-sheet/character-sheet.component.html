@@ -5,64 +5,100 @@
 <div *ngIf="characterLoaded">
 
   <div class="grid">
-    <mat-card class="character-name">
-      <mat-card-content>
-          <p>
-            <span class="character-name-info">{{characterInfo.baseInfo.name}}</span> is 
-            <span class="character-name-info">{{characterInfo.baseInfo.descriptor}}</span> and
-            <span class="character-name-info">{{characterInfo.baseInfo.focus}}</span>
-          </p>
-      </mat-card-content>
-    </mat-card>
+    <div class="left-side">
 
-    <mat-card class="character-tier">
-      <mat-card-header>Tier</mat-card-header>
-      <mat-card-content>
-          {{characterInfo.baseInfo.tier}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="character-tier">
-      <mat-card-header>XP</mat-card-header>
-      <mat-card-content>
-          {{characterInfo.baseInfo.xp}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="character-tier">
-      <mat-card-header>Effort</mat-card-header>
-      <mat-card-content>
-          {{characterInfo.baseInfo.stats.effort}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="character-tier">
-      <mat-card-header>Armor</mat-card-header>
-      <mat-card-content>
-          {{characterInfo.baseInfo.stats.armor}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="character-tier">
-      <mat-card-header>Exhaustion</mat-card-header>
-      <mat-card-content>
-          {{characterInfo.baseInfo.stats.exhaustion}}
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="character-tier">
-      <mat-card-header>Movement</mat-card-header>
-      <mat-card-content>
-          {{characterInfo.baseInfo.stats.movement}}
-      </mat-card-content>
-    </mat-card>
+      <mat-card class="character-name">
+        <mat-card-content>
+            <p>
+              <span class="character-name-info">{{characterInfo.baseInfo.name}}</span> is 
+              <span class="character-name-info">{{characterInfo.baseInfo.descriptor}}</span> and
+              <span class="character-name-info">{{characterInfo.baseInfo.focus}}</span>
+            </p>
+        </mat-card-content>
+      </mat-card>
 
-  </div>
+      <div class="stats">
+        <app-stats [baseCharacterInfo]="characterInfo.baseInfo"></app-stats>
+      </div>
 
-  <div class="grid">
+      <div class="list-areas">
+        <mat-tab-group>
+          <mat-tab label="Skills">
+            <app-skills [skillsData]="characterInfo.skills"></app-skills>
+          </mat-tab>
+          <mat-tab label="Attacks">
+            <app-attacks [attacksData]="characterInfo.attacks"></app-attacks>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
 
-    <div class="stats">
-      <app-stats [characterStats]="characterInfo.baseInfo.stats"></app-stats>
     </div>
 
-    <div class="skills">
-      <app-skills [skillsData]="characterInfo.skills"></app-skills>
-    </div>
+    <div class="right-side">
 
+      <mat-card>
+        <mat-card-content class="tier-advancements">
+          <div class="advancement">
+            <mat-checkbox 
+              [checked]="characterInfo.baseInfo.tierAdvancement.pointsToStatPools"
+              color="primary"
+            ></mat-checkbox>
+            <div>+5 to Pools</div>
+          </div>
+          <div class="advancement">
+            <mat-checkbox
+              [checked]="characterInfo.baseInfo.tierAdvancement.pointToEffort"
+              color="primary"
+            ></mat-checkbox>
+            <div>+1 to Effort</div>
+          </div>
+          <div class="advancement">
+            <mat-checkbox
+              [checked]="characterInfo.baseInfo.tierAdvancement.pointToEdge"
+              color="primary"
+            ></mat-checkbox>
+            <div>+1 to Edge</div>
+          </div>
+          <div class="advancement">
+            <mat-checkbox
+              [checked]="characterInfo.baseInfo.tierAdvancement.pointToAbilityPoint"
+              color="primary"
+            ></mat-checkbox>
+            <div>+1 Ability Point</div>
+          </div>
+          <div class="advancement">
+            <mat-checkbox
+              [checked]="characterInfo.baseInfo.tierAdvancement.trainSkill"
+              color="primary"
+            ></mat-checkbox>
+            <div>Train a Skill</div>
+          </div>
+          <div class="advancement">
+            <mat-checkbox
+              [checked]="characterInfo.baseInfo.tierAdvancement.other"
+              color="primary"
+            ></mat-checkbox>
+            <div>Other</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="list-areas">
+        <mat-tab-group>
+          <mat-tab label="Special Abilities">
+            <app-special-abilities 
+              [abilitiesData]="characterInfo.abilities"
+            ></app-special-abilities>
+          </mat-tab>
+          <mat-tab label="Cyphers">
+            
+          </mat-tab>
+          <mat-tab label="Equipment">
+            
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+    </div>
   </div>
 </div>

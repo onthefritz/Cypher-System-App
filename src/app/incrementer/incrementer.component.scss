@@ -26,3 +26,8 @@
   min-width: unset!important;
   min-height: unset!important;
 }
+
+.small-button .mat-mdc-button-touch-target {
+  height: 20px!important;
+  min-height: unset!important;
+}

@@ -1,39 +1,128 @@
 
 <div class="container">
-  <div class="pool-area">
-    <app-pool-stat
-      poolName="MIGHT"
-      [poolTotal]="characterStats.might"
-      [poolCurrent]="characterStats.mightCurrent"
-      [poolEdgeTotal]="characterStats.mightEdge"
-      [poolEdgeCurrent]="characterStats.mightEdgeCurrent"
-    ></app-pool-stat>
+  <div class="stat-info">
+    <div class="base-stat">
+      <app-incrementer
+        [fontSize]="25"
+        [numberValueTotal]="baseCharacterInfo.tier"
+        [numberValueCurrent]="baseCharacterInfo.tier"
+        [disableEdit]="true"
+      ></app-incrementer>
+      <div class="area-title">Tier</div>
+    </div>
+    <div class="base-stat">
+      <app-incrementer
+        [fontSize]="25"
+        [numberValueTotal]="baseCharacterInfo.stats.armor"
+        [numberValueCurrent]="baseCharacterInfo.stats.armor"
+        [disableEdit]="true"
+      ></app-incrementer>
+      <div class="area-title">Armor</div>
+    </div>
+    <div class="base-stat">
+      <app-incrementer
+        [fontSize]="25"
+        [numberValueTotal]="baseCharacterInfo.stats.movement"
+        [numberValueCurrent]="baseCharacterInfo.stats.movement"
+        [disableEdit]="true"
+      ></app-incrementer>
+      <div class="area-title">Movement</div>
+    </div>
   </div>
-  <div class="pool-area">
-    <app-pool-stat
-      poolName="SPEED"
-      [poolTotal]="characterStats.speed"
-      [poolCurrent]="characterStats.speedCurrent"
-      [poolEdgeTotal]="characterStats.speedEdge"
-      [poolEdgeCurrent]="characterStats.speedEdgeCurrent"
-    ></app-pool-stat>
+  <div class="stat-info">
+    <div class="base-stat">
+      <app-incrementer
+        [fontSize]="25"
+        [numberValueTotal]="baseCharacterInfo.stats.exhaustion"
+        [numberValueCurrent]="baseCharacterInfo.stats.exhaustion"
+        [showIncrementers]="true"
+      ></app-incrementer>
+      <div class="area-title">Exhaustion</div>
+    </div>
+    <div class="base-stat">
+      <app-incrementer
+        [fontSize]="25"
+        [numberValueTotal]="baseCharacterInfo.stats.effort"
+        [numberValueCurrent]="baseCharacterInfo.stats.effort"
+        [showIncrementers]="true"
+      ></app-incrementer>
+      <div class="area-title">Effort</div>
+    </div>
+    <div class="base-stat">
+      <app-incrementer
+        [fontSize]="25"
+        [numberValueTotal]="baseCharacterInfo.xp"
+        [numberValueCurrent]="baseCharacterInfo.xp"
+        [showIncrementers]="true"
+      ></app-incrementer>
+      <div class="area-title">XP</div>
+    </div>
   </div>
-  <div class="pool-area">
-    <app-pool-stat
-      poolName="INTELLECT"
-      [poolTotal]="characterStats.intellect"
-      [poolCurrent]="characterStats.intellectCurrent"
-      [poolEdgeTotal]="characterStats.intellectEdge"
-      [poolEdgeCurrent]="characterStats.intellectEdgeCurrent"
-    ></app-pool-stat>
+  <div class="pool-info">
+    <div class="pool-area">
+      <app-pool-stat
+        poolName="MIGHT"
+        [poolTotal]="baseCharacterInfo.stats.might"
+        [poolCurrent]="baseCharacterInfo.stats.mightCurrent"
+        [poolEdgeTotal]="baseCharacterInfo.stats.mightEdge"
+        [poolEdgeCurrent]="baseCharacterInfo.stats.mightEdgeCurrent"
+      ></app-pool-stat>
+    </div>
+    <div class="pool-area">
+      <app-pool-stat
+        poolName="SPEED"
+        [poolTotal]="baseCharacterInfo.stats.speed"
+        [poolCurrent]="baseCharacterInfo.stats.speedCurrent"
+        [poolEdgeTotal]="baseCharacterInfo.stats.speedEdge"
+        [poolEdgeCurrent]="baseCharacterInfo.stats.speedEdgeCurrent"
+      ></app-pool-stat>
+    </div>
+    <div class="pool-area">
+      <app-pool-stat
+        poolName="INTELLECT"
+        [poolTotal]="baseCharacterInfo.stats.intellect"
+        [poolCurrent]="baseCharacterInfo.stats.intellectCurrent"
+        [poolEdgeTotal]="baseCharacterInfo.stats.intellectEdge"
+        [poolEdgeCurrent]="baseCharacterInfo.stats.intellectEdgeCurrent"
+      ></app-pool-stat>
+    </div>
+    <div class="pool-area">
+      <app-pool-stat
+        poolName="CHARM"
+        [poolTotal]="baseCharacterInfo.stats.charm"
+        [poolCurrent]="baseCharacterInfo.stats.charmCurrent"
+        [poolEdgeTotal]="baseCharacterInfo.stats.charmEdge"
+        [poolEdgeCurrent]="baseCharacterInfo.stats.charmEdgeCurrent"
+      ></app-pool-stat>
+    </div>
   </div>
-  <div class="pool-area">
-    <app-pool-stat
-      poolName="CHARM"
-      [poolTotal]="characterStats.charm"
-      [poolCurrent]="characterStats.charmCurrent"
-      [poolEdgeTotal]="characterStats.charmEdge"
-      [poolEdgeCurrent]="characterStats.charmEdgeCurrent"
-    ></app-pool-stat>
+
+  <div class="stat-info">
+    <div class="damage-track">
+      <app-checkbox
+        [defaultValue]="baseCharacterInfo.stats.damageTrack.impaired"
+        checkedStyle="X"
+        title="Impaired"
+      ></app-checkbox>
+      <app-checkbox
+        [defaultValue]="baseCharacterInfo.stats.damageTrack.debilitated"
+        checkedStyle="X"
+        title="Debilitated"
+      ></app-checkbox>
+      <app-checkbox
+        [defaultValue]="baseCharacterInfo.stats.damageTrack.unconscious"
+        checkedStyle="X"
+        title="Uncioncious"
+      ></app-checkbox>
+    </div>
+    <div class="base-stat">
+      <app-incrementer
+        [fontSize]="25"
+        [numberValueTotal]="baseCharacterInfo.tier * 2"
+        [numberValueCurrent]="baseCharacterInfo.stats.breathers"
+        [showIncrementers]="true"
+      ></app-incrementer>
+      <div class="area-title">Breathers</div>
+    </div>
   </div>
 </div>

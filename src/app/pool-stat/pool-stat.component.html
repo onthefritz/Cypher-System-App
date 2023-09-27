@@ -1,25 +1,34 @@
-<div>
-  <div>
+<div class="pool">
+  <div class="title">
     <span class="label">{{poolName}}</span>
   </div>
   <div class="current">
     <app-incrementer 
     [numberValueTotal]="poolTotal" 
     [numberValueCurrent]="poolCurrent" 
-    [fontSize]="30">
+    [fontSize]="40">
     </app-incrementer>
   </div>
-  <div class="total">
-    <span class="total-value">{{poolTotal}}</span>
-    <span class="area-title">Pool</span>
-  </div>
-  <div class="edge">
-    <app-incrementer 
-    [numberValueTotal]="poolEdgeTotal" 
-    [numberValueCurrent]="poolEdgeCurrent" 
-    [fontSize]="20">
-    </app-incrementer>
-    <span class="area-title">Edge</span>
+  <mat-divider></mat-divider>
+  <div class="bottom">
+    <div class="total">
+      <app-incrementer 
+      [numberValueTotal]="poolTotal" 
+      [numberValueCurrent]="poolTotal" 
+      [fontSize]="25"
+      [disableEdit]="true">
+      </app-incrementer>
+      <div class="area-title">Pool</div>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div class="edge">
+      <app-incrementer 
+      [numberValueTotal]="poolEdgeTotal" 
+      [numberValueCurrent]="poolEdgeCurrent" 
+      [fontSize]="25">
+      </app-incrementer>
+      <div class="area-title">Edge</div>
+    </div>
   </div>
 </div>
 

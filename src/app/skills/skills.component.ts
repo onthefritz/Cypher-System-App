@@ -7,8 +7,7 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 })
 export class SkillsComponent implements OnInit, AfterViewInit {
   @Input() skillsData: any
-
-  skillsDisplayedColumns: string[] = ['name', 'inability', 'trained', 'specialized']
+  skillsDisplayedColumns: string[] = [ 'name', 'inability', 'trained', 'specialized' ]
 
   ngOnInit(): void {
     

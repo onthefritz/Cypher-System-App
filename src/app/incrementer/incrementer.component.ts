@@ -1,11 +1,12 @@
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { Component, Input, Output, OnInit, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { character } from '../models/character';
 
 @Component({
   selector: 'app-incrementer',
   templateUrl: './incrementer.component.html',
-  styleUrls: ['./incrementer.component.scss']
+  styleUrls: ['./incrementer.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class IncrementerComponent implements OnInit, AfterViewInit {
   @Input() numberValueTotal: number = 0
