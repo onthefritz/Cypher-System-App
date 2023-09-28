@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class SpecialAbilitiesComponent {
   @Input() abilitiesData: any
-  abilitiesDisplayedColumns: string[] = [ 'name', 'cost', 'costType' ]
+  abilitiesDisplayedColumns: string[] = [ 'name', 'cost', 'description' ]
 
 }
