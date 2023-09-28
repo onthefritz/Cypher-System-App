@@ -42,4 +42,8 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
   characterList() {
     this.router.navigateByUrl(`/`)
   }
+
+  editSheet() {
+    this.router.navigateByUrl(`/edit/${this.characterId}`)
+  }
 }

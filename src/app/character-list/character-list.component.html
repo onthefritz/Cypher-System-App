@@ -1,6 +1,11 @@
-<div class="add-character">
-    <button mat-raised-button color="accent" (click)="addCharacterDialog()">Add Character</button>
-</div>
+<mat-toolbar color="primary" class="custom-toolbar">
+    <div class="toolbar-buttons">
+        <button mat-raised-button color="accent" (click)="addCharacterDialog()">Add Character</button>
+    </div>
+    <div class="toolbar-title">
+        <div>Tree Cypher System</div>
+    </div>
+</mat-toolbar>
 
 <div class="grid">
     <mat-card class="character" *ngFor="let character of characters">

@@ -8,7 +8,11 @@ const constants = require('./backend/helpers/constants')
 const controllerSetup = require('./backend/controllers/controller-setup')
 
 app.on('ready', () => {
-	win = new BrowserWindow({width: 1400, height: 900})
+	win = new BrowserWindow({
+		width: 1400,
+		height: 900,
+		autoHideMenuBar: true
+	})
 	win.loadURL(url.format({
 		pathname: path.join(
 			__dirname,

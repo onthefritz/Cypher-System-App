@@ -1,7 +1,20 @@
-.add-character {
-  margin-left: 2%;
-  margin-bottom: 5px;
-  margin-top: 5px;
+.custom-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.toolbar-buttons {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  justify-content: flex-start;
+}
+
+.toolbar-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 .character-name {

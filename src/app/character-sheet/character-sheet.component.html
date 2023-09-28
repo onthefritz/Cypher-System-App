@@ -1,6 +1,12 @@
-<div class="add-character">
-  <button mat-raised-button color="accent" (click)="characterList()">Character List</button>
-</div>
+<mat-toolbar color="primary" class="custom-toolbar">
+  <div class="toolbar-buttons">
+    <button mat-raised-button color="accent" (click)="characterList()">Character List</button>
+    <button mat-raised-button color="accent" (click)="editSheet()">Edit Character</button>  
+  </div>
+  <div class="toolbar-title">
+    <div>Tree Cypher System</div>
+  </div>
+</mat-toolbar>
 
 <div *ngIf="characterLoaded">
 

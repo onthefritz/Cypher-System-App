@@ -54,6 +54,6 @@ export class CharacterListComponent implements OnInit {
   }
 
   openSheetEditor(id: string) {
-    
+    this.router.navigateByUrl(`/edit/${id}`)
   }
 }

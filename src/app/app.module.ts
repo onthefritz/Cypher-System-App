@@ -32,8 +32,11 @@ import { CheckboxComponent } from './checkbox/checkbox.component'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AttacksComponent } from './attacks/attacks.component';
-import { SpecialAbilitiesComponent } from './special-abilities/special-abilities.component';
+import { SpecialAbilitiesComponent } from './special-abilities/special-abilities.component'
 import { EquipmentComponent } from './equipment/equipment.component'
+import { EditSheetComponent } from './edit-sheet/edit-sheet.component'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { HistoryComponent } from './history/history.component'
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { EquipmentComponent } from './equipment/equipment.component'
     CheckboxComponent,
     AttacksComponent,
     SpecialAbilitiesComponent,
-    EquipmentComponent
+    EquipmentComponent,
+    EditSheetComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +77,8 @@ import { EquipmentComponent } from './equipment/equipment.component'
     MatTableModule,
     MatPaginatorModule,
     MatTabsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

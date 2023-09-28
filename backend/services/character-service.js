@@ -36,6 +36,20 @@ exports.addCharacterToList = async function(characterData) {
     await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(foundData))
 }
 
+exports.editCharacterList = async function(id, name, descriptor, focus) {
+    let foundData = []
+    await fs.readFile(`${constants.base_data_url}/characters.json`, 'utf-8').then((data) => {
+        foundData = JSON.parse(data)
+    })
+
+    let characterListData = foundData.find(x => x.id === id)
+    characterListData.name = name
+    characterListData.descriptor = descriptor
+    characterListData.focus = focus
+
+    await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(foundData))
+}
+
 exports.addCharacter = async function(characterData) {
     await fs.writeFile(`${constants.base_data_url}/${characterData.id}.json`, JSON.stringify(characterData))
 }

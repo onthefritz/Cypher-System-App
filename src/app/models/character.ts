@@ -17,7 +17,7 @@ export class baseInfo {
     public stats: stats = new stats
     public statHistory: statHistory[] = []
     public tierAdvancement: tierAdvancement = new tierAdvancement
-    public tierAdvancementHistory: tierAdvancement[] = []
+    public tierAdvancementHistory: tierAdvancementHistory[] = []
 }
 
 export class stats {
@@ -66,10 +66,6 @@ export class statHistory {
 
     public pointsToCharm: number = 0
     public pointsToCharmEdge: number = 0
-
-    public pointToEffort: number = 0
-
-    public pointToAbilityPoints: number = 0
 }
 
 export class tierAdvancement {
@@ -79,6 +75,11 @@ export class tierAdvancement {
     public pointToAbilityPoint: boolean = false
     public trainSkill: boolean = false
     public other: boolean = false
+}
+
+export class tierAdvancementHistory {
+    public tier: number = 0
+    public advancements: tierAdvancement = new tierAdvancement
 }
 
 export class damageTrack {

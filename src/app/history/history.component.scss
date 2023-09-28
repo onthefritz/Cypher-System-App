@@ -1,0 +1,29 @@
+.mat-mdc-row:nth-child(odd){
+    background-color: lightblue;
+}
+
+.tiers-table,
+.stats-table,
+.edge-table {
+    width: 100%;
+}
+
+.mat-column-tier,
+.mat-column-stats,
+.mat-column-edge,
+.mat-column-effort,
+.mat-column-ability,
+.mat-column-train,
+.mat-column-other,
+.mat-column-statsTier,
+.mat-column-pointsToMight,
+.mat-column-pointsToSpeed,
+.mat-column-pointsToIntellect,
+.mat-column-pointsToCharm,
+.mat-column-edgeTier,
+.mat-column-pointsToMightEdge,
+.mat-column-pointsToSpeedEdge,
+.mat-column-pointsToIntellectEdge,
+.mat-column-pointsToCharmEdge {
+    text-align: center;
+}
