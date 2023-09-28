@@ -72,7 +72,6 @@ export class tierAdvancement {
     public pointsToStatPools: boolean = false
     public pointToEdge: boolean = false
     public pointToEffort: boolean = false
-    public pointToAbilityPoint: boolean = false
     public trainSkill: boolean = false
     public other: boolean = false
 }

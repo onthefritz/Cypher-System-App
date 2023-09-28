@@ -12,7 +12,6 @@
 .mat-column-stats,
 .mat-column-edge,
 .mat-column-effort,
-.mat-column-ability,
 .mat-column-train,
 .mat-column-other,
 .mat-column-statsTier,
@@ -26,4 +25,11 @@
 .mat-column-pointsToIntellectEdge,
 .mat-column-pointsToCharmEdge {
     text-align: center;
+}
+
+.mat-column-editAdvancements,
+.mat-column-editPoints,
+.mat-column-editEdge {
+    text-align: center;
+    width: 20px;
 }

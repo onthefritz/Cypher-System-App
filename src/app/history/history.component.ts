@@ -1,4 +1,7 @@
+import { Dialog } from '@angular/cdk/dialog';
+import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-history',
@@ -7,8 +10,15 @@ import { Component, Input } from '@angular/core';
 })
 export class HistoryComponent {
   @Input() baseInfo: any
-  tierDisplayedColumns: string[] = [ 'tier', 'stats', 'edge', 'effort', 'ability', 'train', 'other' ]
-  statsDisplayedColumns: string[] = [ 'statsTier', 'pointsToMight', 'pointsToSpeed', 'pointsToIntellect', 'pointsToCharm' ]
-  edgeDisplayedColumns: string[] = [ 'edgeTier', 'pointsToMightEdge', 'pointsToSpeedEdge', 'pointsToIntellectEdge', 'pointsToCharmEdge' ]
+  @Input() characterId: string = ''
+  tierDisplayedColumns: string[] = [ 'tier', 'stats', 'edge', 'effort', 'train', 'other', 'editAdvancement' ]
+  statsDisplayedColumns: string[] = [ 'statsTier', 'pointsToMight', 'pointsToSpeed', 'pointsToIntellect', 'pointsToCharm', 'editPoints' ]
+  edgeDisplayedColumns: string[] = [ 'edgeTier', 'pointsToMightEdge', 'pointsToSpeedEdge', 'pointsToIntellectEdge', 'pointsToCharmEdge', 'editEdge' ]
 
+  constructor(private http: HttpClient, private dialog: Dialog,
+    private router: Router) { }
+
+  deleteTier(tier: number) {
+    
+  }
 }
