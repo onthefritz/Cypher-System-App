@@ -1,7 +1,12 @@
 <div class="money">
   <span class="money-amount" *ngFor="let money of equipmentData.money">
-    {{money.name}} <app-incrementer [numberValueTotal]="money.amount"
-      [numberValueCurrent]="money.amount" [fontSize]="15"></app-incrementer>
+    {{money.name}} <app-incrementer
+        [numberValueTotal]="money.amount"
+        [numberValueCurrent]="money.amount"
+        [fontSize]="15"
+        [element]="money.name"
+        (incrementerChange)="onMoneyChange($event)"
+      ></app-incrementer>
   </span>
 </div>
 

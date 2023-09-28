@@ -107,6 +107,8 @@
           <mat-tab label="Equipment">
             <app-equipment
               [equipmentData]="characterInfo.equipment"
+              [characterId]="characterInfo.id"
+              (reloadCharacter)="loadCharacter()"
             ></app-equipment>
           </mat-tab>
         </mat-tab-group>

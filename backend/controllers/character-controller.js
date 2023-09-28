@@ -7,7 +7,7 @@ router.get('/getAll', async (req, res) => {
 
 	res.status(200)
 	res.send(characters)
-	res.end
+	res.end()
 })
 
 router.get('/:characterId', async (req, res) => {

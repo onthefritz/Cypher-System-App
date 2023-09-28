@@ -39,4 +39,8 @@ exports.setup = function() {
 	// sets up the stats controller and base endpoint.
   const statController = require('./stat-controller.js')
   app.use('/stat', statController)
+
+	// sets up the stats controller and base endpoint.
+	const equipmentController = require('./equipment-controller.js')
+	app.use('/equipment', equipmentController)
 }
