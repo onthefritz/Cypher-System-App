@@ -33,6 +33,10 @@ exports.setup = function() {
 	module.exports = server
 
 	// sets up the character controller and base endpoint.
-    const characterController = require('./character-controller.js')
-    app.use('/character', characterController)
+  const characterController = require('./character-controller.js')
+  app.use('/character', characterController)
+  
+	// sets up the stats controller and base endpoint.
+  const statController = require('./stat-controller.js')
+  app.use('/stat', statController)
 }

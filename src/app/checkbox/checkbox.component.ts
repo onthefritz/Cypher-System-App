@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-checkbox',
@@ -9,6 +9,9 @@ export class CheckboxComponent implements OnInit {
   @Input() defaultValue: boolean = false
   @Input() checkedStyle: string = 'X'
   @Input() title: string = ''
+
+  @Input() element: string = ''
+  @Output() checkboxChange = new EventEmitter();
 
   checkedStatus: boolean = false
   checkedValue: string = ''
@@ -29,5 +32,15 @@ export class CheckboxComponent implements OnInit {
     else {
       this.checkedValue = ''
     }
+
+    this.onCheckboxChange()
+  }
+
+  onCheckboxChange() {
+    let content = {
+      "element": this.element,
+      "value": this.checkedStatus
+    }
+    this.checkboxChange.emit(content)
   }
 }

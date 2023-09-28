@@ -6,8 +6,10 @@
     <app-incrementer 
     [numberValueTotal]="poolTotal" 
     [numberValueCurrent]="poolCurrent" 
-    [fontSize]="40">
-    </app-incrementer>
+    [fontSize]="40"
+    [element]="this.element + 'Current'"
+    (incrementerChange)="onStatChange($event)"
+    ></app-incrementer>
   </div>
   <mat-divider></mat-divider>
   <div class="bottom">
@@ -16,8 +18,8 @@
       [numberValueTotal]="poolTotal" 
       [numberValueCurrent]="poolTotal" 
       [fontSize]="25"
-      [disableEdit]="true">
-      </app-incrementer>
+      [disableEdit]="true"
+      ></app-incrementer>
       <div class="area-title">Pool</div>
     </div>
     <mat-divider [vertical]="true"></mat-divider>
@@ -25,8 +27,10 @@
       <app-incrementer 
       [numberValueTotal]="poolEdgeTotal" 
       [numberValueCurrent]="poolEdgeCurrent" 
-      [fontSize]="25">
-      </app-incrementer>
+      [fontSize]="25"
+      [element]="this.element + 'EdgeCurrent'"
+      (incrementerChange)="onStatChange($event)"
+      ></app-incrementer>
       <div class="area-title">Edge</div>
     </div>
   </div>

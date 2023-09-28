@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pool-stat',
@@ -11,4 +11,15 @@ export class PoolStatComponent {
   @Input() poolCurrent: number = 0
   @Input() poolEdgeTotal: number = 0
   @Input() poolEdgeCurrent: number = 0
+
+  @Input() element: string = ''
+  @Output() statChange = new EventEmitter();
+
+  onStatChange(data: any) {
+    let content = {
+      "element": data.element,
+      "value": data.value
+    }
+    this.statChange.emit(content)
+  }
 }

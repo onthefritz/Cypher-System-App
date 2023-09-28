@@ -1,5 +1,6 @@
 <div class="incrementer-component">
-  <input type="text" class="incrementer-text" value="{{currentVal}}" [disabled]="disableEdit"
+  <input type="text" class="{{disableEdit ? 'incrementer-text' : 'incrementer-text-editable'}}" 
+    value="{{currentVal}}" [disabled]="disableEdit"
     (focusin)="clearText()" (keydown.enter)="applyChange($event)"
     (keyup)="keyUp($event)" (blur)="loseFocus($event)" #numberInput />
   <div class="incrementers" *ngIf="showIncrementers">

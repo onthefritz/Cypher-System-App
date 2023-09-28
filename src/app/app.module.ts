@@ -32,7 +32,8 @@ import { CheckboxComponent } from './checkbox/checkbox.component'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AttacksComponent } from './attacks/attacks.component';
-import { SpecialAbilitiesComponent } from './special-abilities/special-abilities.component'
+import { SpecialAbilitiesComponent } from './special-abilities/special-abilities.component';
+import { EquipmentComponent } from './equipment/equipment.component'
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SpecialAbilitiesComponent } from './special-abilities/special-abilities
     SkillsComponent,
     CheckboxComponent,
     AttacksComponent,
-    SpecialAbilitiesComponent
+    SpecialAbilitiesComponent,
+    EquipmentComponent
   ],
   imports: [
     BrowserModule,

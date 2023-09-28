@@ -36,6 +36,8 @@
         [numberValueTotal]="baseCharacterInfo.stats.exhaustion"
         [numberValueCurrent]="baseCharacterInfo.stats.exhaustion"
         [showIncrementers]="true"
+        element="exhaustion"
+        (incrementerChange)="onStatChange($event)"
       ></app-incrementer>
       <div class="area-title">Exhaustion</div>
     </div>
@@ -45,6 +47,8 @@
         [numberValueTotal]="baseCharacterInfo.stats.effort"
         [numberValueCurrent]="baseCharacterInfo.stats.effort"
         [showIncrementers]="true"
+        element="effort"
+        (incrementerChange)="onStatChange($event)"
       ></app-incrementer>
       <div class="area-title">Effort</div>
     </div>
@@ -54,6 +58,8 @@
         [numberValueTotal]="baseCharacterInfo.xp"
         [numberValueCurrent]="baseCharacterInfo.xp"
         [showIncrementers]="true"
+        element="xp"
+        (incrementerChange)="onInfoChange($event)"
       ></app-incrementer>
       <div class="area-title">XP</div>
     </div>
@@ -66,6 +72,8 @@
         [poolCurrent]="baseCharacterInfo.stats.mightCurrent"
         [poolEdgeTotal]="baseCharacterInfo.stats.mightEdge"
         [poolEdgeCurrent]="baseCharacterInfo.stats.mightEdgeCurrent"
+        element="might"
+        (statChange)="onStatChange($event)"
       ></app-pool-stat>
     </div>
     <div class="pool-area">
@@ -75,6 +83,8 @@
         [poolCurrent]="baseCharacterInfo.stats.speedCurrent"
         [poolEdgeTotal]="baseCharacterInfo.stats.speedEdge"
         [poolEdgeCurrent]="baseCharacterInfo.stats.speedEdgeCurrent"
+        element="speed"
+        (statChange)="onStatChange($event)"
       ></app-pool-stat>
     </div>
     <div class="pool-area">
@@ -84,6 +94,8 @@
         [poolCurrent]="baseCharacterInfo.stats.intellectCurrent"
         [poolEdgeTotal]="baseCharacterInfo.stats.intellectEdge"
         [poolEdgeCurrent]="baseCharacterInfo.stats.intellectEdgeCurrent"
+        element="intellect"
+        (statChange)="onStatChange($event)"
       ></app-pool-stat>
     </div>
     <div class="pool-area">
@@ -93,6 +105,8 @@
         [poolCurrent]="baseCharacterInfo.stats.charmCurrent"
         [poolEdgeTotal]="baseCharacterInfo.stats.charmEdge"
         [poolEdgeCurrent]="baseCharacterInfo.stats.charmEdgeCurrent"
+        element="charm"
+        (statChange)="onStatChange($event)"
       ></app-pool-stat>
     </div>
   </div>
@@ -103,16 +117,22 @@
         [defaultValue]="baseCharacterInfo.stats.damageTrack.impaired"
         checkedStyle="X"
         title="Impaired"
+        element="impaired"
+        (checkboxChange)="onDamageTrackChange($event)"
       ></app-checkbox>
       <app-checkbox
         [defaultValue]="baseCharacterInfo.stats.damageTrack.debilitated"
         checkedStyle="X"
         title="Debilitated"
+        element="debilitated"
+        (checkboxChange)="onDamageTrackChange($event)"
       ></app-checkbox>
       <app-checkbox
         [defaultValue]="baseCharacterInfo.stats.damageTrack.unconscious"
         checkedStyle="X"
         title="Uncioncious"
+        element="unconscious"
+        (checkboxChange)="onDamageTrackChange($event)"
       ></app-checkbox>
     </div>
     <div class="base-stat">
@@ -121,6 +141,8 @@
         [numberValueTotal]="baseCharacterInfo.tier * 2"
         [numberValueCurrent]="baseCharacterInfo.stats.breathers"
         [showIncrementers]="true"
+        element="breathers"
+        (incrementerChange)="onStatChange($event)"
       ></app-incrementer>
       <div class="area-title">Breathers</div>
     </div>

@@ -15,10 +15,14 @@ export class IncrementerComponent implements OnInit, AfterViewInit {
   @Input() fontSize: number = 50
   @Input() disableEdit: boolean = false
 
+  @Input() element: string = ''
+  @Output() incrementerChange = new EventEmitter();
+
   @ViewChild('numberInput') numberInput: any;
 
   currentVal: string = '0'
   fontSizeWidthAdjustment: number = 50
+  appliedChange: boolean = false
 
   ngOnInit(): void {
     this.currentVal = this.numberValueCurrent.toString()
@@ -35,6 +39,7 @@ export class IncrementerComponent implements OnInit, AfterViewInit {
   }
 
   applyChange(event: any) {
+    this.appliedChange = true
     let target = event.target || event.srcElement || event.currentTarget
     let newValue: string = target.value
     
@@ -52,9 +57,7 @@ export class IncrementerComponent implements OnInit, AfterViewInit {
       this.currentVal = this.numberValueCurrent.toString()
     }
 
-    console.log(this.currentVal.length)
     target.style.width = ((this.currentVal.length) * this.fontSizeWidthAdjustment) + 'px'
-    console.log(target.style.width)
 
     target.blur()
   }
@@ -83,6 +86,15 @@ export class IncrementerComponent implements OnInit, AfterViewInit {
     if (newValue === '') {
       this.currentVal = this.numberValueCurrent.toString()
     }
+    else if (!this.appliedChange) {
+      this.numberValueCurrent = parseInt(newValue)
+      this.currentVal = this.numberValueCurrent.toString()
+    }
+    else {
+      this.appliedChange = false
+    }
+    
+    this.onIncrementerChange()
   }
 
   incrementUp() {
@@ -90,6 +102,8 @@ export class IncrementerComponent implements OnInit, AfterViewInit {
     this.currentVal = this.numberValueCurrent.toString()
 
     this.numberInput.nativeElement.style.width = ((this.currentVal.length) * this.fontSizeWidthAdjustment) + 'px'
+
+    this.onIncrementerChange()
   }
 
   incrementDown() {
@@ -97,6 +111,8 @@ export class IncrementerComponent implements OnInit, AfterViewInit {
     this.currentVal = this.numberValueCurrent.toString()
 
     this.numberInput.nativeElement.style.width = ((this.currentVal.length) * this.fontSizeWidthAdjustment) + 'px'
+
+    this.onIncrementerChange()
   }
 
   private preformOperation(mathSign: string, currentValue: number, mathValue: number): number {
@@ -106,5 +122,13 @@ export class IncrementerComponent implements OnInit, AfterViewInit {
       return currentValue - mathValue
 
     return -100
+  }
+
+  onIncrementerChange() {
+    let content = {
+      "element": this.element,
+      "value": this.numberValueCurrent
+    }
+    this.incrementerChange.emit(content)
   }
 }

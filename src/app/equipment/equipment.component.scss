@@ -1,0 +1,66 @@
+.money {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.money-amount {
+  border: 1px black solid;
+  border-radius: 5px;
+  padding: 0 5px 0 5px;
+  margin: 0 5px 0 5px;
+  text-align: center;
+}
+
+.equipment-table {
+  width: 100%;
+}
+
+.mat-column-itemName {
+  width: 100px;
+  text-align: center;
+}
+
+.mat-column-itemCount {
+  width: 50px;
+  text-align: center;
+}
+
+.mat-column-weaponName {
+  width: 100px;
+  text-align: center;
+}
+
+.mat-column-weaponCount {
+  width: 50px;
+  text-align: center;
+}
+
+.mat-column-weaponType {
+  width: 70px;
+  text-align: center;
+}
+
+.mat-column-oddityName {
+  width: 100px;
+  text-align: center;
+}
+
+.mat-column-oddityCount {
+  width: 50px;
+  text-align: center;
+}
+
+.mat-column-cypherName {
+  width: 100px;
+  text-align: center;
+}
+
+.mat-column-cypherTier {
+  width: 50px;
+  text-align: center;
+}
+      
+.mat-mdc-row:nth-child(odd){
+  background-color: lightblue;
+}

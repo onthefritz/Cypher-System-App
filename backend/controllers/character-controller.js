@@ -19,11 +19,11 @@ router.get('/:characterId', async (req, res) => {
 })
 
 router.post('/add', async (req, res) => {
-    await characterService.addCharacterToList(req.body)
+  await characterService.addCharacterToList(req.body)
 	await characterService.addCharacter(req.body)
 
-    res.status(201)
-    res.end()
+  res.status(201)
+  res.end()
 })
 
 router.delete('/delete/:characterId', async (req, res) => {
