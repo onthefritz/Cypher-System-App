@@ -13,7 +13,7 @@ export class PoolStatComponent {
   @Input() poolEdgeCurrent: number = 0
 
   @Input() element: string = ''
-  @Output() statChange = new EventEmitter();
+  @Output() statChange = new EventEmitter()
 
   onStatChange(data: any) {
     let content = {

@@ -18,6 +18,16 @@ router.get('/:characterId', async (req, res) => {
 	res.end()
 })
 
+router.post('/saveHistoryStats/:characterId', async (req, res) => {
+  let characterId = req.params.characterId
+  let statHistory = req.body
+
+  await characterService.updateStatsHistory(characterId, statHistory)
+
+  res.status(201)
+  res.end()
+})
+
 router.post('/add', async (req, res) => {
   await characterService.addCharacterToList(req.body)
 	await characterService.addCharacter(req.body)

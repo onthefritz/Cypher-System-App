@@ -11,7 +11,7 @@ export class CheckboxComponent implements OnInit {
   @Input() title: string = ''
 
   @Input() element: string = ''
-  @Output() checkboxChange = new EventEmitter();
+  @Output() checkboxChange = new EventEmitter()
 
   checkedStatus: boolean = false
   checkedValue: string = ''

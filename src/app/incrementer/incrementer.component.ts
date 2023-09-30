@@ -16,7 +16,7 @@ export class IncrementerComponent implements OnInit, AfterViewInit {
   @Input() disableEdit: boolean = false
 
   @Input() element: string = ''
-  @Output() incrementerChange = new EventEmitter();
+  @Output() incrementerChange = new EventEmitter()
 
   @ViewChild('numberInput') numberInput: any;
 

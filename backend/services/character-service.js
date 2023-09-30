@@ -19,6 +19,20 @@ exports.getCharacter = async function(id) {
     return character
 }
 
+exports.updateStatsHistory = async function(id, statHistory) {
+  let character = this.getCharacter(id)
+  let foundStatHistory = charcater.baseInfo.statHistory.find(x => x.tier === statHistory.tier)
+
+  if (foundStatHistory) {
+    foundStatHistory = statHistory
+  }
+  else {
+    character.baseInfo.statHistory.push(statHistory)
+  }
+
+  await fs.writeFile(`${constants.base_data_url}/${id}.json`, JSON.stringify(character))
+}
+
 exports.addCharacterToList = async function(characterData) {
     let foundData = []
     await fs.readFile(`${constants.base_data_url}/characters.json`, 'utf-8').then((data) => {

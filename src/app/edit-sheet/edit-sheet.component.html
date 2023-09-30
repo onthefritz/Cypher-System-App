@@ -33,10 +33,44 @@
         </div>
 
         <div>
-            <app-history 
-                [characterId]="characterInfo.id"
-                [baseInfo]="characterInfo.baseInfo"
-            ></app-history>
+          <div class="stat-info">
+            <div class="base-stat">
+              <app-incrementer
+                [fontSize]="25"
+                [numberValueTotal]="characterInfo.baseInfo.tier"
+                [numberValueCurrent]="characterInfo.baseInfo.tier"
+                [disableEdit]="true"
+              ></app-incrementer>
+              <div class="area-title">Tier</div>
+            </div>
+            <div class="base-stat">
+              <app-incrementer
+                [fontSize]="25"
+                [numberValueTotal]="characterInfo.baseInfo.stats.armor"
+                [numberValueCurrent]="characterInfo.baseInfo.stats.armor"
+                [showIncrementers]="true"
+                element="armor"
+                (incrementerChange)="onStatsArmorOrMovementChange($event)"
+              ></app-incrementer>
+              <div class="area-title">Armor</div>
+            </div>
+            <div class="base-stat">
+              <app-incrementer
+                [fontSize]="25"
+                [numberValueTotal]="characterInfo.baseInfo.stats.movement"
+                [numberValueCurrent]="characterInfo.baseInfo.stats.movement"
+                [showIncrementers]="true"
+                element="movement"
+                (incrementerChange)="onStatsArmorOrMovementChange($event)"
+              ></app-incrementer>
+              <div class="area-title">Movement</div>
+            </div>
+          </div>
+
+          <app-history 
+            [characterId]="characterInfo.id"
+            [baseInfo]="characterInfo.baseInfo"
+          ></app-history>
         </div>
 
     </div>

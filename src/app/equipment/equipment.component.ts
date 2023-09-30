@@ -11,7 +11,7 @@ export class EquipmentComponent {
   @Input() equipmentData: any
   @Input() characterId: any
 
-  @Output() reloadCharacter = new EventEmitter();
+  @Output() reloadCharacter = new EventEmitter()
 
   itemDisplayedColumns: string[] = [ 'itemName', 'itemCount', 'itemDescription' ]
   weaponDisplayedColumns: string[] = [ 'weaponName', 'weaponCount', 'weaponType', 'weaponDescription' ]

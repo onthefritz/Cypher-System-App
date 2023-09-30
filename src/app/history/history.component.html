@@ -61,6 +61,7 @@
         </table>
     </mat-tab>
     <mat-tab label="Stat">
+        <button mat-flat-button color="primary" (click)="addStatsDialog()">Add Stats</button>
         <table mat-table [dataSource]="baseInfo.statHistory" class="stats-table">
             <ng-container matColumnDef="statsTier">
                 <th mat-header-cell *matHeaderCellDef> Tier </th>

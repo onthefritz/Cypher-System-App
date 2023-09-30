@@ -1,0 +1,81 @@
+<mat-card class="custom-dialog">
+  <mat-card-header>
+      <mat-card-title>Add Character Stats</mat-card-title>
+      <mat-card-subtitle>Spent Points: {{usedPoints}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="counters">
+      <div class="counter-title">Might</div>
+      <div class="counter">
+        <div>
+          <button mat-icon-button (click)="decreaseCount('might')">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+        <div class="counter-count">
+          <span class="count">{{usedOnMight}}</span>
+        </div>
+        <div>
+          <button mat-icon-button (click)="increaseCount('might')">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+      
+      <div class="counter-title">Speed</div>
+      <div class="counter">
+        <div>
+          <button mat-icon-button (click)="decreaseCount('speed')">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+        <div class="counter-count">
+          <span class="count">{{usedOnSpeed}}</span>
+        </div>
+        <div>
+          <button mat-icon-button (click)="increaseCount('speed')">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+      
+      <div class="counter-title">Intellect</div>
+      <div class="counter">
+        <div>
+          <button mat-icon-button (click)="decreaseCount('intellect')">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+        <div class="counter-count">
+          <span class="count">{{usedOnIntellect}}</span>
+        </div>
+        <div>
+          <button mat-icon-button (click)="increaseCount('intellect')">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+      
+      <div class="counter-title">Charm</div>
+      <div class="counter">
+        <div>
+          <button mat-icon-button (click)="decreaseCount('charm')">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+        <div class="counter-count">
+          <span class="count">{{usedOnCharm}}</span>
+        </div>
+        <div>
+          <button mat-icon-button (click)="increaseCount('charm')">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="end">
+      <button mat-button (click)="addStats()">SAVE</button>
+      <button mat-button (click)="close()">CANCEL</button>
+  </mat-card-actions>
+</mat-card>

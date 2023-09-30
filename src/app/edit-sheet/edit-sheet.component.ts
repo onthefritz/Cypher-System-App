@@ -51,7 +51,15 @@ export class EditSheetComponent implements OnInit {
 
     characterRequest.baseInfo[element] = newValue
     this.http.post(`${BASE_URL}/stat/edit/saveName/${this.characterId}`, characterRequest.baseInfo).subscribe((res) => {
-      
+      this.loadCharacter()
+    })
+  }
+
+  onStatsArmorOrMovementChange(data: any) {
+    let characterRequest: any = this.characterInfo
+    characterRequest.baseInfo.stats[data.element] = data.value
+    this.http.post(`${BASE_URL}/stat/edit/saveName/${this.characterId}`, characterRequest.baseInfo).subscribe((res) => {
+      this.loadCharacter()
     })
   }
 }

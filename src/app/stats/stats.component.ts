@@ -11,7 +11,7 @@ export class StatsComponent implements OnInit {
   @Input() baseCharacterInfo: any
   @Input() characterId: any
 
-  @Output() reloadCharacter = new EventEmitter();
+  @Output() reloadCharacter = new EventEmitter()
 
   constructor(private http: HttpClient) { }
 
