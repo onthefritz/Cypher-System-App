@@ -16,8 +16,8 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
 
   private characterId: string = ''
 
-  constructor(private http: HttpClient, private dialog: Dialog,
-    private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -45,5 +45,23 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
 
   editSheet() {
     this.router.navigateByUrl(`/edit/${this.characterId}`)
+  }
+
+  shortRest() {
+    this.http.get(`${BASE_URL}/character/shortRest/${this.characterId}/1`).subscribe((res) => {
+      location.reload()
+    })
+  }
+
+  longRest() {
+    this.http.get(`${BASE_URL}/character/longRest/${this.characterId}`).subscribe((res) => {
+      location.reload()
+    })
+  }
+
+  refreshEdgeAndEffort() {
+    this.http.get(`${BASE_URL}/character/refreshEdgeAndEffort/${this.characterId}`).subscribe((res) => {
+      location.reload()
+    })
   }
 }

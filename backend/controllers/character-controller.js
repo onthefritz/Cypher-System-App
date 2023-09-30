@@ -43,4 +43,42 @@ router.delete('/delete/:characterId', async (req, res) => {
 	res.end()
 })
 
+router.delete('/removeStats/:characterId/:tier', async (req, res) => {
+  let characterId = req.params.characterId
+  let tier = req.params.tier
+
+  await characterService.deleteStats(characterId, tier)
+
+  res.status(202)
+  res.end()
+})
+
+router.get('/shortRest/:characterId/:wellRested', async (req, res) => {
+  let characterId = req.params.characterId
+  let wellRested = req.params.wellRested
+
+  await characterService.shortRest(characterId, wellRested)
+
+  res.status(200)
+  res.end()
+})
+
+router.get('/longRest/:characterId', async (req, res) => {
+  let characterId = req.params.characterId
+
+  await characterService.longRest(characterId)
+
+  res.status(200)
+  res.end()
+})
+
+router.get('/refreshEdgeAndEffort/:characterId', async (req, res) => {
+  let characterId = req.params.characterId
+
+  await characterService.refreshEdgeAndEffort(characterId)
+
+  res.status(200)
+  res.end()
+})
+
 module.exports = router

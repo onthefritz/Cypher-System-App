@@ -4,6 +4,9 @@
   "main": "main.js",
   "description": "App to easily create and use characters for the Tree Cypher System",
   "license": "UNLICENSED",
+  "author": {
+    "name": "Fritz"
+  },
   "scripts": {
     "ng": "ng",
     "start": "electron-forge start",

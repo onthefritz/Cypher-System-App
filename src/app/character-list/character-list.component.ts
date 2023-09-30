@@ -40,12 +40,20 @@ export class CharacterListComponent implements OnInit {
 
   deleteCharacterDialog(characterId: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-        minWidth: '300px',
-        data: characterId
+        minWidth: '300px'
     })
 
     dialogRef.closed.subscribe(result => {
-        this.loadCharacters()
+      if (result) {
+        this.http.delete(`${BASE_URL}/character/delete/${characterId}`).subscribe({
+            next: () => {
+                this.loadCharacters()
+            },
+            error: (error) => {
+                console.log(error)
+            }
+        })
+      }
     })
   }
 

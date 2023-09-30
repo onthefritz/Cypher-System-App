@@ -1,22 +1,49 @@
-import { DialogRef } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Inject, OnInit } from '@angular/core';
+import { BASE_URL } from 'src/app/helpers/constants';
 
 @Component({
   selector: 'app-edit-stats',
   templateUrl: './edit-stats.component.html',
   styleUrls: ['./edit-stats.component.scss']
 })
-export class EditStatsComponent {
+export class EditStatsComponent implements OnInit {
   usedPoints: number = 0
   usedOnMight: number = 0
   usedOnSpeed: number = 0
   usedOnIntellect: number = 0
   usedOnCharm: number = 0
 
+  isPools: boolean = false
+  characterId: string = ''
+  tier: number = 0
+
   @Output() saveStat = new EventEmitter()
   
-  constructor(private http: HttpClient, private dialogRef: DialogRef) { }
+  constructor(private http: HttpClient, private dialogRef: DialogRef,
+    @Inject(DIALOG_DATA) public data: any) { }
+
+  ngOnInit(): void {
+    this.characterId = this.data.characterId
+    this.isPools = this.data.isPools
+    this.tier = this.data.tier
+
+    if (this.data.rowData) {
+      if (this.isPools) {
+        this.usedOnMight = this.data.rowData.pointsToMight
+        this.usedOnSpeed = this.data.rowData.pointsToSpeed
+        this.usedOnIntellect = this.data.rowData.pointsToIntellect
+        this.usedOnCharm = this.data.rowData.pointsToCharm
+      }
+      else {
+        this.usedOnMight = this.data.rowData.pointsToMightEdge
+        this.usedOnSpeed = this.data.rowData.pointsToSpeedEdge
+        this.usedOnIntellect = this.data.rowData.pointsToIntellectEdge
+        this.usedOnCharm = this.data.rowData.pointsToCharmEdge
+      }
+    }
+  }
 
   increaseCount(element: string) {
     if (element === 'might') {
@@ -53,6 +80,22 @@ export class EditStatsComponent {
   }
 
   addStats() {
+    let statsRequest = {
+      isPools: this.isPools,
+      tier: this.tier,
+      might: this.usedOnMight,
+      speed: this.usedOnSpeed,
+      intellect: this.usedOnIntellect,
+      charm: this.usedOnCharm
+    }
+    this.http.post(`${BASE_URL}/character/saveHistoryStats/${this.data.characterId}`, statsRequest).subscribe({
+      next: () => {
+          this.dialogRef.close()
+      },
+      error: (error) => {
+          console.log(error)
+      }
+    })
   }
 
   close() {

@@ -1,7 +1,5 @@
 import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
-import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { BASE_URL } from 'src/app/helpers/constants';
 
 @Component({
   selector: 'app-delete-confirmation',
@@ -10,21 +8,13 @@ import { BASE_URL } from 'src/app/helpers/constants';
 })
 export class DeleteConfirmationComponent {
 
-    constructor(private http: HttpClient, private dialogRef: DialogRef,
-        @Inject(DIALOG_DATA) public data: string) { }
+    constructor(private dialogRef: DialogRef) { }
 
-    deleteCharacter(characterId: string) {
-        this.http.delete(`${BASE_URL}/character/delete/${characterId}`).subscribe({
-            next: () => {
-                this.dialogRef.close()
-            },
-            error: (error) => {
-                console.log(error)
-            }
-        })
+    remove() {
+        this.dialogRef.close(true)
     }
 
-    close() {
-        this.dialogRef.close()
+    cancel() {
+        this.dialogRef.close(false)
     }
 }
