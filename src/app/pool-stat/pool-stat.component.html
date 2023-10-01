@@ -7,6 +7,7 @@
     [numberValueTotal]="poolTotal" 
     [numberValueCurrent]="poolCurrent" 
     [fontSize]="40"
+    [showIncrementers]="true"
     [element]="this.element + 'Current'"
     (incrementerChange)="onStatChange($event)"
     ></app-incrementer>
@@ -28,6 +29,7 @@
       [numberValueTotal]="poolEdgeTotal" 
       [numberValueCurrent]="poolEdgeCurrent" 
       [fontSize]="25"
+      [showIncrementers]="true"
       [element]="this.element + 'EdgeCurrent'"
       (incrementerChange)="onStatChange($event)"
       ></app-incrementer>

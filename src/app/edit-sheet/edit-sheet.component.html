@@ -10,74 +10,98 @@
 
 <div *ngIf="characterLoaded">
 
-    <div class="left-side">
+    <div class="grid">
+      <div class="left-side">
 
-        <div class="name-section">
-            <mat-form-field class="name-field">
-                <mat-label>Name</mat-label>
-                <input matInput [(ngModel)]="characterInfo.baseInfo.name"
-                    (change)="onNameChange($event, 'name')" />
-            </mat-form-field>
-            is
-            <mat-form-field class="name-field">
-                <mat-label>Descriptor</mat-label>
-                <input matInput [(ngModel)]="characterInfo.baseInfo.descriptor"
-                    (change)="onNameChange($event, 'descriptor')" />
-            </mat-form-field>
-            and
-            <mat-form-field class="name-field">
-                <mat-label>Focus</mat-label>
-                <input matInput [(ngModel)]="characterInfo.baseInfo.focus"
-                    (change)="onNameChange($event, 'focus')" />
-            </mat-form-field>
-        </div>
-
-        <div>
-          <div class="stat-info">
-            <div class="base-stat">
-              <app-incrementer
-                [fontSize]="25"
-                [numberValueTotal]="characterInfo.baseInfo.tier"
-                [numberValueCurrent]="characterInfo.baseInfo.tier"
-                [disableEdit]="true"
-              ></app-incrementer>
-              <div class="area-title">Tier</div>
-            </div>
-            <div class="base-stat">
-              <app-incrementer
-                [fontSize]="25"
-                [numberValueTotal]="characterInfo.baseInfo.stats.armor"
-                [numberValueCurrent]="characterInfo.baseInfo.stats.armor"
-                [showIncrementers]="true"
-                element="armor"
-                (incrementerChange)="onStatsArmorOrMovementChange($event)"
-              ></app-incrementer>
-              <div class="area-title">Armor</div>
-            </div>
-            <div class="base-stat">
-              <app-incrementer
-                [fontSize]="25"
-                [numberValueTotal]="characterInfo.baseInfo.stats.movement"
-                [numberValueCurrent]="characterInfo.baseInfo.stats.movement"
-                [showIncrementers]="true"
-                element="movement"
-                (incrementerChange)="onStatsArmorOrMovementChange($event)"
-              ></app-incrementer>
-              <div class="area-title">Movement</div>
-            </div>
+          <div class="name-section">
+              <mat-form-field class="name-field">
+                  <mat-label>Name</mat-label>
+                  <input matInput [(ngModel)]="characterInfo.baseInfo.name"
+                      (change)="onNameChange($event, 'name')" />
+              </mat-form-field>
+              is
+              <mat-form-field class="name-field">
+                  <mat-label>Descriptor</mat-label>
+                  <input matInput [(ngModel)]="characterInfo.baseInfo.descriptor"
+                      (change)="onNameChange($event, 'descriptor')" />
+              </mat-form-field>
+              and
+              <mat-form-field class="name-field">
+                  <mat-label>Focus</mat-label>
+                  <input matInput [(ngModel)]="characterInfo.baseInfo.focus"
+                      (change)="onNameChange($event, 'focus')" />
+              </mat-form-field>
           </div>
 
-          <app-history 
-            [characterId]="characterInfo.id"
-            [baseInfo]="characterInfo.baseInfo"
-            (reloadCharacter)="loadCharacter()"
-          ></app-history>
+          <div>
+            <div class="stat-info">
+              <div class="base-stat">
+                <app-incrementer
+                  [fontSize]="25"
+                  [numberValueTotal]="characterInfo.baseInfo.tier"
+                  [numberValueCurrent]="characterInfo.baseInfo.tier"
+                  [disableEdit]="true"
+                ></app-incrementer>
+                <div class="area-title">Tier</div>
+              </div>
+              <div class="base-stat">
+                <app-incrementer
+                  [fontSize]="25"
+                  [numberValueTotal]="characterInfo.baseInfo.stats.armor"
+                  [numberValueCurrent]="characterInfo.baseInfo.stats.armor"
+                  [showIncrementers]="true"
+                  element="armor"
+                  (incrementerChange)="onStatsArmorOrMovementChange($event)"
+                ></app-incrementer>
+                <div class="area-title">Armor</div>
+              </div>
+              <div class="base-stat">
+                <app-incrementer
+                  [fontSize]="25"
+                  [numberValueTotal]="characterInfo.baseInfo.stats.movement"
+                  [numberValueCurrent]="characterInfo.baseInfo.stats.movement"
+                  [showIncrementers]="true"
+                  element="movement"
+                  (incrementerChange)="onStatsArmorOrMovementChange($event)"
+                ></app-incrementer>
+                <div class="area-title">Movement</div>
+              </div>
+              <div class="base-stat">
+                <app-incrementer
+                  [fontSize]="25"
+                  [numberValueTotal]="characterInfo.baseInfo.stats.effort"
+                  [numberValueCurrent]="characterInfo.baseInfo.stats.effort"
+                  [showIncrementers]="true"
+                  element="effort"
+                  (incrementerChange)="onStatsArmorOrMovementChange($event)"
+                ></app-incrementer>
+                <div class="area-title">Effort</div>
+              </div>
+            </div>
+
+            <app-history 
+              [characterId]="characterInfo.id"
+              [baseInfo]="characterInfo.baseInfo"
+              (reloadCharacter)="loadCharacter()"
+            ></app-history>
+          </div>
+
+      </div>
+
+      <div class="right-side">
+        <div class="list-areas">
+          <mat-tab-group>
+            <mat-tab label="Skills">
+              <app-skills [skillsData]="characterInfo.skills" [isEditing]="true"></app-skills>
+            </mat-tab>
+            <mat-tab label="Attacks">
+              <app-attacks [attacksData]="characterInfo.attacks"></app-attacks>
+            </mat-tab>
+            <mat-tab label="Special Abilities">
+              <app-special-abilities [abilitiesData]="characterInfo.abilities"></app-special-abilities>
+            </mat-tab>
+          </mat-tab-group>
         </div>
-
+      </div>
     </div>
-
-    <div class="right-side">
-
-    </div>
-
 </div>
