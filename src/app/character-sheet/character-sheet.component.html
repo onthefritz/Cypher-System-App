@@ -5,6 +5,7 @@
     <button mat-raised-button color="accent" (click)="shortRest()">Short Rest</button>
     <button mat-raised-button color="accent" (click)="longRest()">Long Rest</button>
     <button mat-raised-button color="accent" (click)="refreshEdgeAndEffort()">Refresh Edge and Effort</button>
+    <button mat-raised-button color="accent" (click)="levelUp()" [disabled]="!canLevelUp">Level Up</button>
   </div>
   <div class="toolbar-title">
     <div>Tree Cypher System</div>
@@ -35,6 +36,7 @@
           <div class="advancement">
             <mat-checkbox 
               [checked]="characterInfo.baseInfo.tierAdvancement.pointsToStatPools"
+              (change)="tierAdvanced($event, 'pointsToStatPools')"
               color="primary"
             ></mat-checkbox>
             <div>+5 to Pools</div>
@@ -42,6 +44,7 @@
           <div class="advancement">
             <mat-checkbox
               [checked]="characterInfo.baseInfo.tierAdvancement.pointToEffort"
+              (change)="tierAdvanced($event, 'pointToEffort')"
               color="primary"
             ></mat-checkbox>
             <div>+1 to Effort</div>
@@ -49,6 +52,7 @@
           <div class="advancement">
             <mat-checkbox
               [checked]="characterInfo.baseInfo.tierAdvancement.pointToEdge"
+              (change)="tierAdvanced($event, 'pointToEdge')"
               color="primary"
             ></mat-checkbox>
             <div>+1 to Edge</div>
@@ -56,6 +60,7 @@
           <div class="advancement">
             <mat-checkbox
               [checked]="characterInfo.baseInfo.tierAdvancement.trainSkill"
+              (change)="tierAdvanced($event, 'trainSkill')"
               color="primary"
             ></mat-checkbox>
             <div>Train a Skill</div>
@@ -63,6 +68,7 @@
           <div class="advancement">
             <mat-checkbox
               [checked]="characterInfo.baseInfo.tierAdvancement.other"
+              (change)="tierAdvanced($event, 'other')"
               color="primary"
             ></mat-checkbox>
             <div>Other</div>

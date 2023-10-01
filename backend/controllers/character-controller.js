@@ -81,4 +81,33 @@ router.get('/refreshEdgeAndEffort/:characterId', async (req, res) => {
   res.end()
 })
 
+router.post('/setAdvancements/:characterId', async (req, res) => {
+  let characterId = req.params.characterId
+  let data = req.body
+
+  await characterService.setAdvancements(characterId, data)
+
+  res.status(201)
+  res.end()
+})
+
+router.get('/levelUp/:characterId', async (req, res) => {
+  let characterId = req.params.characterId
+
+  await characterService.levelUp(characterId)
+
+  res.status(200)
+  res.end()
+})
+
+router.delete('/removeTier/:characterId/:tier', async (req, res) => {
+  let characterId = req.params.characterId
+  let tier = req.params.tier
+
+  await characterService.deleteTier(characterId, tier)
+
+  res.status(202)
+  res.end()
+})
+
 module.exports = router

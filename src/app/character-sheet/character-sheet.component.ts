@@ -4,6 +4,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { BASE_URL } from '../helpers/constants'
 import { character, skill } from '../models/character'
+import { MatCheckboxChange } from '@angular/material/checkbox'
+import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component'
 
 @Component({
   selector: 'app-character-sheet',
@@ -13,11 +15,12 @@ import { character, skill } from '../models/character'
 export class CharacterSheetComponent implements OnInit, AfterViewInit {
   characterInfo: character = new character
   characterLoaded: boolean = false
+  canLevelUp: boolean = false
 
   private characterId: string = ''
 
   constructor(private http: HttpClient, private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private dialog: Dialog) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -36,6 +39,16 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
       this.characterInfo = res as character
     
       this.characterLoaded = true
+
+      let advancementsMade = Object.values(this.characterInfo.baseInfo.tierAdvancement)
+        .filter((advancement: any) => advancement === true).length
+        
+      if (advancementsMade > 3) {
+        this.canLevelUp = true
+      }
+      else {
+        this.canLevelUp = false
+      }
     })
   }
 
@@ -54,13 +67,64 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
   }
 
   longRest() {
-    this.http.get(`${BASE_URL}/character/longRest/${this.characterId}`).subscribe((res) => {
-      location.reload()
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+        minWidth: '300px',
+        data: {
+          title: "Are you sure?",
+          message: "This action cannot be undone.",
+          okayButton: "YES"
+        }
+    })
+
+    dialogRef.closed.subscribe(result => {
+      if (result) {
+        this.http.get(`${BASE_URL}/character/longRest/${this.characterId}`).subscribe((res) => {
+          location.reload()
+        })
+      }
     })
   }
 
   refreshEdgeAndEffort() {
-    this.http.get(`${BASE_URL}/character/refreshEdgeAndEffort/${this.characterId}`).subscribe((res) => {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+        minWidth: '300px',
+        data: {
+          title: "Are you sure?",
+          message: "This action cannot be undone.",
+          okayButton: "YES"
+        }
+    })
+
+    dialogRef.closed.subscribe(result => {
+      if (result) {
+        this.http.get(`${BASE_URL}/character/refreshEdgeAndEffort/${this.characterId}`).subscribe((res) => {
+          location.reload()
+        })
+      }
+    })
+  }
+
+  tierAdvanced(event: MatCheckboxChange, element: string) {
+    let newValue: boolean = event.checked
+
+    let request: any = this.characterInfo.baseInfo.tierAdvancement
+
+    request[element] = newValue
+    this.http.post(`${BASE_URL}/character/setAdvancements/${this.characterId}`, request).subscribe((res) => {
+      let advancementsMade = Object.values(this.characterInfo.baseInfo.tierAdvancement)
+        .filter((advancement: any) => advancement === true).length
+        
+      if (advancementsMade > 3) {
+        this.canLevelUp = true
+      }
+      else {
+        this.canLevelUp = false
+      }
+    })
+  }
+
+  levelUp() {
+    this.http.get(`${BASE_URL}/character/levelUp/${this.characterId}`).subscribe((res) => {
       location.reload()
     })
   }

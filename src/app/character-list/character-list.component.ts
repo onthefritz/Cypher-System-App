@@ -40,7 +40,11 @@ export class CharacterListComponent implements OnInit {
 
   deleteCharacterDialog(characterId: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-        minWidth: '300px'
+        minWidth: '300px',
+        data: {
+          title: "Are you sure?",
+          message: "This action cannot be undone."
+        }
     })
 
     dialogRef.closed.subscribe(result => {

@@ -25,7 +25,26 @@ export class HistoryComponent {
     private router: Router) { }
 
   deleteTier(tier: number) {
-    
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      minWidth: '300px',
+      data: {
+        title: "Are you sure?",
+        message: "This action cannot be undone."
+      }
+    })
+
+    dialogRef.closed.subscribe(result => {
+      if (result) {
+        this.http.delete(`${BASE_URL}/character/removeTier/${this.characterId}/${tier}`).subscribe({
+          next: () => {
+              this.reloadCharacter.emit()
+          },
+          error: (error) => {
+              console.log(error)
+          }
+        })
+      }
+    })
   }
 
   addStatsDialog(isPools: boolean) {
@@ -65,7 +84,11 @@ export class HistoryComponent {
 
   deleteStatsDialog(tier: number) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      minWidth: '300px'
+      minWidth: '300px',
+      data: {
+        title: "Are you sure?",
+        message: "This will delete the Stats and Edge for this Tier. This action cannot be undone."
+      }
     })
 
     dialogRef.closed.subscribe(result => {

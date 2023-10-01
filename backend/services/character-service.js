@@ -275,3 +275,45 @@ exports.refreshEdgeAndEffort = async function(characterId) {
 
   await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
 }
+
+exports.setAdvancements = async function (characterId, data) {
+  let character = await this.getCharacter(characterId)
+
+  character.baseInfo.tierAdvancement = data
+
+  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+}
+
+exports.levelUp = async function(characterId) {
+  let character = await this.getCharacter(characterId)
+
+  let tierHistory = {
+    tier: character.baseInfo.tier,
+    advancements: character.baseInfo.tierAdvancement
+  }
+
+  character.baseInfo.tierAdvancementHistory.push(tierHistory)
+  character.baseInfo.tier += 1
+
+  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+
+  let resetCharacter = await this.getCharacter(characterId)
+
+  resetCharacter.baseInfo.tierAdvancement.pointsToStatPools = false
+  resetCharacter.baseInfo.tierAdvancement.pointToEdge = false
+  resetCharacter.baseInfo.tierAdvancement.pointToEffort = false
+  resetCharacter.baseInfo.tierAdvancement.trainSkill = false
+  resetCharacter.baseInfo.tierAdvancement.other = false
+  
+  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(resetCharacter))
+}
+
+exports.deleteTier = async function(characterId, tier) {
+  let character = await this.getCharacter(characterId)
+
+  let newTierHistory = character.baseInfo.tierAdvancementHistory.filter(x => x.tier !== parseInt(tier))
+  character.baseInfo.tierAdvancementHistory = newTierHistory
+  character.baseInfo.tier -= 1
+
+  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+}
