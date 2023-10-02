@@ -74,6 +74,9 @@ exports.updateStatsHistory = async function(id, statHistory) {
   character.baseInfo.stats.intellectEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToIntellectEdge')
   character.baseInfo.stats.charmEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToCharmEdge')
 
+  character.baseInfo.stats.hp = character.baseInfo.stats.might + character.baseInfo.stats.speed
+  character.baseInfo.stats.ap = character.baseInfo.stats.intellect + character.baseInfo.stats.charm
+
   await fs.writeFile(`${constants.base_data_url}/${id}.json`, JSON.stringify(character))
 }
 
@@ -131,6 +134,11 @@ exports.addCharacter = async function(characterData) {
   characterData.baseInfo.stats.speedCurrent = 6
   characterData.baseInfo.stats.intellectCurrent = 6
   characterData.baseInfo.stats.charmCurrent = 6
+  
+  character.baseInfo.stats.hp = character.baseInfo.stats.might + character.baseInfo.stats.speed
+  character.baseInfo.stats.hpCurrent = character.baseInfo.stats.hp
+  character.baseInfo.stats.ap = character.baseInfo.stats.intellect + character.baseInfo.stats.charm
+  character.baseInfo.stats.apCurrent = character.baseInfo.stats.ap
 
   let startingStatHistory = {
     tier: -1,
@@ -189,6 +197,9 @@ exports.deleteStats = async function(characterId, tier) {
   character.baseInfo.stats.speed = this.sumArrayField(character.baseInfo.statHistory, 'pointsToSpeed')
   character.baseInfo.stats.intellect = this.sumArrayField(character.baseInfo.statHistory, 'pointsToIntellect')
   character.baseInfo.stats.charm = this.sumArrayField(character.baseInfo.statHistory, 'pointsToCharm')
+
+  character.baseInfo.stats.hp = character.baseInfo.stats.might + character.baseInfo.stats.speed
+  character.baseInfo.stats.ap = character.baseInfo.stats.intellect + character.baseInfo.stats.charm
   
   character.baseInfo.stats.mightEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToMightEdge')
   character.baseInfo.stats.speedEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToSpeedEdge')
@@ -204,12 +215,16 @@ exports.shortRest = async function(characterId, wellRested) {
   let stats = character.baseInfo.stats
 
   if (!wellRested) {
+    stats.hpCurrent = this.isLessThanHalf(stats.hpCurrent, stats.hp) ? Math.floor(stats.hp / 2) : stats.hpCurrent
+    stats.apCurrent = this.isLessThanHalf(stats.apCurrent, stats.ap) ? Math.floor(stats.ap / 2) : stats.apCurrent
     stats.mightCurrent = this.isLessThanHalf(stats.mightCurrent, stats.might) ? Math.floor(stats.might / 2) : stats.mightCurrent
     stats.speedCurrent = this.isLessThanHalf(stats.speedCurrent, stats.speed) ? Math.floor(stats.speed / 2) : stats.speedCurrent
     stats.intellectCurrent = this.isLessThanHalf(stats.intellectCurrent, stats.intellect) ? Math.floor(stats.intellect / 2) : stats.intellectCurrent
     stats.charmCurrent = this.isLessThanHalf(stats.charmCurrent, stats.charm) ? Math.floor(stats.charm / 2) : stats.charmCurrent
   }
   else {
+    stats.hpCurrent = stats.hp
+    stats.apCurrent = stats.ap
     stats.mightCurrent = stats.might
     stats.speedCurrent = stats.speed
     stats.intellectCurrent = stats.intellect
@@ -245,6 +260,9 @@ exports.isLessThanHalf = function(current, total) {
 
 exports.longRest = async function(characterId) {
   let character = await this.getCharacter(characterId)
+
+  character.baseInfo.stats.hpCurrent = character.baseInfo.stats.hp
+  character.baseInfo.stats.apCurrent = character.baseInfo.stats.ap
 
   character.baseInfo.stats.mightCurrent = character.baseInfo.stats.might
   character.baseInfo.stats.speedCurrent = character.baseInfo.stats.speed

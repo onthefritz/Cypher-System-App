@@ -21,6 +21,11 @@ export class baseInfo {
 }
 
 export class stats {
+    public hp: number = 0
+    public hpCurrent: number = 0
+    public ap: number = 0
+    public apCurrent = 0
+
     public might: number = 0
     public mightCurrent: number = 0
     public mightEdge: number = 0
