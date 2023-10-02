@@ -91,15 +91,13 @@
         <app-stats
           [characterId]="characterInfo.id"
           [baseCharacterInfo]="characterInfo.baseInfo"
+          [isAltSheet]="characterInfo.settings.altSheet"
           (reloadCharacter)="loadCharacter()"
         ></app-stats>
       </div>
 
       <div class="list-areas">
         <mat-tab-group>
-          <mat-tab label="Skills">
-            <app-skills [skillsData]="characterInfo.skills"></app-skills>
-          </mat-tab>
           <mat-tab label="Attacks">
             <app-attacks [attacksData]="characterInfo.attacks"></app-attacks>
           </mat-tab>
@@ -112,6 +110,9 @@
 
       <div class="list-areas">
         <mat-tab-group>
+          <mat-tab label="Skills">
+            <app-skills [skillsData]="characterInfo.skills"></app-skills>
+          </mat-tab>
           <mat-tab label="Special Abilities">
             <app-special-abilities 
               [abilitiesData]="characterInfo.abilities"

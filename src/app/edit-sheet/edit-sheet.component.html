@@ -77,6 +77,17 @@
                 ></app-incrementer>
                 <div class="area-title">Effort</div>
               </div>
+              <div class="base-stat">
+                <app-incrementer
+                  [fontSize]="25"
+                  [numberValueTotal]="characterInfo.equipment.cypherCount"
+                  [numberValueCurrent]="characterInfo.equipment.cypherCount"
+                  [showIncrementers]="true"
+                  element="cypherCount"
+                  (incrementerChange)="onCypherCountChange($event)"
+                ></app-incrementer>
+                <div class="area-title">Cypher Count</div>
+              </div>
             </div>
 
             <app-history 

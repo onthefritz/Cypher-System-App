@@ -1,0 +1,54 @@
+.pool {
+    width: 45%;
+    min-width: 285px;
+    display: flex;
+    flex-direction: column;
+    border: 1px black solid;
+    border-radius: 10px;
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+    font-size: large;
+    height: 15px;
+    margin: 5px 0 5px 0;
+}
+
+.current {
+    width: 100%;
+    text-align: center;
+    font-size: xx-large;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.total {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.total-value {
+    font-size: 25px;
+    padding-top: 10px
+}
+
+.edge {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.area-title {
+    text-transform: capitalize;
+}

@@ -10,6 +10,7 @@ export class DeleteConfirmationComponent implements OnInit {
     title: string = ''
     message: string = ''
     okayButton: string = ''
+    cancelButton: string = ''
     buttonStyle: string = 'warn'
 
     constructor(private dialogRef: DialogRef,
@@ -19,6 +20,7 @@ export class DeleteConfirmationComponent implements OnInit {
       this.title = this.data.title
       this.message = this.data.message
       this.okayButton = !this.data.okayButton ? 'DELETE' : this.data.okayButton
+      this.cancelButton = !this.data.cancelButton ? 'CANCEL' : this.data.cancelButton
 
       if (this.okayButton.toLowerCase() === 'delete') {
         this.buttonStyle = 'warn'

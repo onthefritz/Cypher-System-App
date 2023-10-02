@@ -62,4 +62,13 @@ export class EditSheetComponent implements OnInit {
       this.loadCharacter()
     })
   }
+
+  onCypherCountChange(data: any) {
+    let request = {
+      cypherCount: data.value
+    }
+    this.http.post(`${BASE_URL}/equipment/cypherCount/${this.characterId}`, request).subscribe((res) => {
+      this.loadCharacter()
+    })
+  }
 }

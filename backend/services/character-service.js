@@ -166,6 +166,8 @@ exports.addCharacter = async function(characterData) {
   }
   characterData.baseInfo.statHistory.push(selectedStatHistory)
 
+  characterData.equipment.cypherCount = 2
+
   await fs.writeFile(`${constants.base_data_url}/${characterData.id}.json`, JSON.stringify(characterData))
 }
 
@@ -214,7 +216,7 @@ exports.shortRest = async function(characterId, wellRested) {
 
   let stats = character.baseInfo.stats
 
-  if (!wellRested) {
+  if (wellRested.toLowerCase() === 'false') {
     stats.hpCurrent = this.isLessThanHalf(stats.hpCurrent, stats.hp) ? Math.floor(stats.hp / 2) : stats.hpCurrent
     stats.apCurrent = this.isLessThanHalf(stats.apCurrent, stats.ap) ? Math.floor(stats.ap / 2) : stats.apCurrent
     stats.mightCurrent = this.isLessThanHalf(stats.mightCurrent, stats.might) ? Math.floor(stats.might / 2) : stats.mightCurrent

@@ -64,7 +64,8 @@
       <div class="area-title">XP</div>
     </div>
   </div>
-  <div class="pool-info">
+
+  <div class="pool-info" *ngIf="!isAltSheet">
     <div class="pool-area">
       <app-pool-stat
         poolName="MIGHT"
@@ -108,6 +109,39 @@
         element="charm"
         (statChange)="onStatChange($event)"
       ></app-pool-stat>
+    </div>
+  </div>
+
+  <div class="pool-info" *ngIf="isAltSheet">
+    <div class="pool-area">
+      <app-alt-pool-stats
+        poolName="HP"
+        [poolTotal]="baseCharacterInfo.stats.hp"
+        [poolCurrent]="baseCharacterInfo.stats.hpCurrent"
+        poolLeftEdgeName="might"
+        [poolLeftEdgeTotal]="baseCharacterInfo.stats.mightEdge"
+        [poolLeftEdgeCurrent]="baseCharacterInfo.stats.mightEdgeCurrent"
+        poolRightEdgeName="speed"
+        [poolRightEdgeTotal]="baseCharacterInfo.stats.speedEdge"
+        [poolRightEdgeCurrent]="baseCharacterInfo.stats.speedEdgeCurrent"
+        element="hp"
+        (statChange)="onStatChange($event)"
+      ></app-alt-pool-stats>
+    </div>
+    <div class="pool-area">
+      <app-alt-pool-stats
+        poolName="AP"
+        [poolTotal]="baseCharacterInfo.stats.ap"
+        [poolCurrent]="baseCharacterInfo.stats.apCurrent"
+        poolLeftEdgeName="intellect"
+        [poolLeftEdgeTotal]="baseCharacterInfo.stats.intellectEdge"
+        [poolLeftEdgeCurrent]="baseCharacterInfo.stats.intellectEdgeCurrent"
+        poolRightEdgeName="charm"
+        [poolRightEdgeTotal]="baseCharacterInfo.stats.charmEdge"
+        [poolRightEdgeCurrent]="baseCharacterInfo.stats.charmEdgeCurrent"
+        element="ap"
+        (statChange)="onStatChange($event)"
+      ></app-alt-pool-stats>
     </div>
   </div>
 

@@ -48,7 +48,8 @@ import { MatTableModule } from '@angular/material/table'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatMenuModule } from '@angular/material/menu'
+import { MatMenuModule } from '@angular/material/menu';
+import { AltPoolStatsComponent } from './alt-pool-stats/alt-pool-stats.component'
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { MatMenuModule } from '@angular/material/menu'
     UpsertWeaponComponent,
     UpsertCypherComponent,
     InsertMoneyComponent,
-    SettingsComponent
+    SettingsComponent,
+    AltPoolStatsComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { BASE_URL } from '../helpers/constants';
 export class StatsComponent implements OnInit {
   @Input() baseCharacterInfo: any
   @Input() characterId: any
+  @Input() isAltSheet: boolean = false
 
   @Output() reloadCharacter = new EventEmitter()
 
