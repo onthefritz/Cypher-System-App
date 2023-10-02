@@ -144,6 +144,4 @@ export class skill {
 
 export class settings {
     public altSheet: boolean = false
-    public ac: boolean = false
-    public damageDice: boolean = false
 }

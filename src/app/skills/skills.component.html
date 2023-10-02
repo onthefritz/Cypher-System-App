@@ -1,3 +1,5 @@
+<button class="add-button" mat-flat-button color="primary" (click)="upsertSkill(true, null)" *ngIf="isEditing">Add Skill</button>
+
 <table mat-table [dataSource]="skillsData" class="skills-table">
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -32,12 +34,10 @@
               <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="editSkill(element.name)">
+              <button mat-menu-item (click)="upsertSkill(false, element)">
                   <mat-icon>edit</mat-icon>
                   <span>Edit</span>
               </button>
-          </mat-menu>
-          <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="deleteSkill(element.name)">
                   <mat-icon>delete</mat-icon>
                   <span>Delete</span>

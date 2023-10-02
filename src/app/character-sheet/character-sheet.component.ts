@@ -6,6 +6,7 @@ import { BASE_URL } from '../helpers/constants'
 import { character, skill } from '../models/character'
 import { MatCheckboxChange } from '@angular/material/checkbox'
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component'
+import { SettingsComponent } from '../dialogs/settings/settings.component'
 
 @Component({
   selector: 'app-character-sheet',
@@ -37,7 +38,6 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
   loadCharacter() {
     this.http.get(`${BASE_URL}/character/${this.characterId}`).subscribe((res) => {
       this.characterInfo = res as character
-    
       this.characterLoaded = true
 
       let advancementsMade = Object.values(this.characterInfo.baseInfo.tierAdvancement)
@@ -79,7 +79,8 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
     dialogRef.closed.subscribe(result => {
       if (result) {
         this.http.get(`${BASE_URL}/character/longRest/${this.characterId}`).subscribe((res) => {
-          location.reload()
+          this.characterLoaded = false
+          this.loadCharacter()
         })
       }
     })
@@ -98,7 +99,8 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
     dialogRef.closed.subscribe(result => {
       if (result) {
         this.http.get(`${BASE_URL}/character/refreshEdgeAndEffort/${this.characterId}`).subscribe((res) => {
-          location.reload()
+          this.characterLoaded = false
+          this.loadCharacter()
         })
       }
     })
@@ -125,7 +127,29 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
 
   levelUp() {
     this.http.get(`${BASE_URL}/character/levelUp/${this.characterId}`).subscribe((res) => {
-      location.reload()
+      this.characterLoaded = false
+      this.loadCharacter()
+    })
+  }
+
+  updateSettings() {
+    let dialogData = {
+      characterId: this.characterId,
+      settings: this.characterInfo.settings
+    }
+
+    const dialogRef = this.dialog.open(SettingsComponent, {
+      minWidth: '300px',
+      data: dialogData
+    })
+
+    dialogRef.closed.subscribe(result => {
+      if (result) {
+        this.http.post(`${BASE_URL}/settings/${this.characterId}/`, result).subscribe((res) => {
+          this.characterLoaded = false
+          this.loadCharacter()
+        })
+      }
     })
   }
 }

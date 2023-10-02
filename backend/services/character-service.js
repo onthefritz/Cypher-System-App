@@ -161,6 +161,10 @@ exports.addCharacter = async function(characterData) {
   await fs.writeFile(`${constants.base_data_url}/${characterData.id}.json`, JSON.stringify(characterData))
 }
 
+exports.updateCharacter = async function(characterId, character) {
+  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+}
+
 exports.deleteCharacter = async function(characterId) {
     let foundData = []
     await fs.readFile(`${constants.base_data_url}/characters.json`, 'utf-8').then((data) => {

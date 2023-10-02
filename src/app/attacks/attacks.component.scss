@@ -1,3 +1,7 @@
+.add-button {
+  margin: 5px 0;
+}
+
 .attacks-table {
     width: 100%;
 }
@@ -7,6 +11,11 @@
 .mat-column-range {
     width: 80px;
     text-align: center;
+}
+
+.mat-column-menu {
+  width: 20px;
+  text-align: center;
 }
         
 .mat-mdc-row:nth-child(odd){

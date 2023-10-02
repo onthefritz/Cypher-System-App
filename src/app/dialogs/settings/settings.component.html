@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-header>
+      <mat-card-title>Edit Settings</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="custom-dialog">
+    <div class="full-width">
+      <mat-checkbox [checked]="altSheet" (change)="altSheet = !altSheet" color="primary"></mat-checkbox>
+      <span>Alt Sheet</span>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="end">
+      <button mat-button (click)="updateSettings()">SAVE</button>
+      <button mat-button (click)="close()">CANCEL</button>
+  </mat-card-actions>
+</mat-card>

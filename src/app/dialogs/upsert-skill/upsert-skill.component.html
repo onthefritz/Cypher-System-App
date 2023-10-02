@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-header>
+      <mat-card-title>{{upsertType}} Skill</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="custom-dialog">
+    <mat-form-field class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="name" />
+    </mat-form-field>
+    <br/>
+    <div class="full-width">
+      <mat-checkbox [checked]="inability" (change)="inability = !inability" color="primary"></mat-checkbox>
+      <span>Inability</span>
+    </div>
+    <br/>
+    <div class="full-width">
+      <mat-checkbox [checked]="trained" (change)="trained = !trained" color="primary"></mat-checkbox>
+      <span>Trained</span>
+    </div>
+    <br/>
+    <div class="full-width">
+      <mat-checkbox [checked]="specialized" (change)="specialized = !specialized" color="primary"></mat-checkbox>
+      <span>Specialized</span>
+    </div>
+  </mat-card-content>
+  <mat-card-actions align="end">
+      <button mat-button (click)="addSkill()">SAVE</button>
+      <button mat-button (click)="close()">CANCEL</button>
+  </mat-card-actions>
+</mat-card>

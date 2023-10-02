@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { HttpClientModule } from '@angular/common/http'
+import { NgIf } from '@angular/common'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { HttpClientModule } from '@angular/common/http'
+
 import { CharacterListComponent } from './character-list/character-list.component'
-import { AddCharacterDialogComponent } from './dialogs/add-character-dialog/add-character-dialog.component'
 import { CharacterSheetComponent } from './character-sheet/character-sheet.component'
-import { DeleteConfirmationComponent } from './dialogs/delete-confirmation/delete-confirmation.component'
 import { StatsComponent } from './stats/stats.component'
 import { IncrementerComponent } from './incrementer/incrementer.component'
 import { PoolStatComponent } from './pool-stat/pool-stat.component'
@@ -19,8 +19,19 @@ import { AttacksComponent } from './attacks/attacks.component'
 import { SpecialAbilitiesComponent } from './special-abilities/special-abilities.component'
 import { EquipmentComponent } from './equipment/equipment.component'
 import { EditSheetComponent } from './edit-sheet/edit-sheet.component'
-import { EditStatsComponent } from './dialogs/edit-stats/edit-stats.component'
 import { HistoryComponent } from './history/history.component'
+
+import { AddCharacterDialogComponent } from './dialogs/add-character-dialog/add-character-dialog.component'
+import { DeleteConfirmationComponent } from './dialogs/delete-confirmation/delete-confirmation.component'
+import { EditStatsComponent } from './dialogs/edit-stats/edit-stats.component'
+import { UpsertSkillComponent } from './dialogs/upsert-skill/upsert-skill.component'
+import { UpsertAttackComponent } from './dialogs/upsert-attack/upsert-attack.component'
+import { UpsertAbilityComponent } from './dialogs/upsert-ability/upsert-ability.component'
+import { UpsertItemComponent } from './dialogs/upsert-item/upsert-item.component'
+import { UpsertWeaponComponent } from './dialogs/upsert-weapon/upsert-weapon.component'
+import { UpsertCypherComponent } from './dialogs/upsert-cypher/upsert-cypher.component'
+import { InsertMoneyComponent } from './dialogs/insert-money/insert-money.component'
+import { SettingsComponent } from './dialogs/settings/settings.component'
 
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
@@ -28,7 +39,6 @@ import { DialogModule } from '@angular/cdk/dialog'
 import { MatInputModule } from '@angular/material/input'
 import { TextFieldModule } from '@angular/cdk/text-field'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { NgIf } from '@angular/common'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatSelectModule } from '@angular/material/select'
 import { MatIconModule } from '@angular/material/icon'
@@ -57,7 +67,15 @@ import { MatMenuModule } from '@angular/material/menu'
     EquipmentComponent,
     EditSheetComponent,
     HistoryComponent,
-    EditStatsComponent
+    EditStatsComponent,
+    UpsertSkillComponent,
+    UpsertAttackComponent,
+    UpsertAbilityComponent,
+    UpsertItemComponent,
+    UpsertWeaponComponent,
+    UpsertCypherComponent,
+    InsertMoneyComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +83,7 @@ import { MatMenuModule } from '@angular/material/menu'
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgIf,
 
     MatButtonModule,
     MatCardModule,
@@ -73,7 +92,6 @@ import { MatMenuModule } from '@angular/material/menu'
     TextFieldModule,
     MatFormFieldModule,
     MatSidenavModule,
-    NgIf,
     MatSelectModule,
     MatIconModule,
     MatDividerModule,

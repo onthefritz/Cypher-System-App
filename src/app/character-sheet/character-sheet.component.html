@@ -8,6 +8,11 @@
     <button mat-raised-button color="accent" (click)="levelUp()" [disabled]="!canLevelUp">Level Up</button>
   </div>
   <div class="toolbar-title">
+    <div>
+      <button mat-icon-button aria-label="Settings Icon" (click)="updateSettings()">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </div>
     <div>Tree Cypher System</div>
   </div>
 </mat-toolbar>

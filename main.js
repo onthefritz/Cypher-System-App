@@ -7,6 +7,8 @@ const constants = require('./backend/helpers/constants')
 
 const controllerSetup = require('./backend/controllers/controller-setup')
 
+if (require('electron-squirrel-startup')) app.quit();
+
 app.on('ready', () => {
 	win = new BrowserWindow({
 		width: 1400,

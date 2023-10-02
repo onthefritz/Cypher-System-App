@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-header>
+      <mat-card-title>{{upsertType}} Attack</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="custom-dialog">
+    <mat-form-field class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="name" />
+    </mat-form-field>
+    <br/>
+    <mat-form-field class="full-width">
+        <mat-label>Modifier</mat-label>
+        <input type="number" matInput [(ngModel)]="modifier" />
+    </mat-form-field>
+    <br/>
+    <mat-form-field class="full-width">
+        <mat-label>Damage</mat-label>
+        <input type="number" matInput [(ngModel)]="damage" />
+    </mat-form-field>
+    <br/>
+    <mat-form-field class="full-width">
+        <mat-label>Range</mat-label>
+        <input type="number" matInput [(ngModel)]="range" />
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions align="end">
+      <button mat-button (click)="addAttack()">SAVE</button>
+      <button mat-button (click)="close()">CANCEL</button>
+  </mat-card-actions>
+</mat-card>

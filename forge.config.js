@@ -6,7 +6,10 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        authors: 'Fritz',
+        description: 'A character sheet app for the Tree Cypher System'
+      },
     },
     {
       name: '@electron-forge/maker-zip',

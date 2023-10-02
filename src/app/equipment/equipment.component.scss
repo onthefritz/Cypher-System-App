@@ -1,7 +1,37 @@
+.add-button {
+  margin: 5px 0;
+}
+
+.delete-money {
+  position: absolute;
+  background-color: white;
+  border-radius: 15px;
+  width: 15px;
+  height: 15px;
+  right: -7px;
+  top: -10px;
+  border: 1px black solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.add-money {
+  font-size: 56px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+  cursor: pointer;
+}
+
 .money {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  margin-top: 10px;
 }
 
 .money-amount {
@@ -10,6 +40,7 @@
   padding: 0 5px 0 5px;
   margin: 0 5px 0 5px;
   text-align: center;
+  position: relative;
 }
 
 .equipment-table {
@@ -60,7 +91,12 @@
   width: 50px;
   text-align: center;
 }
-      
+
+.mat-column-menu {
+  width: 20px;
+  text-align: center;
+}
+
 .mat-mdc-row:nth-child(odd){
   background-color: lightblue;
 }

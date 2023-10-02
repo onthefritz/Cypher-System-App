@@ -61,7 +61,7 @@
         </table>
     </mat-tab>
     <mat-tab label="Stat">
-        <button mat-flat-button color="primary" (click)="addStatsDialog(true)">Add Stats</button>
+        <button class="add-button" mat-flat-button color="primary" (click)="addStatsDialog(true)">Add Stats</button>
         <table mat-table [dataSource]="baseInfo.statHistory" class="stats-table">
             <ng-container matColumnDef="statsTier">
                 <th mat-header-cell *matHeaderCellDef> Tier </th>
@@ -120,7 +120,7 @@
         </table>
     </mat-tab>
     <mat-tab label="Edge">
-        <button mat-flat-button color="primary" (click)="addStatsDialog(false)">Add Stats</button>
+        <button class="add-button" mat-flat-button color="primary" (click)="addStatsDialog(false)">Add Edge</button>
         <table mat-table [dataSource]="baseInfo.statHistory" class="edge-table">
             <ng-container matColumnDef="edgeTier">
                 <th mat-header-cell *matHeaderCellDef> Tier </th>
