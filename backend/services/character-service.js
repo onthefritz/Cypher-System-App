@@ -135,10 +135,10 @@ exports.addCharacter = async function(characterData) {
   characterData.baseInfo.stats.intellectCurrent = 6
   characterData.baseInfo.stats.charmCurrent = 6
   
-  character.baseInfo.stats.hp = character.baseInfo.stats.might + character.baseInfo.stats.speed
-  character.baseInfo.stats.hpCurrent = character.baseInfo.stats.hp
-  character.baseInfo.stats.ap = character.baseInfo.stats.intellect + character.baseInfo.stats.charm
-  character.baseInfo.stats.apCurrent = character.baseInfo.stats.ap
+  characterData.baseInfo.stats.hp = characterData.baseInfo.stats.might + characterData.baseInfo.stats.speed
+  characterData.baseInfo.stats.hpCurrent = characterData.baseInfo.stats.hp
+  characterData.baseInfo.stats.ap = characterData.baseInfo.stats.intellect + characterData.baseInfo.stats.charm
+  characterData.baseInfo.stats.apCurrent = characterData.baseInfo.stats.ap
 
   let startingStatHistory = {
     tier: -1,
