@@ -43,6 +43,8 @@ export class EditStatsComponent implements OnInit {
         this.usedOnCharm = this.data.rowData.pointsToCharmEdge
       }
     }
+
+    this.usedPoints = this.usedOnMight + this.usedOnSpeed + this.usedOnIntellect + this.usedOnCharm
   }
 
   increaseCount(element: string) {

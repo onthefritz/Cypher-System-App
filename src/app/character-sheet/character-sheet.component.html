@@ -114,9 +114,11 @@
             <app-skills [skillsData]="characterInfo.skills"></app-skills>
           </mat-tab>
           <mat-tab label="Special Abilities">
-            <app-special-abilities 
-              [abilitiesData]="characterInfo.abilities"
-            ></app-special-abilities>
+            <div>
+              <app-special-abilities 
+                [abilitiesData]="characterInfo.abilities"
+              ></app-special-abilities>
+            </div>
           </mat-tab>
           <mat-tab label="Equipment">
             <app-equipment

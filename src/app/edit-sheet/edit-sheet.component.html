@@ -119,12 +119,14 @@
               ></app-attacks>
             </mat-tab>
             <mat-tab label="Special Abilities">
-              <app-special-abilities
-                [abilitiesData]="characterInfo.abilities"
-                [isEditing]="true"
-                [characterId]="characterInfo.id"
-                (reloadCharacter)="loadCharacter()"
-              ></app-special-abilities>
+              <div>
+                <app-special-abilities
+                  [abilitiesData]="characterInfo.abilities"
+                  [isEditing]="true"
+                  [characterId]="characterInfo.id"
+                  (reloadCharacter)="loadCharacter()"
+                ></app-special-abilities>
+              </div>
             </mat-tab>
           </mat-tab-group>
         </div>

@@ -6,12 +6,8 @@
     width: 100%;
 }
 
-.mat-column-name {
-    width: 100px;
-}
-
 .mat-column-cost {
-    width: 100px;
+    width: 150px;
     text-align: center;
 }
 
@@ -19,7 +15,29 @@
   width: 20px;
   text-align: center;
 }
+
+.mat-column-expand {
+  width: 20px;
+  text-align: center;
+}
         
-.mat-mdc-row:nth-child(odd){
+.mat-mdc-row:nth-child(4n-3), .mat-mdc-row:nth-child(4n-2){
     background-color: lightblue;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-description {
+  padding: 16px;
+}
+
+.element-row td {
+  border-bottom-width: 0;
 }
