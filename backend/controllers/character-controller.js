@@ -110,4 +110,11 @@ router.delete('/removeTier/:characterId/:tier', async (req, res) => {
   res.end()
 })
 
+router.get('/fix/updateBaseValues', async (req, res) => {
+  await characterService.updateBaseValues()
+
+  res.status(200)
+  res.end()
+})
+
 module.exports = router

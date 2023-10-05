@@ -99,7 +99,8 @@ exports.addCharacterToList = async function(characterData) {
         id: characterData.id,
         name: characterData.baseInfo.name,
         descriptor: characterData.baseInfo.descriptor,
-        focus: characterData.baseInfo.focus
+        focus: characterData.baseInfo.focus,
+        isUpdated: true
     }
     foundData.push(characterListData)
 
@@ -126,14 +127,14 @@ exports.addCharacter = async function(characterData) {
   characterData.baseInfo.stats.breathers = 2
   characterData.baseInfo.stats.effort = 1
   characterData.baseInfo.stats.effortCurrent = 1
-  characterData.baseInfo.stats.might = 6
-  characterData.baseInfo.stats.speed = 6
-  characterData.baseInfo.stats.intellect = 6
-  characterData.baseInfo.stats.charm = 6
-  characterData.baseInfo.stats.mightCurrent = 6
-  characterData.baseInfo.stats.speedCurrent = 6
-  characterData.baseInfo.stats.intellectCurrent = 6
-  characterData.baseInfo.stats.charmCurrent = 6
+  characterData.baseInfo.stats.might = 7
+  characterData.baseInfo.stats.speed = 7
+  characterData.baseInfo.stats.intellect = 7
+  characterData.baseInfo.stats.charm = 7
+  characterData.baseInfo.stats.mightCurrent = 7
+  characterData.baseInfo.stats.speedCurrent = 7
+  characterData.baseInfo.stats.intellectCurrent = 7
+  characterData.baseInfo.stats.charmCurrent = 7
   
   characterData.baseInfo.stats.hp = characterData.baseInfo.stats.might + characterData.baseInfo.stats.speed
   characterData.baseInfo.stats.hpCurrent = characterData.baseInfo.stats.hp
@@ -142,10 +143,10 @@ exports.addCharacter = async function(characterData) {
 
   let startingStatHistory = {
     tier: -1,
-    pointsToMight: 6,
-    pointsToSpeed: 6,
-    pointsToIntellect: 6,
-    pointsToCharm: 6,
+    pointsToMight: 7,
+    pointsToSpeed: 7,
+    pointsToIntellect: 7,
+    pointsToCharm: 7,
     pointsToMightEdge: 0,
     pointsToSpeedEdge: 0,
     pointsToIntellectEdge: 0,
@@ -340,4 +341,34 @@ exports.deleteTier = async function(characterId, tier) {
   character.baseInfo.tier -= 1
 
   await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+}
+
+exports.updateBaseValues = async function() {
+  let charactersJson = await this.getCharacters()
+  let characters = JSON.parse(charactersJson)
+  
+  let updatedCharacters = []
+  for (let i = 0; i < characters.length; i++) {
+    let character = characters[i]
+    let charDeets = await this.getCharacter(character.id)
+    
+    charDeets.baseInfo.statHistory[0].pointsToMight = 7
+    charDeets.baseInfo.statHistory[0].pointsToSpeed = 7
+    charDeets.baseInfo.statHistory[0].pointsToIntellect = 7
+    charDeets.baseInfo.statHistory[0].pointsToCharm = 7
+    
+    charDeets.baseInfo.stats.might = this.sumArrayField(charDeets.baseInfo.statHistory, 'pointsToMight')
+    charDeets.baseInfo.stats.speed = this.sumArrayField(charDeets.baseInfo.statHistory, 'pointsToSpeed')
+    charDeets.baseInfo.stats.intellect = this.sumArrayField(charDeets.baseInfo.statHistory, 'pointsToIntellect')
+    charDeets.baseInfo.stats.charm = this.sumArrayField(charDeets.baseInfo.statHistory, 'pointsToCharm')
+
+    charDeets.baseInfo.stats.hp = charDeets.baseInfo.stats.might + charDeets.baseInfo.stats.speed
+    charDeets.baseInfo.stats.ap = charDeets.baseInfo.stats.intellect + charDeets.baseInfo.stats.charm
+  
+    await this.updateCharacter(character.id, charDeets)
+    character.isUpdated = true
+    updatedCharacters.push(character)
+  }
+
+  await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(updatedCharacters))
 }

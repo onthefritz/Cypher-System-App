@@ -1,6 +1,7 @@
 <mat-toolbar color="primary" class="custom-toolbar">
     <div class="toolbar-buttons">
         <button mat-raised-button color="accent" (click)="addCharacterDialog()">Add Character</button>
+        <button mat-raised-button color="accent" (click)="updateCharactersBaseValue()" *ngIf="!isUpdated">Update Characters Base Values</button>
     </div>
     <div class="toolbar-title">
         <div>Tree Cypher System</div>
