@@ -16,3 +16,33 @@ body { margin: 0; }
 .material-icons{
     font-family: 'Material Icons' !important;
 }
+
+tr.mat-mdc-row {
+    height: 41px;
+}
+
+tr .mat-mdc-icon-button.mat-mdc-button-base {
+    width: 40px !important;
+    height: 40px !important;
+    padding: 8px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
