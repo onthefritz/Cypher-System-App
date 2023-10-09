@@ -41,3 +41,8 @@ tr.detail-row {
 .element-row td {
   border-bottom-width: 0;
 }
+
+.scrollable {
+  overflow-y: auto;
+  max-height: 675px;
+}

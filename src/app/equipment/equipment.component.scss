@@ -105,3 +105,8 @@
 .mat-mdc-row:nth-child(odd){
   background-color: lightblue;
 }
+
+.scrollable {
+  overflow-y: auto;
+  max-height: 500px;
+}
