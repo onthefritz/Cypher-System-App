@@ -48,8 +48,9 @@ import { MatTableModule } from '@angular/material/table'
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu'
 import { AltPoolStatsComponent } from './alt-pool-stats/alt-pool-stats.component'
+import { MatSortModule } from '@angular/material/sort'
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { AltPoolStatsComponent } from './alt-pool-stats/alt-pool-stats.component
     MatTabsModule,
     MatCheckboxModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
