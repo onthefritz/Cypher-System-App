@@ -48,7 +48,7 @@ export class EquipmentComponent {
     })
   }
 
-  deleteItem(itemName: string) {
+  deleteItem(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
         minWidth: '300px',
         data: {
@@ -59,7 +59,7 @@ export class EquipmentComponent {
 
     dialogRef.closed.subscribe(result => {
       if (result) {
-        this.http.delete(`${BASE_URL}/equipment/item/${this.characterId}/${itemName}`).subscribe({
+        this.http.delete(`${BASE_URL}/equipment/item/${this.characterId}/${id}`).subscribe({
             next: () => {
                 this.reloadCharacter.emit()
             },
@@ -92,7 +92,7 @@ export class EquipmentComponent {
     })
   }
 
-  deleteWeapon(weaponName: string) {
+  deleteWeapon(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
         minWidth: '300px',
         data: {
@@ -103,7 +103,7 @@ export class EquipmentComponent {
 
     dialogRef.closed.subscribe(result => {
       if (result) {
-        this.http.delete(`${BASE_URL}/equipment/weapon/${this.characterId}/${weaponName}`).subscribe({
+        this.http.delete(`${BASE_URL}/equipment/weapon/${this.characterId}/${id}`).subscribe({
             next: () => {
                 this.reloadCharacter.emit()
             },
@@ -137,7 +137,7 @@ export class EquipmentComponent {
     })
   }
 
-  deleteOddity(oddityName: string) {
+  deleteOddity(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
         minWidth: '300px',
         data: {
@@ -148,7 +148,7 @@ export class EquipmentComponent {
 
     dialogRef.closed.subscribe(result => {
       if (result) {
-        this.http.delete(`${BASE_URL}/equipment/oddity/${this.characterId}/${oddityName}`).subscribe({
+        this.http.delete(`${BASE_URL}/equipment/oddity/${this.characterId}/${id}`).subscribe({
             next: () => {
                 this.reloadCharacter.emit()
             },
@@ -181,7 +181,7 @@ export class EquipmentComponent {
     })
   }
 
-  deleteCypher(cypherName: string) {
+  deleteCypher(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
         minWidth: '300px',
         data: {
@@ -192,7 +192,7 @@ export class EquipmentComponent {
 
     dialogRef.closed.subscribe(result => {
       if (result) {
-        this.http.delete(`${BASE_URL}/equipment/cypher/${this.characterId}/${cypherName}`).subscribe({
+        this.http.delete(`${BASE_URL}/equipment/cypher/${this.characterId}/${id}`).subscribe({
             next: () => {
                 this.reloadCharacter.emit()
             },
@@ -233,7 +233,7 @@ export class EquipmentComponent {
     })
   }
 
-  deleteMoney(moneyName: string) {
+  deleteMoney(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
         minWidth: '300px',
         data: {
@@ -244,7 +244,7 @@ export class EquipmentComponent {
 
     dialogRef.closed.subscribe(result => {
       if (result) {
-        this.http.delete(`${BASE_URL}/equipment/money/${this.characterId}/${moneyName}`).subscribe({
+        this.http.delete(`${BASE_URL}/equipment/money/${this.characterId}/${id}`).subscribe({
             next: () => {
                 this.reloadCharacter.emit()
             },

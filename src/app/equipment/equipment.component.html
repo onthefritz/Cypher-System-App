@@ -7,7 +7,7 @@
         [element]="money.name"
         (incrementerChange)="updateMoney($event, money.name)"
       ></app-incrementer>
-      <span class="delete-money" (click)="deleteMoney(money.name)">X</span>
+      <span class="delete-money" (click)="deleteMoney(money.id)">X</span>
   </span>
   <span class="money-amount">
     <span class="add-money" (click)="insertMoney()">+</span>
@@ -52,7 +52,7 @@
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
                     </button>
-                    <button mat-menu-item (click)="deleteItem(element.name)">
+                    <button mat-menu-item (click)="deleteItem(element.id)">
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>
                     </button>
@@ -106,7 +106,7 @@
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
                     </button>
-                    <button mat-menu-item (click)="deleteWeapon(element.name)">
+                    <button mat-menu-item (click)="deleteWeapon(element.id)">
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>
                     </button>
@@ -153,7 +153,7 @@
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
                     </button>
-                    <button mat-menu-item (click)="deleteOddity(element.name)">
+                    <button mat-menu-item (click)="deleteOddity(element.id)">
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>
                     </button>
@@ -201,7 +201,7 @@
                         <mat-icon>edit</mat-icon>
                         <span>Edit</span>
                     </button>
-                    <button mat-menu-item (click)="deleteCypher(element.name)">
+                    <button mat-menu-item (click)="deleteCypher(element.id)">
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>
                     </button>

@@ -4,4 +4,5 @@ export class characterList {
     public descriptor: string = ''
     public focus: string = ''
     public isUpdated: boolean = false
+    public hasIds: boolean = false
 }

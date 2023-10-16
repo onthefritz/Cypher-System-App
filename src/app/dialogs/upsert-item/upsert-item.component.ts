@@ -14,6 +14,7 @@ export class UpsertItemComponent {
   name!: string
   count!: number
   description!: string
+  itemId!: string
 
   constructor(private http: HttpClient, private dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: any) { }
@@ -24,6 +25,7 @@ export class UpsertItemComponent {
     this.itemType = this.data.itemType
 
     if (!this.data.isAdd) {
+      this.itemId = this.data.item.id
       this.name = this.data.item.name
       this.count = this.data.item.count
       this.description = this.data.item.description
@@ -37,6 +39,7 @@ export class UpsertItemComponent {
 
   addItem() {
     let item = {
+      id: !this.itemId ? crypto.randomUUID() : this.itemId,
       name: this.name,
       count: this.count,
       description: this.description

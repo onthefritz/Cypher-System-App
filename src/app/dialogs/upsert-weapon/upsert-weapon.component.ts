@@ -14,6 +14,7 @@ export class UpsertWeaponComponent {
   count!: number
   type!: string
   description!: string
+  weaponId!: string
 
   constructor(private http: HttpClient, private dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: any) { }
@@ -23,6 +24,7 @@ export class UpsertWeaponComponent {
     this.characterId = this.data.characterId
 
     if (!this.data.isAdd) {
+      this.weaponId = this.data.weapon.id
       this.name = this.data.weapon.name
       this.count = this.data.weapon.count
       this.type = this.data.weapon.type
@@ -38,6 +40,7 @@ export class UpsertWeaponComponent {
 
   addWeapon() {
     let weapon = {
+      id: !this.weaponId ? crypto.randomUUID() : this.weaponId,
       name: this.name,
       count: this.count,
       type: this.type,

@@ -15,6 +15,7 @@ import { Router } from '@angular/router'
 export class CharacterListComponent implements OnInit {
   characters: characterList[] = []
   isUpdated: boolean = false
+  hasIds: boolean = false
 
   constructor(private http: HttpClient, private dialog: Dialog,
     private router: Router) { }
@@ -27,6 +28,7 @@ export class CharacterListComponent implements OnInit {
     this.http.get(`${BASE_URL}/character/getAll`).subscribe((res) => {
       this.characters = res as characterList[]
       this.isUpdated = !this.characters.some((char) => !char.isUpdated)
+      this.hasIds = !this.characters.some((char) => !char.hasIds)
     })
   }
 
@@ -76,6 +78,30 @@ export class CharacterListComponent implements OnInit {
     dialogRef.closed.subscribe(result => {
       if (result) {
         this.http.get(`${BASE_URL}/character/fix/updateBaseValues`).subscribe({
+            next: () => {
+                this.loadCharacters()
+            },
+            error: (error) => {
+                console.log(error)
+            }
+        })
+      }
+    })
+  }
+
+  addIdsToCharacter() {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+        minWidth: '300px',
+        data: {
+          title: "Are you sure?",
+          message: "This action cannot be undone.",
+          okayButton: "Yes"
+        }
+    })
+
+    dialogRef.closed.subscribe(result => {
+      if (result) {
+        this.http.get(`${BASE_URL}/character/fix/addIdsToCharacter`).subscribe({
             next: () => {
                 this.loadCharacters()
             },

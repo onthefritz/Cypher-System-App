@@ -94,6 +94,7 @@ export class damageTrack {
 }
 
 export class attack {
+    public id: string = ''
     public name: string = ''
     public modifier: number = 0
     public damage: number = 0
@@ -101,6 +102,7 @@ export class attack {
 }
 
 export class ability {
+    public id: string = ''
     public name: string = ''
     public cost: number = 0
     public costType: string = ''
@@ -117,18 +119,21 @@ export class equipment {
 }
 
 export class cypher {
+    public id: string = ''
     public name: string = ''
     public tier: number = 0
     public description: string = ''
 }
 
 export class item {
+    public id: string = ''
     public name: string = ''
     public count: number = 0
     public description: string = ''
 }
 
 export class weapon {
+    public id: string = ''
     public name: string = ''
     public count: number = 0
     public type: string = ''
@@ -136,11 +141,13 @@ export class weapon {
 }
 
 export class money {
+    public id: string = ''
     public name: string = ''
     public amount: number = 0
 }
 
 export class skill {
+    public id: string = ''
     public name: string = ''
     public inability: boolean = false
     public trained: boolean = false

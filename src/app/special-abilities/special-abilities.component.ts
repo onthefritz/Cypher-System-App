@@ -71,7 +71,7 @@ export class SpecialAbilitiesComponent implements OnInit {
     })
   }
 
-  deleteAbility(name: string) {
+  deleteAbility(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
         minWidth: '300px',
         data: {
@@ -82,7 +82,7 @@ export class SpecialAbilitiesComponent implements OnInit {
 
     dialogRef.closed.subscribe(result => {
       if (result) {
-        this.http.delete(`${BASE_URL}/ability/special/${this.characterId}/${name}`).subscribe({
+        this.http.delete(`${BASE_URL}/ability/special/${this.characterId}/${id}`).subscribe({
             next: () => {
                 this.reloadCharacter.emit()
             },

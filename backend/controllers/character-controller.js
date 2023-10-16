@@ -117,4 +117,11 @@ router.get('/fix/updateBaseValues', async (req, res) => {
   res.end()
 })
 
+router.get('/fix/addIdsToCharacter', async (req, res) => {
+  await characterService.addIdsToCharacter()
+
+  res.status(200)
+  res.end()
+})
+
 module.exports = router

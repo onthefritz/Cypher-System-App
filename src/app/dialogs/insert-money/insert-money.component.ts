@@ -24,6 +24,7 @@ export class InsertMoneyComponent {
 
   addMoney() {
     let money = {
+      id: crypto.randomUUID(),
       name: this.name,
       amount: this.amount
     }

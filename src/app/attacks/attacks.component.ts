@@ -45,7 +45,7 @@ export class AttacksComponent {
     })
   }
 
-  deleteAttack(name: string) {
+  deleteAttack(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
         minWidth: '300px',
         data: {
@@ -56,7 +56,7 @@ export class AttacksComponent {
 
     dialogRef.closed.subscribe(result => {
       if (result) {
-        this.http.delete(`${BASE_URL}/ability/attack/${this.characterId}/${name}`).subscribe({
+        this.http.delete(`${BASE_URL}/ability/attack/${this.characterId}/${id}`).subscribe({
             next: () => {
                 this.reloadCharacter.emit()
             },

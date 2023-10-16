@@ -3,7 +3,7 @@ const characterService = require('../services/character-service')
 exports.updateSkill = async function(characterId, newSkill) {
   let character = await characterService.getCharacter(characterId)
 
-  let foundSkill = character.skills.find((skill) => skill.name === newSkill.name)
+  let foundSkill = character.skills.find((skill) => skill.id === newSkill.id)
 
   if (foundSkill) {
     foundSkill.name = newSkill.name
@@ -21,7 +21,7 @@ exports.updateSkill = async function(characterId, newSkill) {
 exports.updateAttack = async function(characterId, newAttack) {
   let character = await characterService.getCharacter(characterId)
 
-  let foundAttack = character.attacks.find((attack) => attack.name === newAttack.name)
+  let foundAttack = character.attacks.find((attack) => attack.id === newAttack.id)
 
   if (foundAttack) {
     foundAttack.name = newAttack.name
@@ -39,7 +39,7 @@ exports.updateAttack = async function(characterId, newAttack) {
 exports.updateSpecial = async function(characterId, newSpecial) {
   let character = await characterService.getCharacter(characterId)
 
-  let foundSpecial = character.abilities.find((ability) => ability.name === newSpecial.name)
+  let foundSpecial = character.abilities.find((ability) => ability.id === newSpecial.id)
 
   if (foundSpecial) {
     foundSpecial.name = newSpecial.name
@@ -54,26 +54,26 @@ exports.updateSpecial = async function(characterId, newSpecial) {
   await characterService.updateCharacter(characterId, character)
 }
 
-exports.deleteSkill = async function(characterId, skillName) {
+exports.deleteSkill = async function(characterId, skillId) {
     let character = await characterService.getCharacter(characterId)
 
-    character.skills = character.skills.filter((skill) => skill.name !== skillName)
+    character.skills = character.skills.filter((skill) => skill.id !== skillId)
 
     await characterService.updateCharacter(characterId, character)
 }
 
-exports.deleteAttack = async function(characterId, attackName) {
+exports.deleteAttack = async function(characterId, attackId) {
   let character = await characterService.getCharacter(characterId)
 
-  character.attacks = character.attacks.filter((attack) => attack.name !== attackName)
+  character.attacks = character.attacks.filter((attack) => attack.id !== attackId)
 
   await characterService.updateCharacter(characterId, character)
 }
 
-exports.deleteSpecial = async function(characterId, abilityName) {
+exports.deleteSpecial = async function(characterId, abilityId) {
   let character = await characterService.getCharacter(characterId)
 
-  character.abilities = character.abilities.filter((ability) => ability.name !== abilityName)
+  character.abilities = character.abilities.filter((ability) => ability.id !== abilityId)
 
   await characterService.updateCharacter(characterId, character)
 }

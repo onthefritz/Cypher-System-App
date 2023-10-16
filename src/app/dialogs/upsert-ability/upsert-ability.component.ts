@@ -14,6 +14,7 @@ export class UpsertAbilityComponent {
   cost!: number
   costType!: string
   description!: string
+  abilityId!: string
 
   constructor(private http: HttpClient, private dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: any) { }
@@ -23,6 +24,7 @@ export class UpsertAbilityComponent {
     this.characterId = this.data.characterId
 
     if (!this.data.isAdd) {
+      this.abilityId = this.data.special.id
       this.name = this.data.special.name
       this.cost = this.data.special.cost
       this.costType = this.data.special.costType
@@ -38,6 +40,7 @@ export class UpsertAbilityComponent {
 
   addAbility() {
     let special = {
+      id: !this.abilityId ? crypto.randomUUID() : this.abilityId,
       name: this.name,
       cost: this.cost,
       costType: this.costType,

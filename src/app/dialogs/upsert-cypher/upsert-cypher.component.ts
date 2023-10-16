@@ -13,6 +13,7 @@ export class UpsertCypherComponent {
   name!: string
   tier!: number
   description!: string
+  cypherId!: string
 
   constructor(private http: HttpClient, private dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: any) { }
@@ -22,6 +23,7 @@ export class UpsertCypherComponent {
     this.characterId = this.data.characterId
 
     if (!this.data.isAdd) {
+      this.cypherId = this.data.cypher.id
       this.name = this.data.cypher.name
       this.tier = this.data.cypher.tier
       this.description = this.data.cypher.description
@@ -35,6 +37,7 @@ export class UpsertCypherComponent {
 
   addCypher() {
     let cypher = {
+      id: !this.cypherId ? crypto.randomUUID() : this.cypherId,
       name: this.name,
       tier: this.tier,
       description: this.description

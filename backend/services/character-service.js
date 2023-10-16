@@ -1,5 +1,6 @@
 const fs = require('fs/promises')
 const constants = require('../helpers/constants')
+const { randomUUID } = require('crypto');
 
 exports.getCharacters = async function() {
     let characters = []
@@ -100,7 +101,8 @@ exports.addCharacterToList = async function(characterData) {
         name: characterData.baseInfo.name,
         descriptor: characterData.baseInfo.descriptor,
         focus: characterData.baseInfo.focus,
-        isUpdated: true
+        isUpdated: true,
+        hasIds: true
     }
     foundData.push(characterListData)
 
@@ -367,6 +369,97 @@ exports.updateBaseValues = async function() {
   
     await this.updateCharacter(character.id, charDeets)
     character.isUpdated = true
+    updatedCharacters.push(character)
+  }
+
+  await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(updatedCharacters))
+}
+
+exports.addIdsToCharacter = async function() {
+  let charactersJson = await this.getCharacters()
+  let characters = JSON.parse(charactersJson)
+
+  let updatedCharacters = []
+  for (let i = 0; i < characters.length; i++) {
+    let character = characters[i]
+    let charDeets = await this.getCharacter(character.id)
+    
+    charDeets.attacks.forEach((attack) => {
+      let randomId = randomUUID()
+
+      while (charDeets.attacks.some(x => x.id === randomId)) {
+        randomId = randomUUID()
+      }
+
+      attack.id = randomId
+    })
+    charDeets.abilities.forEach((ability) => {
+      let randomId = randomUUID()
+
+      while (charDeets.abilities.some(x => x.id === randomId)) {
+        randomId = randomUUID()
+      }
+
+      ability.id = randomId
+    })
+    charDeets.skills.forEach((skill) => {
+      let randomId = randomUUID()
+
+      while (charDeets.skills.some(x => x.id === randomId)) {
+        randomId = randomUUID()
+      }
+
+      skill.id = randomId
+    })
+
+    charDeets.equipment.cyphers.forEach((cypher) => {
+      let randomId = randomUUID()
+
+      while (charDeets.equipment.cyphers.some(x => x.id === randomId)) {
+        randomId = randomUUID()
+      }
+
+      cypher.id = randomId
+    })
+    charDeets.equipment.items.forEach((item) => {
+      let randomId = randomUUID()
+
+      while (charDeets.equipment.items.some(x => x.id === randomId)) {
+        randomId = randomUUID()
+      }
+
+      item.id = randomId
+    })
+    charDeets.equipment.oddities.forEach((oddity) => {
+      let randomId = randomUUID()
+
+      while (charDeets.equipment.oddities.some(x => x.id === randomId)) {
+        randomId = randomUUID()
+      }
+
+      oddity.id = randomId
+    })
+    charDeets.equipment.weapons.forEach((weapon) => {
+      let randomId = randomUUID()
+
+      while (charDeets.equipment.weapons.some(x => x.id === randomId)) {
+        randomId = randomUUID()
+      }
+
+      weapon.id = randomId
+    })
+    charDeets.equipment.money.forEach((money) => {
+      let randomId = randomUUID()
+
+      while (charDeets.equipment.money.some(x => x.id === randomId)) {
+        randomId = randomUUID()
+      }
+
+      money.id = randomId
+    })
+  
+    await this.updateCharacter(character.id, charDeets)
+    character.hasIds = true
     updatedCharacters.push(character)
   }
 

@@ -14,6 +14,7 @@ export class UpsertSkillComponent implements OnInit {
   inability!: boolean
   trained!: boolean
   specialized!: boolean
+  skillId!: string
 
   constructor(private http: HttpClient, private dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: any) { }
@@ -23,6 +24,7 @@ export class UpsertSkillComponent implements OnInit {
     this.characterId = this.data.characterId
 
     if (!this.data.isAdd) {
+      this.skillId = this.data.skill.id
       this.name = this.data.skill.name
       this.inability = this.data.skill.inability
       this.trained = this.data.skill.trained
@@ -38,6 +40,7 @@ export class UpsertSkillComponent implements OnInit {
 
   addSkill() {
     let skill = {
+      id: !this.skillId ? crypto.randomUUID() : this.skillId,
       name: this.name,
       inability: this.inability,
       trained: this.trained,

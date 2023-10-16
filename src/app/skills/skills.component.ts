@@ -45,7 +45,7 @@ export class SkillsComponent {
     })
   }
 
-  deleteSkill(name: string) {
+  deleteSkill(id: string) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
         minWidth: '300px',
         data: {
@@ -56,7 +56,7 @@ export class SkillsComponent {
 
     dialogRef.closed.subscribe(result => {
       if (result) {
-        this.http.delete(`${BASE_URL}/ability/skill/${this.characterId}/${name}`).subscribe({
+        this.http.delete(`${BASE_URL}/ability/skill/${this.characterId}/${id}`).subscribe({
             next: () => {
                 this.reloadCharacter.emit()
             },

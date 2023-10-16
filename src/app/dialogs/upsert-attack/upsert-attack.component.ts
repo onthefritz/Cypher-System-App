@@ -14,6 +14,7 @@ export class UpsertAttackComponent implements OnInit {
   modifier!: number
   damage!: number
   range!: number
+  attackId!: string
 
   constructor(private http: HttpClient, private dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: any) { }
@@ -23,6 +24,7 @@ export class UpsertAttackComponent implements OnInit {
     this.characterId = this.data.characterId
 
     if (!this.data.isAdd) {
+      this.attackId = this.data.attack.id
       this.name = this.data.attack.name
       this.modifier = this.data.attack.modifier
       this.damage = this.data.attack.damage
@@ -38,6 +40,7 @@ export class UpsertAttackComponent implements OnInit {
 
   addAttack() {
     let attack = {
+      id: !this.attackId ? crypto.randomUUID() : this.attackId,
       name: this.name,
       modifier: this.modifier,
       damage: this.damage,
