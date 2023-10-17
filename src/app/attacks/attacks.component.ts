@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { BASE_URL } from '../helpers/constants'
 import { UpsertAttackComponent } from '../dialogs/upsert-attack/upsert-attack.component'
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component'
-import { MatSort, Sort } from '@angular/material/sort'
+import { MatSort } from '@angular/material/sort'
 import { MatTableDataSource } from '@angular/material/table'
 
 @Component({

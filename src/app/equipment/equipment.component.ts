@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { BASE_URL } from '../helpers/constants';
 import { Dialog } from '@angular/cdk/dialog';
 import { UpsertItemComponent } from '../dialogs/upsert-item/upsert-item.component';
@@ -7,24 +7,50 @@ import { UpsertWeaponComponent } from '../dialogs/upsert-weapon/upsert-weapon.co
 import { UpsertCypherComponent } from '../dialogs/upsert-cypher/upsert-cypher.component';
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component';
 import { InsertMoneyComponent } from '../dialogs/insert-money/insert-money.component';
+import { MatSort } from '@angular/material/sort'
+import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
   selector: 'app-equipment',
   templateUrl: './equipment.component.html',
   styleUrls: ['./equipment.component.scss']
 })
-export class EquipmentComponent {
+export class EquipmentComponent implements OnInit, AfterViewInit {
   @Input() equipmentData: any
   @Input() characterId: any
 
   @Output() reloadCharacter = new EventEmitter()
 
-  itemDisplayedColumns: string[] = [ 'itemName', 'itemCount', 'itemDescription', 'menu' ]
-  weaponDisplayedColumns: string[] = [ 'weaponName', 'weaponCount', 'weaponType', 'weaponDescription', 'menu' ]
-  oddityDisplayedColumns: string[] = [ 'oddityName', 'oddityCount', 'oddityDescription', 'menu' ]
-  cypherDisplayedColumns: string[] = [ 'cypherName', 'cypherTier', 'cypherDescription', 'menu' ]
+  itemData: any
+  weaponData: any
+  oddityData: any
+  cypherData: any
+
+  itemDisplayedColumns: string[] = [ 'name', 'count', 'description', 'menu' ]
+  weaponDisplayedColumns: string[] = [ 'name', 'type', 'count', 'description', 'menu' ]
+  oddityDisplayedColumns: string[] = [ 'name', 'count', 'description', 'menu' ]
+  cypherDisplayedColumns: string[] = [ 'name', 'tier', 'description', 'menu' ]
+  
+  @ViewChild('itemsTable') itemsTableSort: MatSort | undefined
+  @ViewChild('weaponsTable') weaponsTableSort: MatSort | undefined
+  @ViewChild('odditiesTable') odditiesTableSort: MatSort | undefined
+  @ViewChild('cyphersTable') cyphersTableSort: MatSort | undefined
 
   constructor(private http: HttpClient, private dialog: Dialog) { }
+
+  ngOnInit(): void {
+    this.itemData = new MatTableDataSource(this.equipmentData.items)
+    this.weaponData = new MatTableDataSource(this.equipmentData.weapons)
+    this.oddityData = new MatTableDataSource(this.equipmentData.oddities)
+    this.cypherData = new MatTableDataSource(this.equipmentData.cyphers)
+  }
+
+  ngAfterViewInit() {
+    this.itemData.sort = this.itemsTableSort
+    this.weaponData.sort = this.weaponsTableSort
+    this.oddityData.sort = this.odditiesTableSort
+    this.cypherData.sort = this.cyphersTableSort
+  }
 
   upsertItem(isAdd: boolean, item: any) {
     let dialogData = {

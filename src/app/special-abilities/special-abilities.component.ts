@@ -1,26 +1,28 @@
-import { Dialog } from '@angular/cdk/dialog';
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BASE_URL } from '../helpers/constants';
-import { UpsertAbilityComponent } from '../dialogs/upsert-ability/upsert-ability.component';
-import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component';
-import { ability } from '../models/character';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Dialog } from '@angular/cdk/dialog'
+import { HttpClient } from '@angular/common/http'
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { BASE_URL } from '../helpers/constants'
+import { UpsertAbilityComponent } from '../dialogs/upsert-ability/upsert-ability.component'
+import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component'
+import { ability } from '../models/character'
+import { trigger, state, style, transition, animate } from '@angular/animations'
+import { MatSort } from '@angular/material/sort'
+import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
   selector: 'app-special-abilities',
   templateUrl: './special-abilities.component.html',
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('collapsed, void', style({height: '0px', minHeight: '0'})),
       state('expanded', style({height: '*'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
   styleUrls: ['./special-abilities.component.scss']
 })
-export class SpecialAbilitiesComponent implements OnInit {
+export class SpecialAbilitiesComponent implements AfterViewInit, OnInit {
   @Input() abilitiesData: any
   @Input() isEditing: boolean = false
   @Input() characterId: string = ''
@@ -37,6 +39,8 @@ export class SpecialAbilitiesComponent implements OnInit {
   columnsToDisplayWithExpand = [...this.abilitiesWithDropdownDisplayedColumns, 'expand']
   expandedElement!: ability | null
 
+  @ViewChild(MatSort) sort!: MatSort
+
   constructor(private http: HttpClient, private dialog: Dialog,
     private router: Router, private route: ActivatedRoute) { }
 
@@ -44,6 +48,11 @@ export class SpecialAbilitiesComponent implements OnInit {
     if (this.isEditing) {
       this.columnsToDisplayWithExpand = [...this.abilitiesWithDropdownDisplayedColumns, 'menu', 'expand']
     }
+    this.abilitiesData = new MatTableDataSource(this.abilitiesData)
+  }
+
+  ngAfterViewInit() {
+    this.abilitiesData.sort = this.sort
   }
 
   getDisplayTitle(column: string) {

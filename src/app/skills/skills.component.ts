@@ -1,17 +1,19 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BASE_URL } from '../helpers/constants';
 import { UpsertSkillComponent } from '../dialogs/upsert-skill/upsert-skill.component';
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component';
+import { MatSort } from '@angular/material/sort'
+import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })
-export class SkillsComponent {
+export class SkillsComponent implements OnInit, AfterViewInit {
   @Input() skillsData: any
   @Input() isEditing: boolean = false
   @Input() characterId: string = ''
@@ -21,8 +23,18 @@ export class SkillsComponent {
   skillsDisplayedColumns: string[] = [ 'name', 'inability', 'trained', 'specialized' ]
   skillsDisplayedColumnsWithEdit: string[] = [ 'name', 'inability', 'trained', 'specialized', 'menu' ]
 
+  @ViewChild(MatSort) sort: MatSort | undefined
+
   constructor(private http: HttpClient, private dialog: Dialog,
     private router: Router, private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.skillsData = new MatTableDataSource(this.skillsData)
+  }
+
+  ngAfterViewInit() {
+    this.skillsData.sort = this.sort
+  }
 
   upsertSkill(isAdd: boolean, skill: any) {
     let dialogData = {
