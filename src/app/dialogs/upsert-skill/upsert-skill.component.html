@@ -8,6 +8,11 @@
         <input matInput [(ngModel)]="name" />
     </mat-form-field>
     <br/>
+    <mat-form-field class="full-width">
+        <mat-label>Source</mat-label>
+        <input matInput [(ngModel)]="source" />
+    </mat-form-field>
+    <br/>
     <div class="full-width">
       <mat-checkbox [checked]="inability" (change)="inability = !inability" color="primary"></mat-checkbox>
       <span>Inability</span>

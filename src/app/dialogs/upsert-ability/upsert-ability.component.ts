@@ -11,6 +11,7 @@ export class UpsertAbilityComponent {
   upsertType!: string
   characterId!: string
   name!: string
+  source!: string
   cost!: number
   costType!: string
   description!: string
@@ -26,12 +27,14 @@ export class UpsertAbilityComponent {
     if (!this.data.isAdd) {
       this.abilityId = this.data.special.id
       this.name = this.data.special.name
+      this.source = this.data.special.source
       this.cost = this.data.special.cost
       this.costType = this.data.special.costType
       this.description = this.data.special.description
     }
     else {
       this.name = ''
+      this.source = ''
       this.cost = 0
       this.costType = ''
       this.description = ''
@@ -42,6 +45,7 @@ export class UpsertAbilityComponent {
     let special = {
       id: !this.abilityId ? crypto.randomUUID() : this.abilityId,
       name: this.name,
+      source: this.source,
       cost: this.cost,
       costType: this.costType,
       description: this.description

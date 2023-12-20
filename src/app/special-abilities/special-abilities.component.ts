@@ -29,7 +29,7 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit {
 
   @Output() reloadCharacter = new EventEmitter()
 
-  abilitiesWithDropdownDisplayedColumns: string[] = [ 'name', 'cost' ]
+  abilitiesWithDropdownDisplayedColumns: string[] = [ 'name', 'source', 'cost' ]
   abilitiesWithDropdownDisplayedColumnsDisplays = { 
     name: 'Name',
     cost: 'Cost',
@@ -45,10 +45,18 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit {
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log(this.abilitiesData)
+
     if (this.isEditing) {
       this.columnsToDisplayWithExpand = [...this.abilitiesWithDropdownDisplayedColumns, 'menu', 'expand']
     }
     this.abilitiesData = new MatTableDataSource(this.abilitiesData)
+    this.abilitiesData.filterPredicate = function(data: any, filter: string): boolean {
+      let costField = data.cost.toString() + ' ' + data.costType.toString()
+      return data.name.toLowerCase().includes(filter)
+          || data.source.toLowerCase().includes(filter)
+          || costField.toLowerCase().includes(filter)
+    }
   }
 
   ngAfterViewInit() {
@@ -101,5 +109,10 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit {
         })
       }
     })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value
+    this.abilitiesData.filter = filterValue.trim().toLowerCase()
   }
 }

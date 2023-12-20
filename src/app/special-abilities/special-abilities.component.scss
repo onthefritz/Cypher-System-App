@@ -6,8 +6,12 @@
     width: 100%;
 }
 
+.mat-column-source {
+    width: 250px;
+}
+
 .mat-column-cost {
-    width: 150px;
+    width: 100px;
 }
 
 .mat-column-menu {
@@ -41,5 +45,11 @@ tr.detail-row {
 
 .scrollable {
   overflow-y: auto;
-  max-height: 675px;
+  max-height: 575px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 10px;
+  font-size: 14px;
+  width: 100%;
 }

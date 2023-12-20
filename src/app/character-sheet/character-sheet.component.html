@@ -37,6 +37,9 @@
     <div class="right-side">
 
       <mat-card>
+        <div class="tier-advancements-header">
+          <mat-card-title>Tier Advancements</mat-card-title>
+        </div>
         <mat-card-content class="tier-advancements">
           <div class="advancement">
             <mat-checkbox 
@@ -96,14 +99,6 @@
         ></app-stats>
       </div>
 
-      <div class="list-areas">
-        <mat-tab-group>
-          <mat-tab label="Attacks">
-            <app-attacks [attacksData]="characterInfo.attacks"></app-attacks>
-          </mat-tab>
-        </mat-tab-group>
-      </div>
-
     </div>
 
     <div class="right-side">
@@ -119,6 +114,9 @@
                 [abilitiesData]="characterInfo.abilities"
               ></app-special-abilities>
             </div>
+          </mat-tab>
+          <mat-tab label="Attacks">
+            <app-attacks [attacksData]="characterInfo.attacks"></app-attacks>
           </mat-tab>
           <mat-tab label="Equipment">
             <app-equipment

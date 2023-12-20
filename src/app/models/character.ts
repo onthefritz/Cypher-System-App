@@ -106,6 +106,7 @@ export class ability {
     public name: string = ''
     public cost: number = 0
     public costType: string = ''
+    public source: string = ''
     public description: string = ''
 }
 
@@ -149,6 +150,7 @@ export class money {
 export class skill {
     public id: string = ''
     public name: string = ''
+    public source: string = ''
     public inability: boolean = false
     public trained: boolean = false
     public specialized: boolean = false

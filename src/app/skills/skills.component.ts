@@ -20,8 +20,8 @@ export class SkillsComponent implements OnInit, AfterViewInit {
 
   @Output() reloadCharacter = new EventEmitter()
 
-  skillsDisplayedColumns: string[] = [ 'name', 'inability', 'trained', 'specialized' ]
-  skillsDisplayedColumnsWithEdit: string[] = [ 'name', 'inability', 'trained', 'specialized', 'menu' ]
+  skillsDisplayedColumns: string[] = [ 'name', 'source', 'inability', 'trained', 'specialized' ]
+  skillsDisplayedColumnsWithEdit: string[] = [ 'name', 'source', 'inability', 'trained', 'specialized', 'menu' ]
 
   @ViewChild(MatSort) sort: MatSort | undefined
 

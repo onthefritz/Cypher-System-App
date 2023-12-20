@@ -249,8 +249,9 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
     })
   }
 
-  updateMoney(data: any, moneyName: string) {
+  updateMoney(data: any, moneyName: string, moneyId: string) {
     let content = {
+      id: moneyId,
       name: moneyName,
       amount: data.value
     }

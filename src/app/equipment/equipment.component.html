@@ -5,7 +5,7 @@
         [numberValueCurrent]="money.amount"
         [fontSize]="15"
         [element]="money.name"
-        (incrementerChange)="updateMoney($event, money.name)"
+        (incrementerChange)="updateMoney($event, money.name, money.id)"
       ></app-incrementer>
       <span class="delete-money" (click)="deleteMoney(money.id)">X</span>
   </span>
@@ -14,7 +14,7 @@
   </span>
 </div>
 <div class="money-title">
-  Money
+  Currency
 </div>
 
 <mat-tab-group>

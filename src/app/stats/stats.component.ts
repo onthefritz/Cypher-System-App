@@ -24,7 +24,6 @@ export class StatsComponent implements OnInit {
     this.baseCharacterInfo.stats[data.element] = data.value
     let stats = this.baseCharacterInfo
     this.http.post(`${BASE_URL}/stat/setStats/${this.characterId}`, stats).subscribe((res) => {
-      console.log(res)
       this.reloadCharacter.emit()
     })
   }

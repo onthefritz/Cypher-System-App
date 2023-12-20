@@ -7,6 +7,7 @@ exports.updateSkill = async function(characterId, newSkill) {
 
   if (foundSkill) {
     foundSkill.name = newSkill.name
+    foundSkill.source = newSkill.source
     foundSkill.inability = newSkill.inability
     foundSkill.trained = newSkill.trained
     foundSkill.specialized = newSkill.specialized
@@ -45,6 +46,7 @@ exports.updateSpecial = async function(characterId, newSpecial) {
     foundSpecial.name = newSpecial.name
     foundSpecial.cost = newSpecial.cost
     foundSpecial.costType = newSpecial.costType
+    foundSpecial.source = newSpecial.source
     foundSpecial.description = newSpecial.description
   }
   else {
