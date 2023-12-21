@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '../helpers/constants';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-stats',
@@ -42,6 +43,14 @@ export class StatsComponent implements OnInit {
 
   onDamageTrackChange(data: any) {
     this.baseCharacterInfo.stats.damageTrack[data.element] = data.value
+    let stats = this.baseCharacterInfo
+    this.http.post(`${BASE_URL}/stat/setStats/${this.characterId}`, stats).subscribe((res) => {
+      this.reloadCharacter.emit()
+    })
+  }
+
+  recoveryUsed(event: MatCheckboxChange, element: string) {
+    this.baseCharacterInfo.stats[element] = event.checked
     let stats = this.baseCharacterInfo
     this.http.post(`${BASE_URL}/stat/setStats/${this.characterId}`, stats).subscribe((res) => {
       this.reloadCharacter.emit()

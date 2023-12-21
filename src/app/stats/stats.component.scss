@@ -38,6 +38,27 @@
   justify-content: center;
 }
 
-.pool-area {
-  
+.recovery-rolls-section {
+  width: 100%;
+}
+
+.recovery-rolls {
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+.recovery-rolls-header {
+  display: flex;
+  justify-content: center;
+  padding: 16px 16px 0;
+}
+
+.recovery {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 }

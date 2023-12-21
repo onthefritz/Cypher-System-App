@@ -52,10 +52,16 @@ export class stats {
     
     public armor: number = 0
     public movement: number = 0
+    public recoveryBonus: number = 0
     public exhaustion: number = 0
     public damageTrack: damageTrack = new damageTrack
     public breathers: number = 0
     public shortRestsSinceLongRest: number = 0
+
+    public recovery1Action: boolean = false
+    public recovery10Minutes: boolean = false
+    public recovery1Hour: boolean = false
+    public recovery10Hours: boolean = false
 }
 
 export class statHistory {

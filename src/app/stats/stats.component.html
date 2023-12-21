@@ -181,4 +181,45 @@
       <div class="area-title">Breathers</div>
     </div>
   </div>
+  <div class="recovery-rolls-section" *ngIf="isCypher">
+    <mat-card>
+      <div class="recovery-rolls-header">
+        <mat-card-title>Recovery Rolls - 1d6 + {{baseCharacterInfo.stats.recoveryBonus}}</mat-card-title>
+      </div>
+      <mat-card-content class="recovery-rolls">
+        <div class="recovery">
+          <mat-checkbox 
+            [checked]="baseCharacterInfo.stats.recovery1Action"
+            (change)="recoveryUsed($event, 'recovery1Minute')"
+            color="primary"
+          ></mat-checkbox>
+          <div>1 Action</div>
+        </div>
+        <div class="recovery">
+          <mat-checkbox
+            [checked]="baseCharacterInfo.stats.recovery10Minutes"
+            (change)="recoveryUsed($event, 'recovery10Minutes')"
+            color="primary"
+          ></mat-checkbox>
+          <div>10 Minutes</div>
+        </div>
+        <div class="recovery">
+          <mat-checkbox
+            [checked]="baseCharacterInfo.stats.recovery1Hour"
+            (change)="recoveryUsed($event, 'recovery1Hour')"
+            color="primary"
+          ></mat-checkbox>
+          <div>1 Hour</div>
+        </div>
+        <div class="recovery">
+          <mat-checkbox
+            [checked]="baseCharacterInfo.stats.recovery10Hours"
+            (change)="recoveryUsed($event, 'recovery10Hours')"
+            color="primary"
+          ></mat-checkbox>
+          <div>10 Hours</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

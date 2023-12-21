@@ -84,7 +84,7 @@
                 ></app-incrementer>
                 <div class="area-title">Armor</div>
               </div>
-              <div class="base-stat">
+              <div class="base-stat" *ngIf="!characterInfo.settings.cypherSystem">
                 <app-incrementer
                   [fontSize]="25"
                   [numberValueTotal]="characterInfo.baseInfo.stats.movement"
@@ -94,6 +94,17 @@
                   (incrementerChange)="onStatsArmorOrMovementChange($event)"
                 ></app-incrementer>
                 <div class="area-title">Movement</div>
+              </div>
+              <div class="base-stat" *ngIf="characterInfo.settings.cypherSystem">
+                <app-incrementer
+                  [fontSize]="25"
+                  [numberValueTotal]="characterInfo.baseInfo.stats.recoveryBonus"
+                  [numberValueCurrent]="characterInfo.baseInfo.stats.recoveryBonus"
+                  [showIncrementers]="true"
+                  element="recoveryBonus"
+                  (incrementerChange)="onStatsArmorOrMovementChange($event)"
+                ></app-incrementer>
+                <div class="area-title">Recovery Bonus</div>
               </div>
               <div class="base-stat">
                 <app-incrementer

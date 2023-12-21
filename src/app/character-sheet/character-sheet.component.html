@@ -25,7 +25,7 @@
       <mat-card class="character-name">
         <mat-card-content>
             <p>
-              <span class="character-name-info">{{characterInfo.baseInfo.name}}</span> is a
+              <span class="character-name-info">{{characterInfo.baseInfo.name}}</span> is <span class="added-text" *ngIf="characterInfo.settings.cypherSystem">a</span> 
               <span class="character-name-info">{{characterInfo.baseInfo.descriptor}}</span> <span class="added-text" *ngIf="!characterInfo.settings.cypherSystem">and</span> 
               <span class="character-name-info-class" *ngIf="characterInfo.settings.cypherSystem">{{characterInfo.baseInfo.class}}</span> <span class="added-text" *ngIf="characterInfo.settings.cypherSystem">who</span> 
               <span class="character-name-info">{{characterInfo.baseInfo.focus}}</span>
