@@ -10,14 +10,18 @@ import { BASE_URL } from '../helpers/constants';
 export class StatsComponent implements OnInit {
   @Input() baseCharacterInfo: any
   @Input() characterId: any
-  @Input() isAltSheet: boolean = false
+  @Input() settings: any
 
   @Output() reloadCharacter = new EventEmitter()
+
+  isAltSheet: boolean = false
+  isCypher: boolean = false
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    
+    this.isAltSheet = this.settings.altSheet
+    this.isCypher = this.settings.cypherSystem
   }
 
   onStatChange(data: any) {

@@ -19,7 +19,7 @@
       ></app-incrementer>
       <div class="area-title">Armor</div>
     </div>
-    <div class="base-stat">
+    <div class="base-stat" *ngIf="!isCypher">
       <app-incrementer
         [fontSize]="25"
         [numberValueTotal]="baseCharacterInfo.stats.movement"
@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="stat-info">
-    <div class="base-stat">
+    <div class="base-stat" *ngIf="!isCypher">
       <app-incrementer
         [fontSize]="25"
         [numberValueTotal]="baseCharacterInfo.stats.exhaustion"
@@ -99,7 +99,7 @@
         (statChange)="onStatChange($event)"
       ></app-pool-stat>
     </div>
-    <div class="pool-area">
+    <div class="pool-area" *ngIf="!isCypher">
       <app-pool-stat
         poolName="CHARM"
         [poolTotal]="baseCharacterInfo.stats.charm"
@@ -161,7 +161,7 @@
         element="debilitated"
         (checkboxChange)="onDamageTrackChange($event)"
       ></app-checkbox>
-      <app-checkbox
+      <app-checkbox *ngIf="!isCypher"
         [defaultValue]="baseCharacterInfo.stats.damageTrack.unconscious"
         checkedStyle="X"
         title="Unconscious"
@@ -169,7 +169,7 @@
         (checkboxChange)="onDamageTrackChange($event)"
       ></app-checkbox>
     </div>
-    <div class="base-stat">
+    <div class="base-stat" *ngIf="!isCypher">
       <app-incrementer
         [fontSize]="25"
         [numberValueTotal]="baseCharacterInfo.tier * 2"

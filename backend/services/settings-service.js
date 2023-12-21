@@ -5,6 +5,7 @@ exports.updateSettings = async function(characterId, newSettings) {
 
   let settings = character.settings
   settings.altSheet = newSettings.altSheet
+  settings.cypherSystem = newSettings.cypherSystem
 
   await characterService.updateCharacter(characterId, character)
 }

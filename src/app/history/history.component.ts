@@ -14,12 +14,16 @@ import { BASE_URL } from '../helpers/constants';
 export class HistoryComponent {
   @Input() baseInfo: any
   @Input() characterId: string = ''
+  @Input() settings: any
 
   @Output() reloadCharacter = new EventEmitter()
 
   tierDisplayedColumns: string[] = [ 'tier', 'stats', 'edge', 'effort', 'train', 'other', 'editAdvancement' ]
   statsDisplayedColumns: string[] = [ 'statsTier', 'pointsToMight', 'pointsToSpeed', 'pointsToIntellect', 'pointsToCharm', 'editPoints' ]
   edgeDisplayedColumns: string[] = [ 'edgeTier', 'pointsToMightEdge', 'pointsToSpeedEdge', 'pointsToIntellectEdge', 'pointsToCharmEdge', 'editEdge' ]
+
+  cypherStatsDisplayedColumns: string[] = [ 'statsTier', 'pointsToMight', 'pointsToSpeed', 'pointsToIntellect', 'editPoints' ]
+  cypherEdgeDisplayedColumns: string[] = [ 'edgeTier', 'pointsToMightEdge', 'pointsToSpeedEdge', 'pointsToIntellectEdge', 'editEdge' ]
 
   constructor(private http: HttpClient, private dialog: Dialog,
     private router: Router) { }

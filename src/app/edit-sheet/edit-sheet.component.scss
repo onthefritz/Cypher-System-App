@@ -42,9 +42,21 @@
     align-items: baseline;
 }
 
+.name-section-cypher {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
 .name-field {
-    width: 30%;
+    width: 28%;
     margin: 0 5px 0 5px;
+}
+
+.name-field-cypher {
+  width: 100%;
+  margin: 0 5px 0 5px;
 }
 
 .stat-info {
@@ -76,4 +88,8 @@
 .list-areas {
   width: 100%;
   min-width: 200px;
+}
+
+.full-width {
+  width: 100%;
 }

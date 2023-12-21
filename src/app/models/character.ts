@@ -11,6 +11,7 @@ export class character {
 export class baseInfo {
     public name: string = ''
     public descriptor: string = ''
+    public class: string = ''
     public focus: string = ''
     public tier: number = 0
     public xp: number = 0
@@ -158,4 +159,5 @@ export class skill {
 
 export class settings {
     public altSheet: boolean = false
+    public cypherSystem: boolean = false
 }

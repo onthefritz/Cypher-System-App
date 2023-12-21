@@ -25,8 +25,9 @@
       <mat-card class="character-name">
         <mat-card-content>
             <p>
-              <span class="character-name-info">{{characterInfo.baseInfo.name}}</span> is 
-              <span class="character-name-info">{{characterInfo.baseInfo.descriptor}}</span> and
+              <span class="character-name-info">{{characterInfo.baseInfo.name}}</span> is a
+              <span class="character-name-info">{{characterInfo.baseInfo.descriptor}}</span> <span class="added-text" *ngIf="!characterInfo.settings.cypherSystem">and</span> 
+              <span class="character-name-info-class" *ngIf="characterInfo.settings.cypherSystem">{{characterInfo.baseInfo.class}}</span> <span class="added-text" *ngIf="characterInfo.settings.cypherSystem">who</span> 
               <span class="character-name-info">{{characterInfo.baseInfo.focus}}</span>
             </p>
         </mat-card-content>
@@ -47,7 +48,7 @@
               (change)="tierAdvanced($event, 'pointsToStatPools')"
               color="primary"
             ></mat-checkbox>
-            <div>+5 to Pools</div>
+            <div>+{{!characterInfo.settings.cypherSystem ? 5 : 4}} to Pools</div>
           </div>
           <div class="advancement">
             <mat-checkbox
@@ -94,7 +95,7 @@
         <app-stats
           [characterId]="characterInfo.id"
           [baseCharacterInfo]="characterInfo.baseInfo"
-          [isAltSheet]="characterInfo.settings.altSheet"
+          [settings]="characterInfo.settings"
           (reloadCharacter)="loadCharacter()"
         ></app-stats>
       </div>

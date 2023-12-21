@@ -10,6 +10,7 @@ import { Component, Inject } from '@angular/core';
 export class SettingsComponent {
   characterId!: string
   altSheet!: boolean
+  cypherSystem!: boolean
 
   constructor(private http: HttpClient, private dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: any) { }
@@ -19,15 +20,18 @@ export class SettingsComponent {
 
     if (!this.data.isAdd) {
       this.altSheet = this.data.settings.altSheet
+      this.cypherSystem = this.data.settings.cypherSystem
     }
     else {
       this.altSheet = false
+      this.cypherSystem = false
     }
   }
 
   updateSettings() {
     let settings = {
-      altSheet: this.altSheet
+      altSheet: this.altSheet,
+      cypherSystem: this.cypherSystem
     }
 
     this.dialogRef.close(settings)
