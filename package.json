@@ -1,6 +1,6 @@
 {
   "name": "electron-tree-cypher",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "main.js",
   "description": "App to easily create and use characters for the Tree Cypher System",
   "license": "UNLICENSED",

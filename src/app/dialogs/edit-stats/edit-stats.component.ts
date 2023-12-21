@@ -14,6 +14,7 @@ export class EditStatsComponent implements OnInit {
   usedOnSpeed: number = 0
   usedOnIntellect: number = 0
   usedOnCharm: number = 0
+  isCypher: boolean = false
 
   isPools: boolean = false
   characterId: string = ''
@@ -28,6 +29,8 @@ export class EditStatsComponent implements OnInit {
     this.characterId = this.data.characterId
     this.isPools = this.data.isPools
     this.tier = this.data.tier
+
+    this.isCypher = this.data.isCypher
 
     if (this.data.rowData) {
       if (this.isPools) {

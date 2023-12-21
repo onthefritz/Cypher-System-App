@@ -56,20 +56,22 @@
         </div>
       </div>
       
-      <div class="counter-title">Charm</div>
-      <div class="counter">
-        <div>
-          <button mat-icon-button (click)="decreaseCount('charm')">
-            <mat-icon>remove</mat-icon>
-          </button>
-        </div>
-        <div class="counter-count">
-          <span class="count">{{usedOnCharm}}</span>
-        </div>
-        <div>
-          <button mat-icon-button (click)="increaseCount('charm')">
-            <mat-icon>add</mat-icon>
-          </button>
+      <div class="charm" *ngIf="!isCypher">
+        <div class="counter-title">Charm</div>
+        <div class="counter">
+          <div>
+            <button mat-icon-button (click)="decreaseCount('charm')">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <div class="counter-count">
+            <span class="count">{{usedOnCharm}}</span>
+          </div>
+          <div>
+            <button mat-icon-button (click)="increaseCount('charm')">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
     </div>
