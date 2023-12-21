@@ -1,27 +1,13 @@
-# ElectronTreeCypher
+# Cypher System Application
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.3.
 
-## Development server
+## What does it do?
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This app was built with the intention of easing character creation within the Cypher System TTRPG game created by [Monte Cook Games](https://www.montecookgames.com/). I initially built it for an off shoot of the Cypher System that I built that changes a few things within Character Creation but decided to allow for the base game to work as well.
 
-## Code scaffolding
+When you download the creator from the [Releases](https://github.com/onthefritz/Cypher-System-App/releases) channel you will be able to pick up either a Windows or Debian version. They are both installers that will install the creator. 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The Windows version uses [Squirrel](https://www.electronforge.io/config/makers/squirrel.windows) for instillation which is supposed to be a no wizard installer but it does have a small green window popup that just kind of sits there for a few minutes during the install process.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+If any bugs are noted, please feel free to let me know and when I get time I will work on trying to resolve them. This is a personal project that I made for myself and I'm not front end designer so it's not beautiful but it works.
