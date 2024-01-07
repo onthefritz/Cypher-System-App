@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Inject, OnInit } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { BASE_URL } from '../helpers/constants'
 import { characterList } from '../models/character-list'
+import { settings } from '../models/settings'
 import { Dialog } from '@angular/cdk/dialog'
 import { AddCharacterDialogComponent } from '../dialogs/add-character-dialog/add-character-dialog.component'
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component'
 import { Router } from '@angular/router'
+import { DOCUMENT } from '@angular/common'
 
 @Component({
   selector: 'app-character-list',
@@ -16,12 +18,33 @@ export class CharacterListComponent implements OnInit {
   characters: characterList[] = []
   isUpdated: boolean = false
   hasIds: boolean = false
+  theme: string = ''
+  themeIcon: string = ''
+  
+  lightThemeIcon: string = 'brightness_5'
+  darkThemeIcon: string = 'brightness_2'
 
   constructor(private http: HttpClient, private dialog: Dialog,
-    private router: Router) { }
+    private router: Router, @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit() {
+    this.loadSettings()
     this.loadCharacters()
+  }
+
+  loadSettings() {
+    this.http.get(`${BASE_URL}/app-settings/get`).subscribe((res) => {
+      let settings = res as settings
+
+      this.theme = settings.theme
+
+      if (this.theme == 'light') {
+        this.themeIcon = this.darkThemeIcon
+      }
+      else {
+        this.themeIcon = this.lightThemeIcon
+      }
+    })
   }
 
   loadCharacters() {
@@ -119,5 +142,27 @@ export class CharacterListComponent implements OnInit {
 
   openSheetEditor(id: string) {
     this.router.navigateByUrl(`/edit/${id}`)
+  }
+
+  changeTheme() {
+    this.document.body.classList.toggle('light')
+    this.document.body.classList.toggle('dark')
+
+    if (this.theme == 'light') {
+      this.theme = 'dark'
+      this.themeIcon = this.lightThemeIcon
+    }
+    else {
+      this.theme = 'light'
+      this.themeIcon = this.darkThemeIcon
+    }
+
+    let newTheme = {
+      theme: this.theme
+    }
+
+    this.http.post(`${BASE_URL}/app-settings/theme`, newTheme).subscribe((res) => {
+      
+    })
   }
 }

@@ -4,10 +4,10 @@
     (focusin)="clearText()" (keydown.enter)="applyChange($event)"
     (keyup)="keyUp($event)" (blur)="loseFocus($event)" #numberInput />
   <div class="incrementers" *ngIf="showIncrementers">
-    <button mat-flat-button class="small-button" (click)="incrementUp()">
+    <button class="incrementer-button" (click)="incrementUp()">
       &and;
     </button>
-    <button mat-flat-button class="small-button" (click)="incrementDown()">
+    <button class="incrementer-button" (click)="incrementDown()">
       &or;
     </button>
   </div>

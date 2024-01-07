@@ -21,9 +21,17 @@
 .mat-column-expand {
   width: 20px;
 }
-        
-.mat-mdc-row:nth-child(4n-3), .mat-mdc-row:nth-child(4n-2){
-    background-color: lightblue;
+
+.mat-mdc-row, .mat-mdc-header-row {
+  color: var(--tableTextColor) !important;
+}
+
+.mat-mdc-row:nth-child(4n-3), .mat-mdc-row:nth-child(4n-2) {
+    background-color: var(--tableOddRowColor);
+}
+
+.mat-mdc-row:nth-child(4n-1), .mat-mdc-row:nth-child(4n), .mat-mdc-header-row {
+    background-color: var(--tableEvenRowColor);
 }
 
 tr.detail-row {

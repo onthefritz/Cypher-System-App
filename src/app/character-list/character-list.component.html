@@ -5,6 +5,11 @@
         <button mat-raised-button color="accent" (click)="addIdsToCharacter()" *ngIf="!hasIds">Add Ids to Character</button>
     </div>
     <div class="toolbar-title">
+        <div>
+          <button mat-icon-button aria-label="Theme Icon" (click)="changeTheme()">
+            <mat-icon>{{themeIcon}}</mat-icon>
+          </button>
+        </div>
         <div>Tree Cypher System</div>
     </div>
 </mat-toolbar>

@@ -171,7 +171,7 @@
   </mat-tab>
   <mat-tab label="Cyphers">
     <button class="add-button" mat-flat-button color="primary" (click)="upsertCypher(true, null)">Add Cypher</button>
-    <div>Cypher Limit: {{equipmentData.cypherCount}}</div>
+    <div class="cypher-title">Cypher Limit: {{equipmentData.cypherCount}}</div>
     <div class="scrollable">
         <table mat-table [dataSource]="cypherData" class="equipment-table" #cyphersTable="matSort"
         matSort>
