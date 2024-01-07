@@ -38,4 +38,11 @@ app.on('ready', () => {
 			console.log('File was created')
 		})
 	}
+
+  let settingsFile = `${constants.base_data_url}/app-settings.json`
+	if (!fs.existsSync(settingsFile)) {
+		fs.writeFile(settingsFile, '{}', () => {
+			console.log('File was created')
+		})
+	}
 })

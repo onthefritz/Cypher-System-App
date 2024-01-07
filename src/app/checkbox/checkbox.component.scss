@@ -1,5 +1,6 @@
 .box {
-    border: 1px black solid;
+    border: 1px solid;
+    border-color: var(--borderColor);
     border-radius: 5px;
     width: 117px;
     height: 60px;
@@ -13,9 +14,11 @@
 .check {
     font-size: 40px;
     padding-bottom: 5px;
+    color: var(--textColor);
 }
 
 .title {
     width: 100%;
     text-align: center;
+    color: var(--textColor);
 }

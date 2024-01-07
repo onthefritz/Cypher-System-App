@@ -8,7 +8,6 @@
 }
 
 .base-stat {
-  border: 1px black solid;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -16,6 +15,11 @@
   justify-content: space-evenly;
   align-items: center;
   min-width: 140px;
+
+  border: 1px solid;
+  border-color: var(--borderColor);
+  background-color: var(--bgColor);
+  color: var(--textColor);
 }
 
 .damage-track {
@@ -61,4 +65,9 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+}
+
+.mat-mdc-card {
+  background-color: var(--bgColorCard);
+  color: var(--textColor);
 }

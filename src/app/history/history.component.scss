@@ -2,8 +2,16 @@
   margin: 5px 0;
 }
 
-.mat-mdc-row:nth-child(odd){
-    background-color: lightblue;
+.mat-mdc-row, .mat-mdc-header-row {
+  color: var(--tableTextColor) !important;
+}
+
+.mat-mdc-row:nth-child(odd) {
+  background-color: var(--tableOddRowColor);
+}
+
+.mat-mdc-row:nth-child(even), .mat-mdc-header-row {
+  background-color: var(--tableEvenRowColor);
 }
 
 .tiers-table,

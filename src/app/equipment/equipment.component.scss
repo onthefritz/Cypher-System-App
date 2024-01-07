@@ -4,17 +4,19 @@
 
 .delete-money {
   position: absolute;
-  background-color: white;
+  background-color: var(--bgColor);
   border-radius: 15px;
   width: 15px;
   height: 15px;
   right: -7px;
   top: -10px;
-  border: 1px black solid;
+  border: 1px solid;
+  border-color: var(--borderColor);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: var(--textColor);
 }
 
 .add-money {
@@ -25,6 +27,8 @@
   justify-content: space-evenly;
   height: 100%;
   cursor: pointer;
+  background-color: var(--bgColor);
+  color: var(--textColor);
 }
 
 .money {
@@ -35,17 +39,25 @@
 }
 
 .money-amount {
-  border: 1px black solid;
+  border: 1px solid;
+  border-color: var(--borderColor);
   border-radius: 5px;
   padding: 0 5px 0 5px;
   margin: 0 5px 0 5px;
   text-align: center;
   position: relative;
   min-height: 50px;
+  color: var(--textColor);
+  background-color: var(--bgColor);
 }
 
 .money-title {
   margin-left: 5px;
+  color: var(--textColor);
+}
+
+.cypher-title {
+  color: var(--textColor);
 }
 
 .equipment-table {
@@ -85,8 +97,16 @@
   text-align: center;
 }
 
-.mat-mdc-row:nth-child(odd){
-  background-color: lightblue;
+.mat-mdc-row, .mat-mdc-header-row {
+  color: var(--tableTextColor) !important;
+}
+
+.mat-mdc-row:nth-child(odd) {
+    background-color: var(--tableOddRowColor);
+}
+
+.mat-mdc-row:nth-child(even), .mat-mdc-header-row {
+    background-color: var(--tableEvenRowColor);
 }
 
 .scrollable {

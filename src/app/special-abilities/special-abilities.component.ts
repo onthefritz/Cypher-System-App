@@ -45,8 +45,6 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit {
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(this.abilitiesData)
-
     if (this.isEditing) {
       this.columnsToDisplayWithExpand = [...this.abilitiesWithDropdownDisplayedColumns, 'menu', 'expand']
     }

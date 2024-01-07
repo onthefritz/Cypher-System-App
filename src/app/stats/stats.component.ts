@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '../helpers/constants';
 import { MatCheckboxChange } from '@angular/material/checkbox';

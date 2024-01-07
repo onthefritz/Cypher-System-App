@@ -5,8 +5,7 @@ import { character } from '../models/character';
 @Component({
   selector: 'app-incrementer',
   templateUrl: './incrementer.component.html',
-  styleUrls: ['./incrementer.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./incrementer.component.scss']
 })
 export class IncrementerComponent implements OnInit, AfterViewInit {
   @Input() numberValueTotal: number = 0
