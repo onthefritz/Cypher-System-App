@@ -1,10 +1,14 @@
 <mat-toolbar color="primary" class="custom-toolbar">
     <div class="toolbar-buttons">
         <button mat-raised-button color="accent" (click)="addCharacterDialog()">Add Character</button>
-        <button mat-raised-button color="accent" (click)="updateCharactersBaseValue()" *ngIf="!isUpdated">Update Characters Base Values</button>
-        <button mat-raised-button color="accent" (click)="addIdsToCharacter()" *ngIf="!hasIds">Add Ids to Character</button>
     </div>
     <div class="toolbar-title">
+        <div>
+          <button mat-icon-button aria-label="Download Icon" (click)="clickImport()">
+            <input type="file" id="importCharacter" (change)="importCharacter($event)" style="display:none" multiple />
+            <mat-icon>vertical_align_top</mat-icon>
+          </button>
+        </div>
         <div>
           <button mat-icon-button aria-label="Theme Icon" (click)="changeTheme()">
             <mat-icon>{{themeIcon}}</mat-icon>
@@ -16,13 +20,19 @@
 
 <div class="grid">
     <mat-card class="character" *ngFor="let character of characters">
-        <mat-card-header>
-            <mat-card-title>{{character.name ? character.name : '(No Name)'}}</mat-card-title>
-        </mat-card-header>
         <mat-card-content>
-            <mat-label>Descriptor: {{character.descriptor ? character.descriptor : '(No Descriptor)'}}</mat-label>
+            <mat-label class="sentence" *ngIf="character.isCypher">
+                <b>{{character.name ? character.name : '(No Name)'}}</b> is a 
+                <b>{{character.descriptor ? character.descriptor : '(No Descriptor)'}} {{character.class ? character.class : '(No Class)'}}</b> who
+                <b>{{character.focus ? character.focus : '(No Focus)'}}</b>
+            </mat-label>
+            <mat-label class="sentence" *ngIf="!character.isCypher">
+                <b>{{character.name ? character.name : '(No Name)'}}</b> is
+                <b>{{character.descriptor ? character.descriptor : '(No Descriptor)'}}</b> and
+                <b>{{character.focus ? character.focus : '(No Focus)'}}</b>
+            </mat-label>
             <br/>
-            <mat-label>Focus: {{character.focus ? character.focus : '(No Focus)'}}</mat-label>
+            <mat-label><i>{{character.isCypher ? 'Cypher System' : 'Tree Cypher System'}}</i></mat-label>
         </mat-card-content>
         <mat-card-actions align="end">
             <button mat-button (click)="openSheet(character.id)">OPEN</button>

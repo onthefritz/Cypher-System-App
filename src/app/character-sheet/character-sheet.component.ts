@@ -173,4 +173,19 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
       }
     })
   }
+
+  exportCharacter() {
+    this.http.get(`${BASE_URL}/character/${this.characterId}`).subscribe((res) => {
+      let characterInfo = res as character
+
+      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(characterInfo))
+      var downloadAnchorNode = document.createElement('a')
+      downloadAnchorNode.style.display = 'none'
+      downloadAnchorNode.setAttribute("href", dataStr)
+      downloadAnchorNode.setAttribute("download", characterInfo.baseInfo.name + ".json")
+      document.body.appendChild(downloadAnchorNode) // required for firefox
+      downloadAnchorNode.click()
+      downloadAnchorNode.remove()
+    })
+  }
 }

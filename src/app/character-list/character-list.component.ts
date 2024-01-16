@@ -16,8 +16,6 @@ import { DOCUMENT } from '@angular/common'
 })
 export class CharacterListComponent implements OnInit {
   characters: characterList[] = []
-  isUpdated: boolean = false
-  hasIds: boolean = false
   theme: string = ''
   themeIcon: string = ''
   
@@ -50,8 +48,6 @@ export class CharacterListComponent implements OnInit {
   loadCharacters() {
     this.http.get(`${BASE_URL}/character/getAll`).subscribe((res) => {
       this.characters = res as characterList[]
-      this.isUpdated = !this.characters.some((char) => !char.isUpdated)
-      this.hasIds = !this.characters.some((char) => !char.hasIds)
     })
   }
 
@@ -77,54 +73,6 @@ export class CharacterListComponent implements OnInit {
     dialogRef.closed.subscribe(result => {
       if (result) {
         this.http.delete(`${BASE_URL}/character/delete/${characterId}`).subscribe({
-            next: () => {
-                this.loadCharacters()
-            },
-            error: (error) => {
-                console.log(error)
-            }
-        })
-      }
-    })
-  }
-
-  updateCharactersBaseValue() {
-    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-        minWidth: '300px',
-        data: {
-          title: "Are you sure?",
-          message: "This action cannot be undone.",
-          okayButton: "Yes"
-        }
-    })
-
-    dialogRef.closed.subscribe(result => {
-      if (result) {
-        this.http.get(`${BASE_URL}/character/fix/updateBaseValues`).subscribe({
-            next: () => {
-                this.loadCharacters()
-            },
-            error: (error) => {
-                console.log(error)
-            }
-        })
-      }
-    })
-  }
-
-  addIdsToCharacter() {
-    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-        minWidth: '300px',
-        data: {
-          title: "Are you sure?",
-          message: "This action cannot be undone.",
-          okayButton: "Yes"
-        }
-    })
-
-    dialogRef.closed.subscribe(result => {
-      if (result) {
-        this.http.get(`${BASE_URL}/character/fix/addIdsToCharacter`).subscribe({
             next: () => {
                 this.loadCharacters()
             },
@@ -164,5 +112,55 @@ export class CharacterListComponent implements OnInit {
     this.http.post(`${BASE_URL}/app-settings/theme`, newTheme).subscribe((res) => {
       
     })
+  }
+
+  clickImport() {
+    let importInput = document.getElementById('importCharacter')
+    importInput?.click()
+  }
+
+  importCharacter(event: any) {
+    let importInput = (<HTMLInputElement>document.getElementById('importCharacter'))
+    let files = importInput?.files
+
+    if (files != null && files.length > 0) {
+      let reader = new FileReader()
+
+      reader.onload = (readerEvt: any) => {
+        let fileData = JSON.parse(readerEvt.target.result)
+
+        let characterFound = this.characters.some(x => x.id == fileData.id)
+
+        if (characterFound) {
+          const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+            minWidth: '300px',
+            data: {
+              title: "Are you sure?",
+              message: `There is a pre-existing character with the same ID. 
+                This will overwrite your current character. 
+                This cannot be undone.`,
+                okayButton: "YES"
+            }
+          })
+      
+          dialogRef.closed.subscribe(result => {
+            if (result) {
+              this.http.post(`${BASE_URL}/character/importCharacter`, fileData).subscribe((res) => {
+                this.loadCharacters()
+              })
+            }
+          })
+        }
+        else {
+          this.http.post(`${BASE_URL}/character/importCharacter`, fileData).subscribe((res) => {
+            this.loadCharacters()
+          })
+        }
+      }
+
+      reader.readAsText(files[0])
+
+      importInput.value = ''
+    }
   }
 }
