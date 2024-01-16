@@ -38,3 +38,11 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.sentence {
+    font-size: 15px !important;
+
+    & b {
+        font-size: 20px !important;
+    }
+}

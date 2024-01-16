@@ -25,17 +25,10 @@ app.on('ready', () => {
 
 	controllerSetup.setup()
 
-  let dataFolder = `${constants.base_data_url}`
-  if (!fs.existsSync(dataFolder)) {
-      fs.mkdir(dataFolder, () => {
-          console.log('Directory was made')
-      })
-  }
-
-	let charactersFile = `${constants.base_data_url}/characters.json`
-	if (!fs.existsSync(charactersFile)) {
-		fs.writeFile(charactersFile, '[]', () => {
-			console.log('File was created')
+	let dataFolder = `${constants.base_data_url}`
+	if (!fs.existsSync(dataFolder)) {
+		fs.mkdir(dataFolder, () => {
+			console.log('Directory was made')
 		})
 	}
 

@@ -2,13 +2,36 @@ const fs = require('fs/promises')
 const constants = require('../helpers/constants')
 const { randomUUID } = require('crypto');
 
-exports.getCharacters = async function() {
-    let characters = []
-    await fs.readFile(`${constants.base_data_url}/characters.json`, 'utf-8').then((data) => {
-        characters = data
-    })
+exports.getCharactersForList = async function() {
+  let filesToIgnore = ['app-settings', 'characters']
+  let foundFiles = []
+  let characters = []
 
-    return characters
+  await fs.readdir(`${constants.base_data_url}`).then((data) => {
+    data.forEach(file => {
+      let isFileToRead = !filesToIgnore.some(x => file.includes(x))
+      if (isFileToRead)
+        foundFiles.push(file)
+    })
+  })
+
+  for (let file of foundFiles) {
+    await fs.readFile(`${constants.base_data_url}/${file}`, 'utf-8').then((data) => {
+      let parsedCharacter = JSON.parse(data)
+      let character = {
+        id: parsedCharacter.id,
+        name: parsedCharacter.baseInfo.name,
+        descriptor: parsedCharacter.baseInfo.descriptor,
+        class: parsedCharacter.baseInfo.class,
+        focus: parsedCharacter.baseInfo.focus,
+        isCypher: parsedCharacter.settings.cypherSystem
+      }
+
+      characters.push(character)
+    })
+  }
+
+  return characters
 }
 
 exports.getCharacter = async function(id) {
@@ -90,39 +113,6 @@ exports.sumArrayField = function(array, field) {
   return total
 }
 
-exports.addCharacterToList = async function(characterData) {
-    let foundData = []
-    await fs.readFile(`${constants.base_data_url}/characters.json`, 'utf-8').then((data) => {
-        foundData = JSON.parse(data)
-    })
-    
-    let characterListData = {
-        id: characterData.id,
-        name: characterData.baseInfo.name,
-        descriptor: characterData.baseInfo.descriptor,
-        focus: characterData.baseInfo.focus,
-        isUpdated: true,
-        hasIds: true
-    }
-    foundData.push(characterListData)
-
-    await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(foundData))
-}
-
-exports.editCharacterList = async function(id, name, descriptor, focus) {
-    let foundData = []
-    await fs.readFile(`${constants.base_data_url}/characters.json`, 'utf-8').then((data) => {
-        foundData = JSON.parse(data)
-    })
-
-    let characterListData = foundData.find(x => x.id === id)
-    characterListData.name = name
-    characterListData.descriptor = descriptor
-    characterListData.focus = focus
-
-    await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(foundData))
-}
-
 exports.addCharacter = async function(characterData) {
   characterData.baseInfo.tier = 1
   characterData.baseInfo.stats.movement = 30
@@ -180,14 +170,6 @@ exports.updateCharacter = async function(characterId, character) {
 
 exports.deleteCharacter = async function(characterId) {
     let foundData = []
-    await fs.readFile(`${constants.base_data_url}/characters.json`, 'utf-8').then((data) => {
-        foundData = JSON.parse(data)
-
-        foundData = foundData.filter(x => x.id !== characterId)
-    })
-
-    await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(foundData))
-
     await fs.unlink(`${constants.base_data_url}/${characterId}.json`)
 }
 
@@ -311,6 +293,12 @@ exports.setAdvancements = async function (characterId, data) {
   await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
 }
 
+exports.importCharacter = async function(data) {
+  let characterId = data.id
+
+  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(data))
+}
+
 exports.levelUp = async function(characterId) {
   let character = await this.getCharacter(characterId)
 
@@ -343,125 +331,4 @@ exports.deleteTier = async function(characterId, tier) {
   character.baseInfo.tier -= 1
 
   await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
-}
-
-exports.updateBaseValues = async function() {
-  let charactersJson = await this.getCharacters()
-  let characters = JSON.parse(charactersJson)
-  
-  let updatedCharacters = []
-  for (let i = 0; i < characters.length; i++) {
-    let character = characters[i]
-    let charDeets = await this.getCharacter(character.id)
-    
-    charDeets.baseInfo.statHistory[0].pointsToMight = 7
-    charDeets.baseInfo.statHistory[0].pointsToSpeed = 7
-    charDeets.baseInfo.statHistory[0].pointsToIntellect = 7
-    charDeets.baseInfo.statHistory[0].pointsToCharm = 7
-    
-    charDeets.baseInfo.stats.might = this.sumArrayField(charDeets.baseInfo.statHistory, 'pointsToMight')
-    charDeets.baseInfo.stats.speed = this.sumArrayField(charDeets.baseInfo.statHistory, 'pointsToSpeed')
-    charDeets.baseInfo.stats.intellect = this.sumArrayField(charDeets.baseInfo.statHistory, 'pointsToIntellect')
-    charDeets.baseInfo.stats.charm = this.sumArrayField(charDeets.baseInfo.statHistory, 'pointsToCharm')
-
-    charDeets.baseInfo.stats.hp = charDeets.baseInfo.stats.might + charDeets.baseInfo.stats.speed
-    charDeets.baseInfo.stats.ap = charDeets.baseInfo.stats.intellect + charDeets.baseInfo.stats.charm
-  
-    await this.updateCharacter(character.id, charDeets)
-    character.isUpdated = true
-    updatedCharacters.push(character)
-  }
-
-  await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(updatedCharacters))
-}
-
-exports.addIdsToCharacter = async function() {
-  let charactersJson = await this.getCharacters()
-  let characters = JSON.parse(charactersJson)
-
-  let updatedCharacters = []
-  for (let i = 0; i < characters.length; i++) {
-    let character = characters[i]
-    let charDeets = await this.getCharacter(character.id)
-    
-    charDeets.attacks.forEach((attack) => {
-      let randomId = randomUUID()
-
-      while (charDeets.attacks.some(x => x.id === randomId)) {
-        randomId = randomUUID()
-      }
-
-      attack.id = randomId
-    })
-    charDeets.abilities.forEach((ability) => {
-      let randomId = randomUUID()
-
-      while (charDeets.abilities.some(x => x.id === randomId)) {
-        randomId = randomUUID()
-      }
-
-      ability.id = randomId
-    })
-    charDeets.skills.forEach((skill) => {
-      let randomId = randomUUID()
-
-      while (charDeets.skills.some(x => x.id === randomId)) {
-        randomId = randomUUID()
-      }
-
-      skill.id = randomId
-    })
-
-    charDeets.equipment.cyphers.forEach((cypher) => {
-      let randomId = randomUUID()
-
-      while (charDeets.equipment.cyphers.some(x => x.id === randomId)) {
-        randomId = randomUUID()
-      }
-
-      cypher.id = randomId
-    })
-    charDeets.equipment.items.forEach((item) => {
-      let randomId = randomUUID()
-
-      while (charDeets.equipment.items.some(x => x.id === randomId)) {
-        randomId = randomUUID()
-      }
-
-      item.id = randomId
-    })
-    charDeets.equipment.oddities.forEach((oddity) => {
-      let randomId = randomUUID()
-
-      while (charDeets.equipment.oddities.some(x => x.id === randomId)) {
-        randomId = randomUUID()
-      }
-
-      oddity.id = randomId
-    })
-    charDeets.equipment.weapons.forEach((weapon) => {
-      let randomId = randomUUID()
-
-      while (charDeets.equipment.weapons.some(x => x.id === randomId)) {
-        randomId = randomUUID()
-      }
-
-      weapon.id = randomId
-    })
-    charDeets.equipment.money.forEach((money) => {
-      let randomId = randomUUID()
-
-      while (charDeets.equipment.money.some(x => x.id === randomId)) {
-        randomId = randomUUID()
-      }
-
-      money.id = randomId
-    })
-  
-    await this.updateCharacter(character.id, charDeets)
-    character.hasIds = true
-    updatedCharacters.push(character)
-  }
-
-  await fs.writeFile(`${constants.base_data_url}/characters.json`, JSON.stringify(updatedCharacters))
 }

@@ -9,6 +9,11 @@
   </div>
   <div class="toolbar-title">
     <div>
+      <button mat-icon-button aria-label="Download Icon" (click)="exportCharacter()">
+        <mat-icon>vertical_align_bottom</mat-icon>
+      </button>
+    </div>
+    <div>
       <button mat-icon-button aria-label="Settings Icon" (click)="updateSettings()">
         <mat-icon>settings</mat-icon>
       </button>
@@ -18,7 +23,6 @@
 </mat-toolbar>
 
 <div *ngIf="characterLoaded">
-
   <div class="grid">
     <div class="left-side">
 

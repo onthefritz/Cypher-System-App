@@ -17,7 +17,6 @@ router.post('/edit/saveName/:characterId', async (req, res) => {
 	let id = req.params.characterId
 	let info = req.body
 
-	await characterService.editCharacterList(id, info.name, info.descriptor, info.focus)
 	await statService.setPoolStats(id, info)
 
 	res.status(201)

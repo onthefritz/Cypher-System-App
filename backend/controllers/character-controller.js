@@ -3,7 +3,7 @@ const router = express.Router()
 const characterService = require('../services/character-service')
 
 router.get('/getAll', async (req, res) => {
-	let characters = await characterService.getCharacters()
+	let characters = await characterService.getCharactersForList()
 
 	res.status(200)
 	res.send(characters)
@@ -29,7 +29,6 @@ router.post('/saveHistoryStats/:characterId', async (req, res) => {
 })
 
 router.post('/add', async (req, res) => {
-  await characterService.addCharacterToList(req.body)
 	await characterService.addCharacter(req.body)
 
   res.status(201)
@@ -91,6 +90,15 @@ router.post('/setAdvancements/:characterId', async (req, res) => {
   res.end()
 })
 
+router.post('/importCharacter', async (req, res) => {
+  let data = req.body
+  
+  await characterService.importCharacter(data)
+
+  res.status(201)
+  res.end()
+})
+
 router.get('/levelUp/:characterId', async (req, res) => {
   let characterId = req.params.characterId
 
@@ -107,20 +115,6 @@ router.delete('/removeTier/:characterId/:tier', async (req, res) => {
   await characterService.deleteTier(characterId, tier)
 
   res.status(202)
-  res.end()
-})
-
-router.get('/fix/updateBaseValues', async (req, res) => {
-  await characterService.updateBaseValues()
-
-  res.status(200)
-  res.end()
-})
-
-router.get('/fix/addIdsToCharacter', async (req, res) => {
-  await characterService.addIdsToCharacter()
-
-  res.status(200)
   res.end()
 })
 
