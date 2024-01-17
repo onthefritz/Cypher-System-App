@@ -2,6 +2,16 @@ const express = require("express")
 const router = express.Router()
 const equipmentService = require('../services/equipment-service')
 
+router.get('/:characterId', async (req, res) => {
+  let characterId = req.params.characterId
+
+  let equipment = await equipmentService.getCharacterEquipment(characterId)
+
+  res.status(200)
+  res.send(equipment)
+  res.end()
+})
+
 router.post('/cypherCount/:characterId', async (req, res) => {
   let characterId = req.params.characterId
   let request = req.body

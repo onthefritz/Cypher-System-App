@@ -1,5 +1,11 @@
 const characterService = require('../services/character-service')
 
+exports.getCharacterEquipment = async function (characterId) {
+  let character = await characterService.getCharacter(characterId)
+
+  return character.equipment
+}
+
 exports.updateCypherCount = async function(characterId, request) {
   let character = await characterService.getCharacter(characterId)
 

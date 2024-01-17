@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '../helpers/constants';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component';
+import { Dialog } from '@angular/cdk/dialog';
+import { baseInfo, equipment, settings } from '../models/character';
 
 @Component({
   selector: 'app-stats',
@@ -9,51 +12,94 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
   styleUrls: ['./stats.component.scss']
 })
 export class StatsComponent implements OnInit {
-  @Input() baseCharacterInfo: any
   @Input() characterId: any
-  @Input() settings: any
 
-  @Output() reloadCharacter = new EventEmitter()
+  baseCharacterInfo: baseInfo = new baseInfo
+  settings: settings = new settings
 
   isAltSheet: boolean = false
   isCypher: boolean = false
 
-  constructor(private http: HttpClient) { }
+  infoLoaded: boolean = false
+  settingsLoaded: boolean = false
+
+  constructor(private http: HttpClient, private dialog: Dialog,
+    private ref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.isAltSheet = this.settings.altSheet
-    this.isCypher = this.settings.cypherSystem
+    this.getBaseInfo()
+    this.getSettings()
+  }
+
+  getBaseInfo() {
+    this.http.get(`${BASE_URL}/character/baseInfo/${this.characterId}`).subscribe((res) => {
+      this.baseCharacterInfo = res as baseInfo
+      this.infoLoaded = true
+    })
+  }
+
+  getSettings() {
+    this.http.get(`${BASE_URL}/character/settings/${this.characterId}`).subscribe((res) => {
+      this.settings = res as settings
+
+      this.isAltSheet = this.settings.altSheet
+      this.isCypher = this.settings.cypherSystem
+      this.settingsLoaded = true
+    })
   }
 
   onStatChange(data: any) {
-    this.baseCharacterInfo.stats[data.element] = data.value
-    let stats = this.baseCharacterInfo
+    let genericObject = this.baseCharacterInfo as any
+    genericObject.stats[data.element] = data.value
+    let stats = genericObject
     this.http.post(`${BASE_URL}/stat/setStats/${this.characterId}`, stats).subscribe((res) => {
-      this.reloadCharacter.emit()
+      this.getBaseInfo()
     })
   }
 
   onInfoChange(data: any) {
-    this.baseCharacterInfo[data.element] = data.value
-    let stats = this.baseCharacterInfo
+    let genericObject = this.baseCharacterInfo as any
+    genericObject[data.element] = data.value
+    let stats = genericObject
     this.http.post(`${BASE_URL}/stat/setStats/${this.characterId}`, stats).subscribe((res) => {
-      this.reloadCharacter.emit()
+      this.getBaseInfo()
     })
   }
 
   onDamageTrackChange(data: any) {
-    this.baseCharacterInfo.stats.damageTrack[data.element] = data.value
-    let stats = this.baseCharacterInfo
+    let genericObject = this.baseCharacterInfo as any
+    genericObject.stats.damageTrack[data.element] = data.value
+    let stats = genericObject
     this.http.post(`${BASE_URL}/stat/setStats/${this.characterId}`, stats).subscribe((res) => {
-      this.reloadCharacter.emit()
+      this.getBaseInfo()
     })
   }
 
   recoveryUsed(event: MatCheckboxChange, element: string) {
-    this.baseCharacterInfo.stats[element] = event.checked
-    let stats = this.baseCharacterInfo
+    let genericObject = this.baseCharacterInfo as any
+    genericObject.stats[element] = event.checked
+    let stats = genericObject
     this.http.post(`${BASE_URL}/stat/setStats/${this.characterId}`, stats).subscribe((res) => {
-      this.reloadCharacter.emit()
+      this.getBaseInfo()
+    })
+  }
+
+  longRest() {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+        minWidth: '300px',
+        data: {
+          title: "Are you sure?",
+          message: "This action cannot be undone.",
+          okayButton: "YES"
+        }
+    })
+
+    dialogRef.closed.subscribe(result => {
+      if (result) {
+        this.http.get(`${BASE_URL}/character/longRest/${this.characterId}`).subscribe((res) => {
+          this.getBaseInfo()
+        })
+      }
     })
   }
 }

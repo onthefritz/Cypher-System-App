@@ -16,15 +16,15 @@ import { MatTableDataSource } from '@angular/material/table'
   styleUrls: ['./equipment.component.scss']
 })
 export class EquipmentComponent implements OnInit, AfterViewInit {
-  @Input() equipmentData: any
   @Input() characterId: any
 
-  @Output() reloadCharacter = new EventEmitter()
-
+  equipmentData: any
   itemData: any
   weaponData: any
   oddityData: any
   cypherData: any
+
+  equipmentLoaded: boolean = false
 
   itemDisplayedColumns: string[] = [ 'name', 'count', 'description', 'menu' ]
   weaponDisplayedColumns: string[] = [ 'name', 'type', 'count', 'description', 'menu' ]
@@ -39,17 +39,29 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
   constructor(private http: HttpClient, private dialog: Dialog) { }
 
   ngOnInit(): void {
-    this.itemData = new MatTableDataSource(this.equipmentData.items)
-    this.weaponData = new MatTableDataSource(this.equipmentData.weapons)
-    this.oddityData = new MatTableDataSource(this.equipmentData.oddities)
-    this.cypherData = new MatTableDataSource(this.equipmentData.cyphers)
+    this.getEquipment()
   }
 
   ngAfterViewInit() {
-    this.itemData.sort = this.itemsTableSort
-    this.weaponData.sort = this.weaponsTableSort
-    this.oddityData.sort = this.odditiesTableSort
-    this.cypherData.sort = this.cyphersTableSort
+    
+  }
+
+  getEquipment() {
+    this.http.get(`${BASE_URL}/equipment/${this.characterId}`).subscribe((res) => {
+      this.equipmentData = res
+
+      this.itemData = new MatTableDataSource(this.equipmentData.items)
+      this.weaponData = new MatTableDataSource(this.equipmentData.weapons)
+      this.oddityData = new MatTableDataSource(this.equipmentData.oddities)
+      this.cypherData = new MatTableDataSource(this.equipmentData.cyphers)
+
+      this.itemData.sort = this.itemsTableSort
+      this.weaponData.sort = this.weaponsTableSort
+      this.oddityData.sort = this.odditiesTableSort
+      this.cypherData.sort = this.cyphersTableSort
+
+      this.equipmentLoaded = true
+    })
   }
 
   upsertItem(isAdd: boolean, item: any) {
@@ -68,7 +80,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
     dialogRef.closed.subscribe(result => {
       if (result) {
         this.http.post(`${BASE_URL}/equipment/item/${this.characterId}/`, result).subscribe((res) => {
-          this.reloadCharacter.emit()
+          this.getEquipment()
         })
       }
     })
@@ -87,7 +99,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
       if (result) {
         this.http.delete(`${BASE_URL}/equipment/item/${this.characterId}/${id}`).subscribe({
             next: () => {
-                this.reloadCharacter.emit()
+                this.getEquipment()
             },
             error: (error) => {
                 console.log(error)
@@ -112,7 +124,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
     dialogRef.closed.subscribe(result => {
       if (result) {
         this.http.post(`${BASE_URL}/equipment/weapon/${this.characterId}/`, result).subscribe((res) => {
-          this.reloadCharacter.emit()
+          this.getEquipment()
         })
       }
     })
@@ -131,7 +143,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
       if (result) {
         this.http.delete(`${BASE_URL}/equipment/weapon/${this.characterId}/${id}`).subscribe({
             next: () => {
-                this.reloadCharacter.emit()
+                this.getEquipment()
             },
             error: (error) => {
                 console.log(error)
@@ -157,7 +169,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
     dialogRef.closed.subscribe(result => {
       if (result) {
         this.http.post(`${BASE_URL}/equipment/oddity/${this.characterId}/`, result).subscribe((res) => {
-          this.reloadCharacter.emit()
+          this.getEquipment()
         })
       }
     })
@@ -176,7 +188,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
       if (result) {
         this.http.delete(`${BASE_URL}/equipment/oddity/${this.characterId}/${id}`).subscribe({
             next: () => {
-                this.reloadCharacter.emit()
+                this.getEquipment()
             },
             error: (error) => {
                 console.log(error)
@@ -201,7 +213,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
     dialogRef.closed.subscribe(result => {
       if (result) {
         this.http.post(`${BASE_URL}/equipment/cypher/${this.characterId}/`, result).subscribe((res) => {
-          this.reloadCharacter.emit()
+          this.getEquipment()
         })
       }
     })
@@ -220,7 +232,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
       if (result) {
         this.http.delete(`${BASE_URL}/equipment/cypher/${this.characterId}/${id}`).subscribe({
             next: () => {
-                this.reloadCharacter.emit()
+                this.getEquipment()
             },
             error: (error) => {
                 console.log(error)
@@ -243,7 +255,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
     dialogRef.closed.subscribe(result => {
       if (result) {
         this.http.post(`${BASE_URL}/equipment/money/${this.characterId}/`, result).subscribe((res) => {
-          this.reloadCharacter.emit()
+          this.getEquipment()
         })
       }
     })
@@ -256,7 +268,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
       amount: data.value
     }
     this.http.post(`${BASE_URL}/equipment/money/${this.characterId}/`, content).subscribe((res) => {
-      this.reloadCharacter.emit()
+      this.getEquipment()
     })
   }
 
@@ -273,7 +285,7 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
       if (result) {
         this.http.delete(`${BASE_URL}/equipment/money/${this.characterId}/${id}`).subscribe({
             next: () => {
-                this.reloadCharacter.emit()
+                this.getEquipment()
             },
             error: (error) => {
                 console.log(error)

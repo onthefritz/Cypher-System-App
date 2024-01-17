@@ -43,6 +43,18 @@ exports.getCharacter = async function(id) {
     return character
 }
 
+exports.getCharacterBaseInfo = async function(id) {
+  let character = await this.getCharacter(id)
+
+  return character.baseInfo
+}
+
+exports.getCharacterSettings = async function(id) {
+  let character = await this.getCharacter(id)
+
+  return character.settings
+}
+
 exports.updateStatsHistory = async function(id, statHistory) {
   let character = await this.getCharacter(id)
   let foundStatHistory = character.baseInfo.statHistory.find(x => x.tier === statHistory.tier)

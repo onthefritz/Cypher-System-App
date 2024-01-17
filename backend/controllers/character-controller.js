@@ -18,6 +18,22 @@ router.get('/:characterId', async (req, res) => {
 	res.end()
 })
 
+router.get('/baseInfo/:characterId', async (req, res) => {
+  let baseInfo = await characterService.getCharacterBaseInfo(req.params.characterId)
+
+  res.status(200)
+  res.send(baseInfo)
+  res.end()
+})
+
+router.get('/settings/:characterId', async (req, res) => {
+  let settings = await characterService.getCharacterSettings(req.params.characterId)
+
+  res.status(200)
+  res.send(settings)
+  res.end()
+})
+
 router.post('/saveHistoryStats/:characterId', async (req, res) => {
   let characterId = req.params.characterId
   let statHistory = req.body
@@ -92,7 +108,7 @@ router.post('/setAdvancements/:characterId', async (req, res) => {
 
 router.post('/importCharacter', async (req, res) => {
   let data = req.body
-  
+
   await characterService.importCharacter(data)
 
   res.status(201)
