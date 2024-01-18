@@ -13,7 +13,12 @@ exports.updateSkill = async function(characterId, newSkill) {
     foundSkill.specialized = newSkill.specialized
   }
   else {
-    newSkill.sortOrder = character.skills.at(-1).sortOrder + 1
+    if (character.skills.length > 0) {
+      newSkill.sortOrder = character.skills.at(-1).sortOrder + 1
+    }
+    else {
+      newSkill.sortOrder = 0
+    }
     character.skills.push(newSkill)
   }
 
@@ -45,7 +50,12 @@ exports.updateAttack = async function(characterId, newAttack) {
     foundAttack.range = newAttack.range
   }
   else {
-    newAttack.sortOrder = character.attacks.at(-1).sortOrder + 1
+    if (character.attacks.length > 0) {
+      newAttack.sortOrder = character.attacks.at(-1).sortOrder + 1
+    }
+    else {
+      newAttack.sortOrder = 0
+    }
     character.attacks.push(newAttack)
   }
 
@@ -78,7 +88,12 @@ exports.updateSpecial = async function(characterId, newSpecial) {
     foundSpecial.description = newSpecial.description
   }
   else {
-    newSpecial.sortOrder = character.abilities.at(-1).sortOrder + 1
+    if (character.abilities.length > 0) {
+      newSpecial.sortOrder = character.abilities.at(-1).sortOrder + 1
+    }
+    else {
+      newSpecial.sortOrder = 0
+    }
     character.abilities.push(newSpecial)
   }
 
@@ -101,6 +116,14 @@ exports.updateSpecialSort = async function(characterId, specialId, sortInfo) {
 exports.deleteSkill = async function(characterId, skillId) {
     let character = await characterService.getCharacter(characterId)
 
+    let skillBeingDeletedSort = character.skills.find((skill) => skill.id === skillId).sortOrder
+
+    let skillsAboveDeletedSkill = character.skills.filter((skill) => skill.sortOrder > skillBeingDeletedSort)
+    for (let i = 0; i < skillsAboveDeletedSkill.length; i++) {
+      let skill = skillsAboveDeletedSkill[i]
+      skill.sortOrder = skill.sortOrder - 1
+    }
+
     character.skills = character.skills.filter((skill) => skill.id !== skillId)
 
     await characterService.updateCharacter(characterId, character)
@@ -109,6 +132,14 @@ exports.deleteSkill = async function(characterId, skillId) {
 exports.deleteAttack = async function(characterId, attackId) {
   let character = await characterService.getCharacter(characterId)
 
+  let attackBeingDeletedSort = character.attacks.find((attack) => attack.id === attackId).sortOrder
+
+  let attacksAboveDeletedAttack = character.attacks.filter((attack) => attack.sortOrder > attackBeingDeletedSort)
+  for (let i = 0; i < attacksAboveDeletedAttack.length; i++) {
+    let attack = attacksAboveDeletedAttack[i]
+    attack.sortOrder = attack.sortOrder - 1
+  }
+
   character.attacks = character.attacks.filter((attack) => attack.id !== attackId)
 
   await characterService.updateCharacter(characterId, character)
@@ -116,6 +147,14 @@ exports.deleteAttack = async function(characterId, attackId) {
 
 exports.deleteSpecial = async function(characterId, abilityId) {
   let character = await characterService.getCharacter(characterId)
+
+  let abilityBeingDeletedSort = character.abilities.find((ability) => ability.id === abilityId).sortOrder
+
+  let abilitiesAboveDeletedAbility = character.abilities.filter((ability) => ability.sortOrder > abilityBeingDeletedSort)
+  for (let i = 0; i < abilitiesAboveDeletedAbility.length; i++) {
+    let ability = abilitiesAboveDeletedAbility[i]
+    ability.sortOrder = ability.sortOrder - 1
+  }
 
   character.abilities = character.abilities.filter((ability) => ability.id !== abilityId)
 

@@ -58,6 +58,14 @@
                             <mat-icon>delete</mat-icon>
                             <span>Delete</span>
                         </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== 0" (click)="lowerSortOrder(element.id, element.sortOrder, 'item')">
+                            <mat-icon>arrow_upward</mat-icon>
+                            <span>Move Up</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== equipmentData.items.length - 1" (click)="higherSortOrder(element.id, element.sortOrder, 'item')">
+                            <mat-icon>arrow_downward</mat-icon>
+                            <span>Move Down</span>
+                        </button>
                     </mat-menu>
                 </td>
             </ng-container>
@@ -113,6 +121,14 @@
                                 <mat-icon>delete</mat-icon>
                                 <span>Delete</span>
                             </button>
+                            <button mat-menu-item *ngIf="element.sortOrder !== 0" (click)="lowerSortOrder(element.id, element.sortOrder, 'weapon')">
+                                <mat-icon>arrow_upward</mat-icon>
+                                <span>Move Up</span>
+                            </button>
+                            <button mat-menu-item *ngIf="element.sortOrder !== equipmentData.weapons.length - 1" (click)="higherSortOrder(element.id, element.sortOrder, 'weapon')">
+                                <mat-icon>arrow_downward</mat-icon>
+                                <span>Move Down</span>
+                            </button>
                         </mat-menu>
                     </td>
                 </ng-container>
@@ -160,6 +176,14 @@
                         <button mat-menu-item (click)="deleteOddity(element.id)">
                             <mat-icon>delete</mat-icon>
                             <span>Delete</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== 0" (click)="lowerSortOrder(element.id, element.sortOrder, 'oddity')">
+                            <mat-icon>arrow_upward</mat-icon>
+                            <span>Move Up</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== equipmentData.oddities.length - 1" (click)="higherSortOrder(element.id, element.sortOrder, 'oddity')">
+                            <mat-icon>arrow_downward</mat-icon>
+                            <span>Move Down</span>
                         </button>
                     </mat-menu>
                 </td>
@@ -209,6 +233,14 @@
                         <button mat-menu-item (click)="deleteCypher(element.id)">
                             <mat-icon>delete</mat-icon>
                             <span>Delete</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== 0" (click)="lowerSortOrder(element.id, element.sortOrder, 'cypher')">
+                            <mat-icon>arrow_upward</mat-icon>
+                            <span>Move Up</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== equipmentData.cyphers.length - 1" (click)="higherSortOrder(element.id, element.sortOrder, 'cypher')">
+                            <mat-icon>arrow_downward</mat-icon>
+                            <span>Move Down</span>
                         </button>
                     </mat-menu>
                 </td>

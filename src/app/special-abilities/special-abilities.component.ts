@@ -1,6 +1,6 @@
 import { Dialog } from '@angular/cdk/dialog'
 import { HttpClient } from '@angular/common/http'
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { BASE_URL } from '../helpers/constants'
 import { UpsertAbilityComponent } from '../dialogs/upsert-ability/upsert-ability.component'
@@ -22,12 +22,14 @@ import { MatTableDataSource } from '@angular/material/table'
   ],
   styleUrls: ['./special-abilities.component.scss']
 })
-export class SpecialAbilitiesComponent implements AfterViewInit, OnInit {
+export class SpecialAbilitiesComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() abilitiesData: any
   @Input() isEditing: boolean = false
   @Input() characterId: string = ''
 
   @Output() reloadCharacter = new EventEmitter()
+
+  loaded: boolean = false
 
   abilitiesWithDropdownDisplayedColumns: string[] = [ 'name', 'source', 'cost' ]
   abilitiesWithDropdownDisplayedColumnsDisplays = { 
@@ -59,6 +61,15 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.abilitiesData.sort = this.sort
+    this.loaded = true
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!this.loaded) {
+      return
+    }
+    let changedSkills = changes['abilitiesData'].currentValue
+    this.abilitiesData = new MatTableDataSource(changedSkills)
   }
 
   getDisplayTitle(column: string) {

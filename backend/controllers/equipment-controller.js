@@ -32,11 +32,33 @@ router.post('/item/:characterId', async (req, res) => {
   res.end()
 })
 
+router.post('/item/:characterId/:itemId', async (req, res) => {
+  let characterId = req.params.characterId
+  let itemId = req.params.itemId
+  let item = req.body
+
+  await equipmentService.updateItemSort(characterId, itemId, item)
+  
+  res.status(201)
+  res.end()
+})
+
 router.post('/weapon/:characterId', async (req, res) => {
   let characterId = req.params.characterId
   let weapon = req.body
 
   await equipmentService.upsertWeapon(characterId, weapon)
+  
+  res.status(201)
+  res.end()
+})
+
+router.post('/weapon/:characterId/:weaponId', async (req, res) => {
+  let characterId = req.params.characterId
+  let weaponId = req.params.weaponId
+  let weapon = req.body
+
+  await equipmentService.updateWeaponSort(characterId, weaponId, weapon)
   
   res.status(201)
   res.end()
@@ -52,11 +74,33 @@ router.post('/oddity/:characterId', async (req, res) => {
   res.end()
 })
 
+router.post('/oddity/:characterId/:oddityId', async (req, res) => {
+  let characterId = req.params.characterId
+  let oddityId = req.params.oddityId
+  let oddity = req.body
+
+  await equipmentService.updateOdditySort(characterId, oddityId, oddity)
+  
+  res.status(201)
+  res.end()
+})
+
 router.post('/cypher/:characterId', async (req, res) => {
   let characterId = req.params.characterId
   let cypher = req.body
 
   await equipmentService.upsertCypher(characterId, cypher)
+  
+  res.status(201)
+  res.end()
+})
+
+router.post('/cypher/:characterId/:cypherId', async (req, res) => {
+  let characterId = req.params.characterId
+  let cypherId = req.params.cypherId
+  let cypher = req.body
+
+  await equipmentService.updateCypherSort(characterId, cypherId, cypher)
   
   res.status(201)
   res.end()

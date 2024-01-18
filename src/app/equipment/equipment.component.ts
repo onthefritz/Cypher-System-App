@@ -294,4 +294,26 @@ export class EquipmentComponent implements OnInit, AfterViewInit {
       }
     })
   }
+
+  lowerSortOrder(id: string, sortOrder: number, type: string) {
+    let request = {
+      sortOrder: sortOrder - 1
+    }
+    this.http.post(`${BASE_URL}/equipment/${type}/${this.characterId}/${id}`, request).subscribe({
+      next: () => {
+        this.getEquipment()
+      }
+    })
+  }
+
+  higherSortOrder(id: string, sortOrder: number, type: string) {
+    let request = {
+      sortOrder: sortOrder + 1
+    }
+    this.http.post(`${BASE_URL}/equipment/${type}/${this.characterId}/${id}`, request).subscribe({
+      next: () => {
+        this.getEquipment()
+      }
+    })
+  }
 }
