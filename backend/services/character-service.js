@@ -64,6 +64,67 @@ exports.getCharacter = async function(id) {
         character = JSON.parse(data)
     })
 
+    let somethingUpdated = false
+    character.skills.sort((a, b) => a.sortOrder - b.sortOrder)
+    if (character.skills.some(x => x.sortOrder === undefined)) {
+      for (let i = 0; i < character.skills.length; i++) {
+        character.skills[i].sortOrder = i
+      }
+      somethingUpdated = true
+    }
+
+    character.abilities.sort((a, b) => a.sortOrder - b.sortOrder)
+    if (character.abilities.some(x => x.sortOrder === undefined)) {
+      for (let i = 0; i < character.abilities.length; i++) {
+        character.abilities[i].sortOrder = i
+      }
+      somethingUpdated = true
+    }
+
+    character.attacks.sort((a, b) => a.sortOrder - b.sortOrder)
+    if (character.attacks.some(x => x.sortOrder === undefined)) {
+      for (let i = 0; i < character.attacks.length; i++) {
+        character.attacks[i].sortOrder = i
+      }
+      somethingUpdated = true
+    }
+
+    character.equipment.items.sort((a, b) => a.sortOrder - b.sortOrder)
+    if (character.equipment.items.some(x => x.sortOrder === undefined)) {
+      for (let i = 0; i < character.equipment.items.length; i++) {
+        character.equipment.items[i].sortOrder = i
+      }
+      somethingUpdated = true
+    }
+
+    character.equipment.oddities.sort((a, b) => a.sortOrder - b.sortOrder)
+    if (character.equipment.oddities.some(x => x.sortOrder === undefined)) {
+      for (let i = 0; i < character.equipment.oddities.length; i++) {
+        character.equipment.oddities[i].sortOrder = i
+      }
+      somethingUpdated = true
+    }
+
+    character.equipment.weapons.sort((a, b) => a.sortOrder - b.sortOrder)
+    if (character.equipment.weapons.some(x => x.sortOrder === undefined)) {
+      for (let i = 0; i < character.equipment.weapons.length; i++) {
+        character.equipment.weapons[i].sortOrder = i
+      }
+      somethingUpdated = true
+    }
+
+    character.equipment.cyphers.sort((a, b) => a.sortOrder - b.sortOrder)
+    if (character.equipment.cyphers.some(x => x.sortOrder === undefined)) {
+      for (let i = 0; i < character.equipment.cyphers.length; i++) {
+        character.equipment.cyphers[i].sortOrder = i
+      }
+      somethingUpdated = true
+    }
+
+    if (somethingUpdated) {
+      await this.updateCharacter(character.id, character)
+    }
+
     return character
 }
 

@@ -106,6 +106,7 @@ export class attack {
     public modifier: number = 0
     public damage: number = 0
     public range: number = 0
+    public sortOrder: number = 0
 }
 
 export class ability {
@@ -115,6 +116,7 @@ export class ability {
     public costType: string = ''
     public source: string = ''
     public description: string = ''
+    public sortOrder: number = 0
 }
 
 export class equipment {
@@ -131,6 +133,7 @@ export class cypher {
     public name: string = ''
     public tier: number = 0
     public description: string = ''
+    public sortOrder: number = 0
 }
 
 export class item {
@@ -138,6 +141,7 @@ export class item {
     public name: string = ''
     public count: number = 0
     public description: string = ''
+    public sortOrder: number = 0
 }
 
 export class weapon {
@@ -146,6 +150,7 @@ export class weapon {
     public count: number = 0
     public type: string = ''
     public description: string = ''
+    public sortOrder: number = 0
 }
 
 export class money {
@@ -161,6 +166,7 @@ export class skill {
     public inability: boolean = false
     public trained: boolean = false
     public specialized: boolean = false
+    public sortOrder: number = 0
 }
 
 export class settings {

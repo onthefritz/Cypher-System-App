@@ -13,10 +13,24 @@ exports.updateSkill = async function(characterId, newSkill) {
     foundSkill.specialized = newSkill.specialized
   }
   else {
+    newSkill.sortOrder = character.skills.at(-1).sortOrder + 1
     character.skills.push(newSkill)
   }
 
   await characterService.updateCharacter(characterId, character)
+}
+
+exports.updateSkillSort = async function(characterId, skillId, sortInfo) {
+  let character = await characterService.getCharacter(characterId)
+
+  let foundSkill = character.skills.find((skill) => skill.id === skillId)
+  let otherSkill = character.skills.find((skill) => skill.sortOrder === sortInfo.sortOrder)
+
+  let currentSkillSort = foundSkill.sortOrder
+  foundSkill.sortOrder = otherSkill.sortOrder
+  otherSkill.sortOrder = currentSkillSort
+
+  await characterService.updateCharacter(character.id, character)
 }
 
 exports.updateAttack = async function(characterId, newAttack) {
@@ -31,10 +45,24 @@ exports.updateAttack = async function(characterId, newAttack) {
     foundAttack.range = newAttack.range
   }
   else {
+    newAttack.sortOrder = character.attacks.at(-1).sortOrder + 1
     character.attacks.push(newAttack)
   }
 
   await characterService.updateCharacter(characterId, character)
+}
+
+exports.updateAttackSort = async function(characterId, attackId, sortInfo) {
+  let character = await characterService.getCharacter(characterId)
+
+  let foundAttack = character.attacks.find((attack) => attack.id === attackId)
+  let otherAttack = character.attacks.find((attack) => attack.sortOrder === sortInfo.sortOrder)
+
+  let currentSkillSort = foundAttack.sortOrder
+  foundAttack.sortOrder = otherAttack.sortOrder
+  otherAttack.sortOrder = currentSkillSort
+
+  await characterService.updateCharacter(character.id, character)
 }
 
 exports.updateSpecial = async function(characterId, newSpecial) {
@@ -50,10 +78,24 @@ exports.updateSpecial = async function(characterId, newSpecial) {
     foundSpecial.description = newSpecial.description
   }
   else {
+    newSpecial.sortOrder = character.abilities.at(-1).sortOrder + 1
     character.abilities.push(newSpecial)
   }
 
   await characterService.updateCharacter(characterId, character)
+}
+
+exports.updateSpecialSort = async function(characterId, specialId, sortInfo) {
+  let character = await characterService.getCharacter(characterId)
+
+  let foundAbility = character.abilities.find((ability) => ability.id === specialId)
+  let otherAbility = character.abilities.find((ability) => ability.sortOrder === sortInfo.sortOrder)
+
+  let currentSkillSort = foundAbility.sortOrder
+  foundAbility.sortOrder = otherAbility.sortOrder
+  otherAbility.sortOrder = currentSkillSort
+
+  await characterService.updateCharacter(character.id, character)
 }
 
 exports.deleteSkill = async function(characterId, skillId) {

@@ -39,6 +39,14 @@
                         <mat-icon>delete</mat-icon>
                         <span>Delete</span>
                     </button>
+                    <button mat-menu-item (click)="lowerSortOrder(element.id, element.sortOrder)">
+                        <mat-icon>arrow_upward</mat-icon>
+                        <span>Move Up</span>
+                    </button>
+                    <button mat-menu-item (click)="higherSortOrder(element.id, element.sortOrder)">
+                        <mat-icon>arrow_downward</mat-icon>
+                        <span>Move Down</span>
+                    </button>
                 </mat-menu>
             </td>
         </ng-container>

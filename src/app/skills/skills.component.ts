@@ -79,4 +79,26 @@ export class SkillsComponent implements OnInit, AfterViewInit {
       }
     })
   }
+
+  lowerSortOrder(id: string, sortOrder: number) {
+    let request = {
+      sortOrder: sortOrder - 1
+    }
+    this.http.post(`${BASE_URL}/ability/skill/${this.characterId}/${id}`, request).subscribe({
+      next: () => {
+        this.reloadCharacter.emit()
+      }
+    })
+  }
+
+  higherSortOrder(id: string, sortOrder: number) {
+    let request = {
+      sortOrder: sortOrder + 1
+    }
+    this.http.post(`${BASE_URL}/ability/skill/${this.characterId}/${id}`, request).subscribe({
+      next: () => {
+        this.reloadCharacter.emit()
+      }
+    })
+  }
 }

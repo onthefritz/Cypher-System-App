@@ -113,4 +113,26 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit {
     const filterValue = (event.target as HTMLInputElement).value
     this.abilitiesData.filter = filterValue.trim().toLowerCase()
   }
+
+  lowerSortOrder(id: string, sortOrder: number) {
+    let request = {
+      sortOrder: sortOrder - 1
+    }
+    this.http.post(`${BASE_URL}/ability/special/${this.characterId}/${id}`, request).subscribe({
+      next: () => {
+        this.reloadCharacter.emit()
+      }
+    })
+  }
+
+  higherSortOrder(id: string, sortOrder: number) {
+    let request = {
+      sortOrder: sortOrder + 1
+    }
+    this.http.post(`${BASE_URL}/ability/special/${this.characterId}/${id}`, request).subscribe({
+      next: () => {
+        this.reloadCharacter.emit()
+      }
+    })
+  }
 }
