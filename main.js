@@ -11,7 +11,7 @@ if (require('electron-squirrel-startup')) app.quit();
 
 app.on('ready', () => {
 	win = new BrowserWindow({
-		width: 1400,
+		width: 1500,
 		height: 900,
 		autoHideMenuBar: true
 	})

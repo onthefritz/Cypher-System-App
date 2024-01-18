@@ -10,6 +10,13 @@ router.get('/getAll', async (req, res) => {
 	res.end()
 })
 
+router.post('/updateSortOrder/:characterId', async (req, res) => {
+  await characterService.updateSortOrder(req.params.characterId, req.body)
+
+  res.status(201)
+  res.end()
+})
+
 router.get('/:characterId', async (req, res) => {
 	let character = await characterService.getCharacter(req.params.characterId)
 

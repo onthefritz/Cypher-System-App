@@ -163,4 +163,22 @@ export class CharacterListComponent implements OnInit {
       importInput.value = ''
     }
   }
+
+  lowerSortOrder(id: string, sortOrder: number) {
+    let request = {
+      sortOrder: sortOrder - 1
+    }
+    this.http.post(`${BASE_URL}/character/updateSortOrder/${id}`, request).subscribe((res) => {
+      this.loadCharacters()
+    })
+  }
+
+  higherSortOrder(id: string, sortOrder: number) {
+    let request = {
+      sortOrder: sortOrder + 1
+    }
+    this.http.post(`${BASE_URL}/character/updateSortOrder/${id}`, request).subscribe((res) => {
+      this.loadCharacters()
+    })
+  }
 }
