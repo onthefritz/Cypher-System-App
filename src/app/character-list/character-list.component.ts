@@ -8,6 +8,7 @@ import { AddCharacterDialogComponent } from '../dialogs/add-character-dialog/add
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component'
 import { Router } from '@angular/router'
 import { DOCUMENT } from '@angular/common'
+import { character } from '../models/character'
 
 @Component({
   selector: 'app-character-list',
@@ -128,8 +129,9 @@ export class CharacterListComponent implements OnInit {
 
       reader.onload = (readerEvt: any) => {
         let fileData = JSON.parse(readerEvt.target.result)
+        let parsedCharacter = fileData as character
 
-        let characterFound = this.characters.some(x => x.id == fileData.id)
+        let characterFound = this.characters.some(x => x.id == parsedCharacter.id)
 
         if (characterFound) {
           const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
@@ -145,14 +147,14 @@ export class CharacterListComponent implements OnInit {
       
           dialogRef.closed.subscribe(result => {
             if (result) {
-              this.http.post(`${BASE_URL}/character/importCharacter`, fileData).subscribe((res) => {
+              this.http.post(`${BASE_URL}/character/importCharacter`, parsedCharacter).subscribe((res) => {
                 this.loadCharacters()
               })
             }
           })
         }
         else {
-          this.http.post(`${BASE_URL}/character/importCharacter`, fileData).subscribe((res) => {
+          this.http.post(`${BASE_URL}/character/importCharacter`, parsedCharacter).subscribe((res) => {
             this.loadCharacters()
           })
         }

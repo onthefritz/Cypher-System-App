@@ -48,7 +48,6 @@
 }
 
 .sort-order-button {
-  cursor: pointer;
   font-size: 10px;
   width: 40px;
   height: 34px;
@@ -61,10 +60,15 @@
 
   color: var(--textColor);
   background-color: rgb(0, 0, 0, 0);
-  &:hover {
+  &:not(:disabled):hover {
+    cursor: pointer;
     background-color: rgb(170, 170, 170, .35);
   }
-  &:active {
+  &:not(:disabled):active {
+    cursor: pointer;
     background-color: rgb(170, 170, 170, .6);
+  }
+  &:disabled {
+    color: var(--textColorDisabled)
   }
 }

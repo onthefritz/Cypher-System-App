@@ -35,8 +35,8 @@
             <mat-label><i>{{character.isCypher ? 'Cypher System' : 'Tree Cypher System'}}</i></mat-label>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button class="sort-order-button" (click)="lowerSortOrder(character.id, character.sortOrder)">&lt;</button>
-            <button class="sort-order-button" (click)="higherSortOrder(character.id, character.sortOrder)">&gt;</button>
+            <button [disabled]="character.sortOrder === 0" class="sort-order-button" (click)="lowerSortOrder(character.id, character.sortOrder)">&lt;</button>
+            <button [disabled]="character.sortOrder === characters.length - 1" class="sort-order-button" (click)="higherSortOrder(character.id, character.sortOrder)">&gt;</button>
             <button mat-button (click)="openSheet(character.id)">OPEN</button>
             <button mat-button (click)="openSheetEditor(character.id)">EDIT</button>
             <button mat-button (click)="deleteCharacterDialog(character.id)">DELETE</button>

@@ -4,6 +4,8 @@ $bgColor_dark: #333333;
 
 $textColor_light: #000;
 $textColor_dark: #eee;
+$textColor_disabled_light: #ddd;
+$textColor_disabled_dark: #555;
 
 $borderColor_light: #000;
 $borderColor_dark: #ccc;
@@ -25,6 +27,7 @@ $focusColor_dark: #c0abe5;
 @mixin lighten() {
   --bgColor: #{$bgColor_light};
   --textColor: #{$textColor_light};
+  --textColorDisabled: #{$textColor_disabled_light};
   --borderColor: #{$borderColor_light};
 
   --tableTextColor: #{$tableColor_text_light};
@@ -40,6 +43,7 @@ $focusColor_dark: #c0abe5;
 @mixin darken() {
   --bgColor: #{$bgColor_dark};
   --textColor: #{$textColor_dark};
+  --textColorDisabled: #{$textColor_disabled_dark};
   --borderColor: #{$borderColor_dark};
 
   --tableTextColor: #{$tableColor_text_dark};
@@ -157,7 +161,7 @@ tr .mat-mdc-icon-button.mat-mdc-button-base {
   color: var(--textColor) !important;
 }
 
-.mat-mdc-card-actions button {
+.mat-mdc-card-actions .mdc-button {
   color: var(--textColor) !important;
 }
 
@@ -167,5 +171,21 @@ tr .mat-mdc-icon-button.mat-mdc-button-base {
 
 .mat-mdc-menu-content .mat-mdc-menu-item,
 .mat-mdc-menu-item .mat-icon-no-color {
+  color: var(--textColor) !important;
+}
+
+.mat-mdc-select-panel {
+  background-color: var(--bgColorCard) !important;
+
+  & .mat-mdc-option {
+    color: var(--textColor) !important;
+  }
+}
+
+.mat-mdc-select {
+  color: var(--textColor) !important;
+}
+
+.mat-mdc-select-arrow {
   color: var(--textColor) !important;
 }
