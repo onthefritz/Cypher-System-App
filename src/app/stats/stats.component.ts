@@ -28,13 +28,14 @@ export class StatsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBaseInfo()
-    this.getSettings()
   }
 
   getBaseInfo() {
     this.http.get(`${BASE_URL}/character/baseInfo/${this.characterId}`).subscribe((res) => {
       this.baseCharacterInfo = res as baseInfo
       this.infoLoaded = true
+
+      this.getSettings()
     })
   }
 

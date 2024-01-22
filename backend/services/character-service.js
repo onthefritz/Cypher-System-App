@@ -40,6 +40,27 @@ exports.getCharactersForList = async function() {
     characterList = characterList.sort((a, b) => a.sortOrder - b.sortOrder)
   }
 
+  let isConsecutive = true
+  for (let i = 0; i < characterList.length; i++) {
+    if (characterList[i].sortOrder !== i) {
+      isConsecutive = false
+      break
+    }
+  }
+  if (!isConsecutive) {
+    let resortOrder = 0
+    for (let i = 0; i < characterList.length; i++) {
+      let character = characterList[i]
+      character.sortOrder = resortOrder
+
+      let foundCharacter = await this.getCharacter(character.id)
+      foundCharacter.sortOrder = character.sortOrder
+      await this.updateCharacter(character.id, foundCharacter)
+
+      resortOrder = resortOrder + 1
+    }
+  }
+
   return characterList
 }
 
@@ -61,65 +82,17 @@ exports.updateSortOrder = async function(characterId, sortOrderBody) {
 exports.getCharacter = async function(id) {
     let character = {}
     await fs.readFile(`${constants.base_data_url}/${id}.json`, 'utf-8').then((data) => {
-        character = JSON.parse(data)
+      character = JSON.parse(data)
     })
 
     let somethingUpdated = false
-    character.skills.sort((a, b) => a.sortOrder - b.sortOrder)
-    if (character.skills.some(x => x.sortOrder === undefined)) {
-      for (let i = 0; i < character.skills.length; i++) {
-        character.skills[i].sortOrder = i
-      }
-      somethingUpdated = true
-    }
-
-    character.abilities.sort((a, b) => a.sortOrder - b.sortOrder)
-    if (character.abilities.some(x => x.sortOrder === undefined)) {
-      for (let i = 0; i < character.abilities.length; i++) {
-        character.abilities[i].sortOrder = i
-      }
-      somethingUpdated = true
-    }
-
-    character.attacks.sort((a, b) => a.sortOrder - b.sortOrder)
-    if (character.attacks.some(x => x.sortOrder === undefined)) {
-      for (let i = 0; i < character.attacks.length; i++) {
-        character.attacks[i].sortOrder = i
-      }
-      somethingUpdated = true
-    }
-
-    character.equipment.items.sort((a, b) => a.sortOrder - b.sortOrder)
-    if (character.equipment.items.some(x => x.sortOrder === undefined)) {
-      for (let i = 0; i < character.equipment.items.length; i++) {
-        character.equipment.items[i].sortOrder = i
-      }
-      somethingUpdated = true
-    }
-
-    character.equipment.oddities.sort((a, b) => a.sortOrder - b.sortOrder)
-    if (character.equipment.oddities.some(x => x.sortOrder === undefined)) {
-      for (let i = 0; i < character.equipment.oddities.length; i++) {
-        character.equipment.oddities[i].sortOrder = i
-      }
-      somethingUpdated = true
-    }
-
-    character.equipment.weapons.sort((a, b) => a.sortOrder - b.sortOrder)
-    if (character.equipment.weapons.some(x => x.sortOrder === undefined)) {
-      for (let i = 0; i < character.equipment.weapons.length; i++) {
-        character.equipment.weapons[i].sortOrder = i
-      }
-      somethingUpdated = true
-    }
-
-    character.equipment.cyphers.sort((a, b) => a.sortOrder - b.sortOrder)
-    if (character.equipment.cyphers.some(x => x.sortOrder === undefined)) {
-      for (let i = 0; i < character.equipment.cyphers.length; i++) {
-        character.equipment.cyphers[i].sortOrder = i
-      }
-      somethingUpdated = true
-    }
+    somethingUpdated = somethingUpdated || checkList(character.skills)
+    somethingUpdated = somethingUpdated || checkList(character.abilities)
+    somethingUpdated = somethingUpdated || checkList(character.attacks)
+    somethingUpdated = somethingUpdated || checkList(character.equipment.items)
+    somethingUpdated = somethingUpdated || checkList(character.equipment.oddities)
+    somethingUpdated = somethingUpdated || checkList(character.equipment.weapons)
+    somethingUpdated = somethingUpdated || checkList(character.equipment.cyphers)
 
     if (somethingUpdated) {
       await this.updateCharacter(character.id, character)
@@ -477,4 +450,27 @@ exports.getAllCharacters = async function() {
   }
 
   return characters
+}
+
+var checkList = function(characterStatList) {
+  characterStatList.sort((a, b) => a.sortOrder - b.sortOrder)
+
+  let hasUndefinedSorts = characterStatList.some(x => x.sortOrder === undefined)
+
+  let isConsecutive = true
+  for (let i = 0; i < characterStatList.length; i++) {
+    if (characterStatList[i].sortOrder !== i) {
+      isConsecutive = false
+      break
+    }
+  }
+
+  if (hasUndefinedSorts || !isConsecutive) {
+    for (let i = 0; i < characterStatList.length; i++) {
+      characterStatList[i].sortOrder = i
+    }
+    return true
+  }
+
+  return false
 }
