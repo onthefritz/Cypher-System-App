@@ -1,86 +1,32 @@
-<div class="money">
-  <span class="money-amount" *ngFor="let money of equipmentData.money">
-    {{money.name}} <app-incrementer
-        [numberValueTotal]="money.amount"
-        [numberValueCurrent]="money.amount"
-        [fontSize]="15"
-        [element]="money.name"
-        (incrementerChange)="updateMoney($event, money.name, money.id)"
-      ></app-incrementer>
-      <span class="delete-money" (click)="deleteMoney(money.id)">X</span>
-  </span>
-  <span class="money-amount">
-    <span class="add-money" (click)="insertMoney()">+</span>
-  </span>
-</div>
-<div class="money-title">
-  Currency
-</div>
-
-<mat-tab-group>
-  <mat-tab label="Items">
-    <button class="add-button" mat-flat-button color="primary" (click)="upsertItem(true, null)">Add Item</button>
-    <div class="scrollable">
-        <table mat-table [dataSource]="itemData" class="equipment-table" #itemsTable="matSort"
-        matSort>
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="count">
-            <th mat-header-cell *matHeaderCellDef> Count </th>
-            <td mat-cell *matCellDef="let element">
-                {{element.count}}
-            </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Description </th>
-            <td mat-cell *matCellDef="let element">
-                {{element.description}}
-            </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="menu">
-            <th mat-header-cell *matHeaderCellDef>  </th>
-            <td mat-cell *matCellDef="let element">
-                <button [matMenuTriggerFor]="menu" mat-icon-button aria-label="Menu Icon">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="upsertItem(false, element)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Edit</span>
-                    </button>
-                    <button mat-menu-item (click)="deleteItem(element.id)">
-                        <mat-icon>delete</mat-icon>
-                        <span>Delete</span>
-                    </button>
-                </mat-menu>
-            </td>
-        </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="itemDisplayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: itemDisplayedColumns;"></tr>
-        </table>
+<div *ngIf="equipmentLoaded">
+    <div class="money">
+    <span class="money-amount" *ngFor="let money of equipmentData.money">
+        {{money.name}} <app-incrementer
+            [numberValueTotal]="money.amount"
+            [numberValueCurrent]="money.amount"
+            [fontSize]="15"
+            [element]="money.name"
+            (incrementerChange)="updateMoney($event, money.name, money.id)"
+        ></app-incrementer>
+        <span class="delete-money" (click)="deleteMoney(money.id)">X</span>
+    </span>
+    <span class="money-amount">
+        <span class="add-money" (click)="insertMoney()">+</span>
+    </span>
     </div>
-  </mat-tab>
-  <mat-tab label="Weapons">
-    <button class="add-button" mat-flat-button color="primary" (click)="upsertWeapon(true, null)">Add Weapon</button>
-    <div class="scrollable">
-        <table mat-table [dataSource]="weaponData" class="equipment-table" #weaponsTable="matSort"
-        matSort>
+    <div class="money-title">
+    Currency
+    </div>
+
+    <mat-tab-group>
+    <mat-tab label="Items">
+        <button class="add-button" mat-flat-button color="primary" (click)="upsertItem(true, null)">Add Item</button>
+        <div class="scrollable">
+            <table mat-table [dataSource]="itemData" class="equipment-table" #itemsTable="matSort"
+            matSort>
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="type">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-                <td mat-cell *matCellDef="let element">
-                    {{element.type}}
-                </td>
             </ng-container>
             
             <ng-container matColumnDef="count">
@@ -104,118 +50,206 @@
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="upsertWeapon(false, element)">
+                        <button mat-menu-item (click)="upsertItem(false, element)">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>
-                        <button mat-menu-item (click)="deleteWeapon(element.id)">
+                        <button mat-menu-item (click)="deleteItem(element.id)">
                             <mat-icon>delete</mat-icon>
                             <span>Delete</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== 0" (click)="lowerSortOrder(element.id, element.sortOrder, 'item')">
+                            <mat-icon>arrow_upward</mat-icon>
+                            <span>Move Up</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== equipmentData.items.length - 1" (click)="higherSortOrder(element.id, element.sortOrder, 'item')">
+                            <mat-icon>arrow_downward</mat-icon>
+                            <span>Move Down</span>
                         </button>
                     </mat-menu>
                 </td>
             </ng-container>
             
-            <tr mat-header-row *matHeaderRowDef="weaponDisplayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: weaponDisplayedColumns;"></tr>
-        </table>
-    </div>
-  </mat-tab>
-  <mat-tab label="Oddities">
-    <button class="add-button" mat-flat-button color="primary" (click)="upsertOddity(true, null)">Add Oddity</button>
-    <div class="scrollable">
-        <table mat-table [dataSource]="oddityData" class="equipment-table" #odditiesTable="matSort"
-        matSort>
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
+            <tr mat-header-row *matHeaderRowDef="itemDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: itemDisplayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-tab>
+    <mat-tab label="Weapons">
+        <button class="add-button" mat-flat-button color="primary" (click)="upsertWeapon(true, null)">Add Weapon</button>
+        <div class="scrollable">
+            <table mat-table [dataSource]="weaponData" class="equipment-table" #weaponsTable="matSort"
+            matSort>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.type}}
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="count">
+                    <th mat-header-cell *matHeaderCellDef> Count </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.count}}
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> Description </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.description}}
+                    </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="menu">
+                    <th mat-header-cell *matHeaderCellDef>  </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button [matMenuTriggerFor]="menu" mat-icon-button aria-label="Menu Icon">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="upsertWeapon(false, element)">
+                                <mat-icon>edit</mat-icon>
+                                <span>Edit</span>
+                            </button>
+                            <button mat-menu-item (click)="deleteWeapon(element.id)">
+                                <mat-icon>delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                            <button mat-menu-item *ngIf="element.sortOrder !== 0" (click)="lowerSortOrder(element.id, element.sortOrder, 'weapon')">
+                                <mat-icon>arrow_upward</mat-icon>
+                                <span>Move Up</span>
+                            </button>
+                            <button mat-menu-item *ngIf="element.sortOrder !== equipmentData.weapons.length - 1" (click)="higherSortOrder(element.id, element.sortOrder, 'weapon')">
+                                <mat-icon>arrow_downward</mat-icon>
+                                <span>Move Down</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="weaponDisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: weaponDisplayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-tab>
+    <mat-tab label="Oddities">
+        <button class="add-button" mat-flat-button color="primary" (click)="upsertOddity(true, null)">Add Oddity</button>
+        <div class="scrollable">
+            <table mat-table [dataSource]="oddityData" class="equipment-table" #odditiesTable="matSort"
+            matSort>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="count">
+                <th mat-header-cell *matHeaderCellDef> Count </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.count}}
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.description}}
+                </td>
+            </ng-container>
         
-        <ng-container matColumnDef="count">
-            <th mat-header-cell *matHeaderCellDef> Count </th>
-            <td mat-cell *matCellDef="let element">
-                {{element.count}}
-            </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Description </th>
-            <td mat-cell *matCellDef="let element">
-                {{element.description}}
-            </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="menu">
-            <th mat-header-cell *matHeaderCellDef>  </th>
-            <td mat-cell *matCellDef="let element">
-                <button [matMenuTriggerFor]="menu" mat-icon-button aria-label="Menu Icon">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="upsertOddity(false, element)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Edit</span>
+            <ng-container matColumnDef="menu">
+                <th mat-header-cell *matHeaderCellDef>  </th>
+                <td mat-cell *matCellDef="let element">
+                    <button [matMenuTriggerFor]="menu" mat-icon-button aria-label="Menu Icon">
+                        <mat-icon>more_vert</mat-icon>
                     </button>
-                    <button mat-menu-item (click)="deleteOddity(element.id)">
-                        <mat-icon>delete</mat-icon>
-                        <span>Delete</span>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="upsertOddity(false, element)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                        </button>
+                        <button mat-menu-item (click)="deleteOddity(element.id)">
+                            <mat-icon>delete</mat-icon>
+                            <span>Delete</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== 0" (click)="lowerSortOrder(element.id, element.sortOrder, 'oddity')">
+                            <mat-icon>arrow_upward</mat-icon>
+                            <span>Move Up</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== equipmentData.oddities.length - 1" (click)="higherSortOrder(element.id, element.sortOrder, 'oddity')">
+                            <mat-icon>arrow_downward</mat-icon>
+                            <span>Move Down</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="oddityDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: oddityDisplayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-tab>
+    <mat-tab label="Cyphers">
+        <button class="add-button" mat-flat-button color="primary" (click)="upsertCypher(true, null)">Add Cypher</button>
+        <div class="cypher-title">Cypher Limit: {{equipmentData.cypherCount}}</div>
+        <div class="scrollable">
+            <table mat-table [dataSource]="cypherData" class="equipment-table" #cyphersTable="matSort"
+            matSort>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="tier">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tier </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.tier}}
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.description}}
+                </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="menu">
+                <th mat-header-cell *matHeaderCellDef>  </th>
+                <td mat-cell *matCellDef="let element">
+                    <button [matMenuTriggerFor]="menu" mat-icon-button aria-label="Menu Icon">
+                        <mat-icon>more_vert</mat-icon>
                     </button>
-                </mat-menu>
-            </td>
-        </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="oddityDisplayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: oddityDisplayedColumns;"></tr>
-        </table>
-    </div>
-  </mat-tab>
-  <mat-tab label="Cyphers">
-    <button class="add-button" mat-flat-button color="primary" (click)="upsertCypher(true, null)">Add Cypher</button>
-    <div class="cypher-title">Cypher Limit: {{equipmentData.cypherCount}}</div>
-    <div class="scrollable">
-        <table mat-table [dataSource]="cypherData" class="equipment-table" #cyphersTable="matSort"
-        matSort>
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="tier">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tier </th>
-            <td mat-cell *matCellDef="let element">
-                {{element.tier}}
-            </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Description </th>
-            <td mat-cell *matCellDef="let element">
-                {{element.description}}
-            </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="menu">
-            <th mat-header-cell *matHeaderCellDef>  </th>
-            <td mat-cell *matCellDef="let element">
-                <button [matMenuTriggerFor]="menu" mat-icon-button aria-label="Menu Icon">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="upsertCypher(false, element)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Edit</span>
-                    </button>
-                    <button mat-menu-item (click)="deleteCypher(element.id)">
-                        <mat-icon>delete</mat-icon>
-                        <span>Delete</span>
-                    </button>
-                </mat-menu>
-            </td>
-        </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="cypherDisplayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: cypherDisplayedColumns;"></tr>
-        </table>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="upsertCypher(false, element)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                        </button>
+                        <button mat-menu-item (click)="deleteCypher(element.id)">
+                            <mat-icon>delete</mat-icon>
+                            <span>Delete</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== 0" (click)="lowerSortOrder(element.id, element.sortOrder, 'cypher')">
+                            <mat-icon>arrow_upward</mat-icon>
+                            <span>Move Up</span>
+                        </button>
+                        <button mat-menu-item *ngIf="element.sortOrder !== equipmentData.cyphers.length - 1" (click)="higherSortOrder(element.id, element.sortOrder, 'cypher')">
+                            <mat-icon>arrow_downward</mat-icon>
+                            <span>Move Down</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="cypherDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: cypherDisplayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-tab>
+    </mat-tab-group>
+</div>

@@ -48,6 +48,14 @@
                     <mat-icon>delete</mat-icon>
                     <span>Delete</span>
                 </button>
+                <button mat-menu-item *ngIf="element.sortOrder !== 0" (click)="lowerSortOrder(element.id, element.sortOrder)">
+                    <mat-icon>arrow_upward</mat-icon>
+                    <span>Move Up</span>
+                </button>
+                <button mat-menu-item *ngIf="element.sortOrder !== skillsData.data.length - 1" (click)="higherSortOrder(element.id, element.sortOrder)">
+                    <mat-icon>arrow_downward</mat-icon>
+                    <span>Move Down</span>
+                </button>
             </mat-menu>
         </td>
         </ng-container>

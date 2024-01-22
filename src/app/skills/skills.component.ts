@@ -1,6 +1,6 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BASE_URL } from '../helpers/constants';
 import { UpsertSkillComponent } from '../dialogs/upsert-skill/upsert-skill.component';
@@ -13,12 +13,14 @@ import { MatTableDataSource } from '@angular/material/table'
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })
-export class SkillsComponent implements OnInit, AfterViewInit {
+export class SkillsComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() skillsData: any
   @Input() isEditing: boolean = false
   @Input() characterId: string = ''
 
   @Output() reloadCharacter = new EventEmitter()
+
+  loaded: boolean = false
 
   skillsDisplayedColumns: string[] = [ 'name', 'source', 'inability', 'trained', 'specialized' ]
   skillsDisplayedColumnsWithEdit: string[] = [ 'name', 'source', 'inability', 'trained', 'specialized', 'menu' ]
@@ -34,6 +36,15 @@ export class SkillsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.skillsData.sort = this.sort
+    this.loaded = true
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!this.loaded) {
+      return
+    }
+    let changedSkills = changes['skillsData'].currentValue
+    this.skillsData = new MatTableDataSource(changedSkills)
   }
 
   upsertSkill(isAdd: boolean, skill: any) {
@@ -76,6 +87,28 @@ export class SkillsComponent implements OnInit, AfterViewInit {
                 console.log(error)
             }
         })
+      }
+    })
+  }
+
+  lowerSortOrder(id: string, sortOrder: number) {
+    let request = {
+      sortOrder: sortOrder - 1
+    }
+    this.http.post(`${BASE_URL}/ability/skill/${this.characterId}/${id}`, request).subscribe({
+      next: () => {
+        this.reloadCharacter.emit()
+      }
+    })
+  }
+
+  higherSortOrder(id: string, sortOrder: number) {
+    let request = {
+      sortOrder: sortOrder + 1
+    }
+    this.http.post(`${BASE_URL}/ability/skill/${this.characterId}/${id}`, request).subscribe({
+      next: () => {
+        this.reloadCharacter.emit()
       }
     })
   }

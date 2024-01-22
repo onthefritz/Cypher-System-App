@@ -12,6 +12,17 @@ router.post('/skill/:characterId', async (req, res) => {
   res.end()
 })
 
+router.post('/skill/:characterId/:skillId', async (req, res) => {
+  let characterId = req.params.characterId
+  let skillId = req.params.skillId
+  let skill = req.body
+
+  await abilityService.updateSkillSort(characterId, skillId, skill)
+  
+  res.status(201)
+  res.end()
+})
+
 router.post('/attack/:characterId', async (req, res) => {
   let characterId = req.params.characterId
   let attack = req.body
@@ -22,11 +33,33 @@ router.post('/attack/:characterId', async (req, res) => {
   res.end()
 })
 
+router.post('/attack/:characterId/:attackId', async (req, res) => {
+  let characterId = req.params.characterId
+  let attackId = req.params.attackId
+  let attack = req.body
+
+  await abilityService.updateAttackSort(characterId, attackId, attack)
+  
+  res.status(201)
+  res.end()
+})
+
 router.post('/special/:characterId', async (req, res) => {
   let characterId = req.params.characterId
   let special = req.body
 
   await abilityService.updateSpecial(characterId, special)
+  
+  res.status(201)
+  res.end()
+})
+
+router.post('/special/:characterId/:specialId', async (req, res) => {
+  let characterId = req.params.characterId
+  let specialId = req.params.specialId
+  let special = req.body
+
+  await abilityService.updateSpecialSort(characterId, specialId, special)
   
   res.status(201)
   res.end()

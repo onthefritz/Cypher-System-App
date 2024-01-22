@@ -7,6 +7,7 @@ import { character, skill } from '../models/character'
 import { MatCheckboxChange } from '@angular/material/checkbox'
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component'
 import { SettingsComponent } from '../dialogs/settings/settings.component'
+import { StatsComponent } from '../stats/stats.component'
 
 @Component({
   selector: 'app-character-sheet',
@@ -19,6 +20,8 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
   canLevelUp: boolean = false
 
   private characterId: string = ''
+
+  @ViewChild(StatsComponent) private child!: StatsComponent
 
   constructor(private http: HttpClient, private router: Router,
     private route: ActivatedRoute, private dialog: Dialog) { }
@@ -88,23 +91,7 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
   }
 
   longRest() {
-    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-        minWidth: '300px',
-        data: {
-          title: "Are you sure?",
-          message: "This action cannot be undone.",
-          okayButton: "YES"
-        }
-    })
-
-    dialogRef.closed.subscribe(result => {
-      if (result) {
-        this.http.get(`${BASE_URL}/character/longRest/${this.characterId}`).subscribe((res) => {
-          this.characterLoaded = false
-          this.loadCharacter()
-        })
-      }
-    })
+    this.child.longRest()
   }
 
   refreshEdgeAndEffort() {

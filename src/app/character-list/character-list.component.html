@@ -6,7 +6,7 @@
         <div>
           <button mat-icon-button aria-label="Download Icon" (click)="clickImport()">
             <input type="file" id="importCharacter" (change)="importCharacter($event)" style="display:none" multiple />
-            <mat-icon>vertical_align_top</mat-icon>
+            <mat-icon>file_upload</mat-icon>
           </button>
         </div>
         <div>
@@ -35,6 +35,8 @@
             <mat-label><i>{{character.isCypher ? 'Cypher System' : 'Tree Cypher System'}}</i></mat-label>
         </mat-card-content>
         <mat-card-actions align="end">
+            <button [disabled]="character.sortOrder === 0" class="sort-order-button" (click)="lowerSortOrder(character.id, character.sortOrder)">&lt;</button>
+            <button [disabled]="character.sortOrder === characters.length - 1" class="sort-order-button" (click)="higherSortOrder(character.id, character.sortOrder)">&gt;</button>
             <button mat-button (click)="openSheet(character.id)">OPEN</button>
             <button mat-button (click)="openSheetEditor(character.id)">EDIT</button>
             <button mat-button (click)="deleteCharacterDialog(character.id)">DELETE</button>

@@ -1,46 +1,116 @@
 const fs = require('fs/promises')
 const constants = require('../helpers/constants')
-const { randomUUID } = require('crypto');
 
 exports.getCharactersForList = async function() {
-  let filesToIgnore = ['app-settings', 'characters']
-  let foundFiles = []
-  let characters = []
+  let characterList = []
 
-  await fs.readdir(`${constants.base_data_url}`).then((data) => {
-    data.forEach(file => {
-      let isFileToRead = !filesToIgnore.some(x => file.includes(x))
-      if (isFileToRead)
-        foundFiles.push(file)
-    })
-  })
+  let characters = await this.getAllCharacters()
 
-  for (let file of foundFiles) {
-    await fs.readFile(`${constants.base_data_url}/${file}`, 'utf-8').then((data) => {
-      let parsedCharacter = JSON.parse(data)
-      let character = {
-        id: parsedCharacter.id,
-        name: parsedCharacter.baseInfo.name,
-        descriptor: parsedCharacter.baseInfo.descriptor,
-        class: parsedCharacter.baseInfo.class,
-        focus: parsedCharacter.baseInfo.focus,
-        isCypher: parsedCharacter.settings.cypherSystem
-      }
+  for (let character of characters) {
+    let listCharacter = {
+      id: character.id,
+      sortOrder: character.sortOrder ?? -1,
+      name: character.baseInfo.name,
+      descriptor: character.baseInfo.descriptor,
+      class: character.baseInfo.class,
+      focus: character.baseInfo.focus,
+      isCypher: character.settings.cypherSystem
+    }
 
-      characters.push(character)
-    })
+    characterList.push(listCharacter)
   }
 
-  return characters
+  characterList = characterList.sort((a, b) => a.sortOrder - b.sortOrder)
+
+  if (characterList.some(x => x.sortOrder === -1)) {
+    let maxCharacterSort = characterList.at(-1).sortOrder
+    let charactersWithoutSortOrder = characterList.filter(x => x.sortOrder === -1)
+
+    for (let i = 0; i < charactersWithoutSortOrder.length; i++) {
+      let character = charactersWithoutSortOrder[i]
+      character.sortOrder = maxCharacterSort + 1
+
+      let foundCharacter = await this.getCharacter(character.id)
+      foundCharacter.sortOrder = character.sortOrder
+      await this.updateCharacter(character.id, foundCharacter)
+
+      maxCharacterSort = maxCharacterSort + 1
+    }
+
+    characterList = characterList.sort((a, b) => a.sortOrder - b.sortOrder)
+  }
+
+  let isConsecutive = true
+  for (let i = 0; i < characterList.length; i++) {
+    if (characterList[i].sortOrder !== i) {
+      isConsecutive = false
+      break
+    }
+  }
+  if (!isConsecutive) {
+    let resortOrder = 0
+    for (let i = 0; i < characterList.length; i++) {
+      let character = characterList[i]
+      character.sortOrder = resortOrder
+
+      let foundCharacter = await this.getCharacter(character.id)
+      foundCharacter.sortOrder = character.sortOrder
+      await this.updateCharacter(character.id, foundCharacter)
+
+      resortOrder = resortOrder + 1
+    }
+  }
+
+  return characterList
+}
+
+exports.updateSortOrder = async function(characterId, sortOrderBody) {
+  let sortOrder = sortOrderBody.sortOrder
+  let character = await this.getCharacter(characterId)
+
+  let characters = await this.getAllCharacters()
+  let characterSwitchingSpots = characters.find(x => x.sortOrder === sortOrder)
+
+  let currentSortOrder = character.sortOrder
+  character.sortOrder = sortOrder
+  characterSwitchingSpots.sortOrder = currentSortOrder
+
+  await this.updateCharacter(character.id, character)
+  await this.updateCharacter(characterSwitchingSpots.id, characterSwitchingSpots)
 }
 
 exports.getCharacter = async function(id) {
     let character = {}
     await fs.readFile(`${constants.base_data_url}/${id}.json`, 'utf-8').then((data) => {
-        character = JSON.parse(data)
+      character = JSON.parse(data)
     })
 
+    let somethingUpdated = false
+    somethingUpdated = somethingUpdated || checkList(character.skills)
+    somethingUpdated = somethingUpdated || checkList(character.abilities)
+    somethingUpdated = somethingUpdated || checkList(character.attacks)
+    somethingUpdated = somethingUpdated || checkList(character.equipment.items)
+    somethingUpdated = somethingUpdated || checkList(character.equipment.oddities)
+    somethingUpdated = somethingUpdated || checkList(character.equipment.weapons)
+    somethingUpdated = somethingUpdated || checkList(character.equipment.cyphers)
+
+    if (somethingUpdated) {
+      await this.updateCharacter(character.id, character)
+    }
+
     return character
+}
+
+exports.getCharacterBaseInfo = async function(id) {
+  let character = await this.getCharacter(id)
+
+  return character.baseInfo
+}
+
+exports.getCharacterSettings = async function(id) {
+  let character = await this.getCharacter(id)
+
+  return character.settings
 }
 
 exports.updateStatsHistory = async function(id, statHistory) {
@@ -114,6 +184,9 @@ exports.sumArrayField = function(array, field) {
 }
 
 exports.addCharacter = async function(characterData) {
+  let characters = await this.getAllCharacters()
+
+  characterData.sortOrder = characters.at(-1).sortOrder + 1
   characterData.baseInfo.tier = 1
   characterData.baseInfo.stats.movement = 30
   characterData.baseInfo.stats.breathers = 2
@@ -169,7 +242,18 @@ exports.updateCharacter = async function(characterId, character) {
 }
 
 exports.deleteCharacter = async function(characterId) {
-    let foundData = []
+    let foundData = await this.getCharacter(characterId)
+    let sortOrder = foundData.sortOrder
+
+    let characters = await this.getAllCharacters()
+    let charactersLater = characters.filter(x => x.sortOrder > sortOrder)
+
+    for (let i = 0; i < charactersLater.length; i++) {
+      let character = charactersLater[i]
+      character.sortOrder = character.sortOrder - 1
+      await this.updateCharacter(character.id, character)
+    }
+
     await fs.unlink(`${constants.base_data_url}/${characterId}.json`)
 }
 
@@ -296,6 +380,17 @@ exports.setAdvancements = async function (characterId, data) {
 exports.importCharacter = async function(data) {
   let characterId = data.id
 
+  let characters = await this.getAllCharacters()
+  characters = characters.sort((a, b) => a.sortOrder - b.sortOrder)
+  let foundCharacter = characters.find(x => x.id == characterId)
+
+  if (!foundCharacter) {
+    data.sortOrder = characters.at(-1).sortOrder + 1
+  }
+  else {
+    data.sortOrder = foundCharacter.sortOrder
+  }
+
   await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(data))
 }
 
@@ -331,4 +426,51 @@ exports.deleteTier = async function(characterId, tier) {
   character.baseInfo.tier -= 1
 
   await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+}
+
+exports.getAllCharacters = async function() {
+  let filesToIgnore = ['app-settings', 'characters']
+  let foundFiles = []
+  let characters = []
+
+  await fs.readdir(`${constants.base_data_url}`).then((data) => {
+    data.forEach(file => {
+      let isFileToRead = !filesToIgnore.some(x => file.includes(x))
+      if (isFileToRead)
+        foundFiles.push(file)
+    })
+  })
+
+  for (let file of foundFiles) {
+    await fs.readFile(`${constants.base_data_url}/${file}`, 'utf-8').then((data) => {
+      let parsedCharacter = JSON.parse(data)
+
+      characters.push(parsedCharacter)
+    })
+  }
+
+  return characters
+}
+
+var checkList = function(characterStatList) {
+  characterStatList.sort((a, b) => a.sortOrder - b.sortOrder)
+
+  let hasUndefinedSorts = characterStatList.some(x => x.sortOrder === undefined)
+
+  let isConsecutive = true
+  for (let i = 0; i < characterStatList.length; i++) {
+    if (characterStatList[i].sortOrder !== i) {
+      isConsecutive = false
+      break
+    }
+  }
+
+  if (hasUndefinedSorts || !isConsecutive) {
+    for (let i = 0; i < characterStatList.length; i++) {
+      characterStatList[i].sortOrder = i
+    }
+    return true
+  }
+
+  return false
 }

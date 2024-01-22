@@ -1,5 +1,5 @@
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { Component, Input, Output, OnInit, EventEmitter, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, ViewChild, AfterViewInit, ViewEncapsulation, SimpleChanges, OnChanges } from '@angular/core';
 import { character } from '../models/character';
 
 @Component({
@@ -7,7 +7,7 @@ import { character } from '../models/character';
   templateUrl: './incrementer.component.html',
   styleUrls: ['./incrementer.component.scss']
 })
-export class IncrementerComponent implements OnInit, AfterViewInit {
+export class IncrementerComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() numberValueTotal: number = 0
   @Input() numberValueCurrent: number = 0
   @Input() showIncrementers: boolean = false
@@ -23,6 +23,8 @@ export class IncrementerComponent implements OnInit, AfterViewInit {
   fontSizeWidthAdjustment: number = 50
   appliedChange: boolean = false
 
+  loaded: boolean = false
+
   ngOnInit(): void {
     this.currentVal = this.numberValueCurrent.toString()
     this.fontSizeWidthAdjustment = this.fontSize
@@ -30,7 +32,16 @@ export class IncrementerComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.numberInput.nativeElement.style.width = ((this.numberInput.nativeElement.value.length) * this.fontSizeWidthAdjustment) + 'px'
-    this.numberInput.nativeElement.style.fontSize = `${this.fontSize}px` 
+    this.numberInput.nativeElement.style.fontSize = `${this.fontSize}px`
+    this.loaded = true
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!this.loaded) {
+      return
+    }
+    this.currentVal = changes['numberValueCurrent'].currentValue.toString()
+    this.numberInput.nativeElement.style.width = ((this.currentVal.length) * this.fontSizeWidthAdjustment) + 'px'
   }
 
   clearText() {

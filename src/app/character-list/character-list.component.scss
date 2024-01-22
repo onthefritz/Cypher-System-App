@@ -46,3 +46,29 @@
         font-size: 20px !important;
     }
 }
+
+.sort-order-button {
+  font-size: 10px;
+  width: 40px;
+  height: 34px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+
+  color: var(--textColor);
+  background-color: rgb(0, 0, 0, 0);
+  &:not(:disabled):hover {
+    cursor: pointer;
+    background-color: rgb(170, 170, 170, .35);
+  }
+  &:not(:disabled):active {
+    cursor: pointer;
+    background-color: rgb(170, 170, 170, .6);
+  }
+  &:disabled {
+    color: var(--textColorDisabled)
+  }
+}
