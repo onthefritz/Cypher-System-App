@@ -31,7 +31,6 @@ import { UpsertItemComponent } from './dialogs/upsert-item/upsert-item.component
 import { UpsertWeaponComponent } from './dialogs/upsert-weapon/upsert-weapon.component'
 import { UpsertCypherComponent } from './dialogs/upsert-cypher/upsert-cypher.component'
 import { InsertMoneyComponent } from './dialogs/insert-money/insert-money.component'
-import { SettingsComponent } from './dialogs/settings/settings.component'
 import { OptionsComponent } from './options/options.component'
 
 import { MatButtonModule } from '@angular/material/button'
@@ -79,7 +78,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
     UpsertWeaponComponent,
     UpsertCypherComponent,
     InsertMoneyComponent,
-    SettingsComponent,
     AltPoolStatsComponent,
     OptionsComponent
   ],

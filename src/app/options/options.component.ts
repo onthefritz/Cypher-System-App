@@ -41,4 +41,10 @@ export class OptionsComponent implements OnInit {
       this.reloadCharacter.emit()
     })
   }
+
+  changedCharm(event: any) {
+    if (!event.checked) {
+      this.characterSettings.altSheet = false
+    }
+  }
 }

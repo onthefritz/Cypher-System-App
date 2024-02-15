@@ -1,11 +1,14 @@
 <button class="save-button" mat-raised-button color="primary" (click)="updateSettings()">Save and Apply</button>
 
 <div *ngIf="characterLoaded" class="options-layout">
-    <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.altSheet">
-        Use Alternate Character Sheet
+    <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingTrees">
+        Using Trees
     </mat-slide-toggle>
-    <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingCharm">
+    <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingCharm" (change)="changedCharm($event)">
         Using Charm
+    </mat-slide-toggle>
+    <mat-slide-toggle class="indent" color="accent" [(ngModel)]="characterSettings.altSheet" [disabled]="!characterSettings.usingCharm">
+        Use Alternate Character Sheet
     </mat-slide-toggle>
     <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingAC">
         Using AC
@@ -13,16 +16,13 @@
     <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingSpeed">
         Using Speed
     </mat-slide-toggle>
-    <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingSP">
-        Using Story Points
-    </mat-slide-toggle>
     <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingBreathers">
         Using Breathers
     </mat-slide-toggle>
     <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingExhaustion">
         Using Exhaustion
     </mat-slide-toggle>
-    <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingTrees">
-        Using Trees
+    <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingSP">
+        Using Story Points
     </mat-slide-toggle>
 </div>

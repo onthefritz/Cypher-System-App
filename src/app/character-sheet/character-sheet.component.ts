@@ -6,7 +6,6 @@ import { BASE_URL } from '../helpers/constants'
 import { character, skill } from '../models/character'
 import { MatCheckboxChange } from '@angular/material/checkbox'
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component'
-import { SettingsComponent } from '../dialogs/settings/settings.component'
 import { StatsComponent } from '../stats/stats.component'
 
 @Component({
