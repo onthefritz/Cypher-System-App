@@ -140,27 +140,6 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
     })
   }
 
-  updateSettings() {
-    let dialogData = {
-      characterId: this.characterId,
-      settings: this.characterInfo.settings
-    }
-
-    const dialogRef = this.dialog.open(SettingsComponent, {
-      minWidth: '300px',
-      data: dialogData
-    })
-
-    dialogRef.closed.subscribe(result => {
-      if (result) {
-        this.http.post(`${BASE_URL}/settings/${this.characterId}/`, result).subscribe((res) => {
-          this.characterLoaded = false
-          this.loadCharacter()
-        })
-      }
-    })
-  }
-
   exportCharacter() {
     this.http.get(`${BASE_URL}/character/${this.characterId}`).subscribe((res) => {
       let characterInfo = res as character

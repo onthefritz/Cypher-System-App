@@ -1,6 +1,8 @@
 const fs = require('fs/promises')
 const constants = require('../helpers/constants')
 
+let selected_character
+
 exports.getCharactersForList = async function() {
   let characterList = []
 
@@ -14,7 +16,7 @@ exports.getCharactersForList = async function() {
       descriptor: character.baseInfo.descriptor,
       class: character.baseInfo.class,
       focus: character.baseInfo.focus,
-      isCypher: character.settings.cypherSystem
+      isCypher: !character.settings.usingTrees
     }
 
     characterList.push(listCharacter)
@@ -80,25 +82,33 @@ exports.updateSortOrder = async function(characterId, sortOrderBody) {
 }
 
 exports.getCharacter = async function(id) {
-    let character = {}
+    if (selected_character && id === selected_character.id) {
+      return selected_character
+    }
+
     await fs.readFile(`${constants.base_data_url}/${id}.json`, 'utf-8').then((data) => {
-      character = JSON.parse(data)
+      selected_character = JSON.parse(data)
     })
 
     let somethingUpdated = false
-    somethingUpdated = somethingUpdated || checkList(character.skills)
-    somethingUpdated = somethingUpdated || checkList(character.abilities)
-    somethingUpdated = somethingUpdated || checkList(character.attacks)
-    somethingUpdated = somethingUpdated || checkList(character.equipment.items)
-    somethingUpdated = somethingUpdated || checkList(character.equipment.oddities)
-    somethingUpdated = somethingUpdated || checkList(character.equipment.weapons)
-    somethingUpdated = somethingUpdated || checkList(character.equipment.cyphers)
-
-    if (somethingUpdated) {
-      await this.updateCharacter(character.id, character)
+    somethingUpdated = somethingUpdated || checkList(selected_character.skills)
+    somethingUpdated = somethingUpdated || checkList(selected_character.abilities)
+    somethingUpdated = somethingUpdated || checkList(selected_character.attacks)
+    somethingUpdated = somethingUpdated || checkList(selected_character.equipment.items)
+    somethingUpdated = somethingUpdated || checkList(selected_character.equipment.oddities)
+    somethingUpdated = somethingUpdated || checkList(selected_character.equipment.weapons)
+    somethingUpdated = somethingUpdated || checkList(selected_character.equipment.cyphers)
+    
+    if (!selected_character.baseInfo.sp) {
+      selected_character.baseInfo.sp = 0
+      somethingUpdated = true
     }
 
-    return character
+    if (somethingUpdated) {
+      await this.updateCharacter(selected_character.id, selected_character)
+    }
+
+    return selected_character
 }
 
 exports.getCharacterBaseInfo = async function(id) {
@@ -171,7 +181,7 @@ exports.updateStatsHistory = async function(id, statHistory) {
   character.baseInfo.stats.hp = character.baseInfo.stats.might + character.baseInfo.stats.speed
   character.baseInfo.stats.ap = character.baseInfo.stats.intellect + character.baseInfo.stats.charm
 
-  await fs.writeFile(`${constants.base_data_url}/${id}.json`, JSON.stringify(character))
+  await this.updateCharacter(id, character)
 }
 
 exports.sumArrayField = function(array, field) {
@@ -234,11 +244,12 @@ exports.addCharacter = async function(characterData) {
 
   characterData.equipment.cypherCount = 2
 
-  await fs.writeFile(`${constants.base_data_url}/${characterData.id}.json`, JSON.stringify(characterData))
+  await this.updateCharacter(characterData.id, characterData)
 }
 
 exports.updateCharacter = async function(characterId, character) {
   await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+  selected_character = character
 }
 
 exports.deleteCharacter = async function(characterId) {
@@ -277,7 +288,7 @@ exports.deleteStats = async function(characterId, tier) {
   character.baseInfo.stats.intellectEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToIntellectEdge')
   character.baseInfo.stats.charmEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToCharmEdge')
 
-  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+  await this.updateCharacter(characterId, character)
 }
 
 exports.shortRest = async function(characterId, wellRested) {
@@ -318,7 +329,7 @@ exports.shortRest = async function(characterId, wellRested) {
 
   character.baseInfo.stats = stats
 
-  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+  await this.updateCharacter(characterId, character)
 }
 
 exports.isLessThanHalf = function(current, total) {
@@ -353,7 +364,7 @@ exports.longRest = async function(characterId) {
   character.baseInfo.stats.breathers = character.baseInfo.tier * 2
   character.baseInfo.stats.shortRestsSinceLongRest = 0
 
-  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+  await this.updateCharacter(characterId, character)
 }
 
 exports.refreshEdgeAndEffort = async function(characterId) {
@@ -366,7 +377,7 @@ exports.refreshEdgeAndEffort = async function(characterId) {
 
   character.baseInfo.stats.effortCurrent = character.baseInfo.stats.effort
 
-  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+  await this.updateCharacter(characterId, character)
 }
 
 exports.setAdvancements = async function (characterId, data) {
@@ -374,7 +385,7 @@ exports.setAdvancements = async function (characterId, data) {
 
   character.baseInfo.tierAdvancement = data
 
-  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+  await this.updateCharacter(characterId, character)
 }
 
 exports.importCharacter = async function(data) {
@@ -391,7 +402,7 @@ exports.importCharacter = async function(data) {
     data.sortOrder = foundCharacter.sortOrder
   }
 
-  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(data))
+  await this.updateCharacter(characterId, data)
 }
 
 exports.levelUp = async function(characterId) {
@@ -405,7 +416,7 @@ exports.levelUp = async function(characterId) {
   character.baseInfo.tierAdvancementHistory.push(tierHistory)
   character.baseInfo.tier += 1
 
-  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+  await this.updateCharacter(characterId, character)
 
   let resetCharacter = await this.getCharacter(characterId)
 
@@ -415,7 +426,7 @@ exports.levelUp = async function(characterId) {
   resetCharacter.baseInfo.tierAdvancement.trainSkill = false
   resetCharacter.baseInfo.tierAdvancement.other = false
   
-  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(resetCharacter))
+  await this.updateCharacter(characterId, resetCharacter)
 }
 
 exports.deleteTier = async function(characterId, tier) {
@@ -425,7 +436,7 @@ exports.deleteTier = async function(characterId, tier) {
   character.baseInfo.tierAdvancementHistory = newTierHistory
   character.baseInfo.tier -= 1
 
-  await fs.writeFile(`${constants.base_data_url}/${characterId}.json`, JSON.stringify(character))
+  await this.updateCharacter(characterId, character)
 }
 
 exports.getAllCharacters = async function() {
