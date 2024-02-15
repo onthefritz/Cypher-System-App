@@ -70,9 +70,9 @@ export class StatsComponent implements OnInit {
     })
   }
 
-  recoveryUsed(event: MatCheckboxChange, element: string) {
+  recoveryUsed(data: any) {
     let genericObject = this.baseCharacterInfo as any
-    genericObject.stats[element] = event.checked
+    genericObject.stats[data.element] = data.value
     let stats = genericObject
     this.http.post(`${BASE_URL}/stat/setStats/${this.characterId}`, stats).subscribe((res) => {
       this.getBaseInfo()
