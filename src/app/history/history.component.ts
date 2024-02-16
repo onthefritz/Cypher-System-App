@@ -54,7 +54,7 @@ export class HistoryComponent {
   addStatsDialog(isPools: boolean) {
     let dialogData = {
       isPools: isPools,
-      isCypher: this.settings.cypherSystem,
+      isCypher: !this.settings.usingCharm,
       characterId: this.characterId,
       tier: this.baseInfo.statHistory.length > 0 ? Math.max(...this.baseInfo.statHistory.map((o: any) => o.tier)) + 1 : 1
     }
@@ -72,7 +72,7 @@ export class HistoryComponent {
   editStatsDialog(isPools: boolean, tier: number) {
     let dialogData = {
       isPools: isPools,
-      isCypher: this.settings.cypherSystem,
+      isCypher: !this.settings.usingCharm,
       characterId: this.characterId,
       tier: tier,
       rowData: this.baseInfo.statHistory.find((data: any) => data.tier === tier)

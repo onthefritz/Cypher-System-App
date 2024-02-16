@@ -6,7 +6,6 @@ import { BASE_URL } from '../helpers/constants'
 import { character, skill } from '../models/character'
 import { MatCheckboxChange } from '@angular/material/checkbox'
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component'
-import { SettingsComponent } from '../dialogs/settings/settings.component'
 import { StatsComponent } from '../stats/stats.component'
 
 @Component({
@@ -137,27 +136,6 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
     this.http.get(`${BASE_URL}/character/levelUp/${this.characterId}`).subscribe((res) => {
       this.characterLoaded = false
       this.loadCharacter()
-    })
-  }
-
-  updateSettings() {
-    let dialogData = {
-      characterId: this.characterId,
-      settings: this.characterInfo.settings
-    }
-
-    const dialogRef = this.dialog.open(SettingsComponent, {
-      minWidth: '300px',
-      data: dialogData
-    })
-
-    dialogRef.closed.subscribe(result => {
-      if (result) {
-        this.http.post(`${BASE_URL}/settings/${this.characterId}/`, result).subscribe((res) => {
-          this.characterLoaded = false
-          this.loadCharacter()
-        })
-      }
     })
   }
 

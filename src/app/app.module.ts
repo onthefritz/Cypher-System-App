@@ -31,7 +31,7 @@ import { UpsertItemComponent } from './dialogs/upsert-item/upsert-item.component
 import { UpsertWeaponComponent } from './dialogs/upsert-weapon/upsert-weapon.component'
 import { UpsertCypherComponent } from './dialogs/upsert-cypher/upsert-cypher.component'
 import { InsertMoneyComponent } from './dialogs/insert-money/insert-money.component'
-import { SettingsComponent } from './dialogs/settings/settings.component'
+import { OptionsComponent } from './options/options.component'
 
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
@@ -50,7 +50,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatMenuModule } from '@angular/material/menu'
 import { AltPoolStatsComponent } from './alt-pool-stats/alt-pool-stats.component'
-import { MatSortModule } from '@angular/material/sort'
+import { MatSortModule } from '@angular/material/sort';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 @NgModule({
   declarations: [
@@ -77,8 +78,8 @@ import { MatSortModule } from '@angular/material/sort'
     UpsertWeaponComponent,
     UpsertCypherComponent,
     InsertMoneyComponent,
-    SettingsComponent,
-    AltPoolStatsComponent
+    AltPoolStatsComponent,
+    OptionsComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +105,8 @@ import { MatSortModule } from '@angular/material/sort'
     MatCheckboxModule,
     MatToolbarModule,
     MatMenuModule,
-    MatSortModule
+    MatSortModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

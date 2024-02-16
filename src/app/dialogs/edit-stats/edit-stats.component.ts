@@ -47,7 +47,7 @@ export class EditStatsComponent implements OnInit {
       }
     }
 
-    this.usedPoints = this.usedOnMight + this.usedOnSpeed + this.usedOnIntellect + this.usedOnCharm
+    this.usedPoints = this.usedOnMight + this.usedOnSpeed + this.usedOnIntellect + (this.isCypher ? 0 : this.usedOnCharm)
   }
 
   increaseCount(element: string) {

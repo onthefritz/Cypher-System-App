@@ -17,9 +17,6 @@ export class StatsComponent implements OnInit {
   baseCharacterInfo: baseInfo = new baseInfo
   settings: settings = new settings
 
-  isAltSheet: boolean = false
-  isCypher: boolean = false
-
   infoLoaded: boolean = false
   settingsLoaded: boolean = false
 
@@ -42,9 +39,6 @@ export class StatsComponent implements OnInit {
   getSettings() {
     this.http.get(`${BASE_URL}/character/settings/${this.characterId}`).subscribe((res) => {
       this.settings = res as settings
-
-      this.isAltSheet = this.settings.altSheet
-      this.isCypher = this.settings.cypherSystem
       this.settingsLoaded = true
     })
   }
@@ -76,9 +70,9 @@ export class StatsComponent implements OnInit {
     })
   }
 
-  recoveryUsed(event: MatCheckboxChange, element: string) {
+  recoveryUsed(data: any) {
     let genericObject = this.baseCharacterInfo as any
-    genericObject.stats[element] = event.checked
+    genericObject.stats[data.element] = data.value
     let stats = genericObject
     this.http.post(`${BASE_URL}/stat/setStats/${this.characterId}`, stats).subscribe((res) => {
       this.getBaseInfo()

@@ -1,71 +1,94 @@
 
 <div class="container" *ngIf="infoLoaded && settingsLoaded">
   <div class="stat-info">
-    <div class="base-stat">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.tier"
-        [numberValueCurrent]="baseCharacterInfo.tier"
-        [disableEdit]="true"
-      ></app-incrementer>
-      <div class="area-title">Tier</div>
+    <div class="base-stat-holder">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.tier"
+          [numberValueCurrent]="baseCharacterInfo.tier"
+          [disableEdit]="true"
+        ></app-incrementer>
+        <div class="area-title">Tier</div>
+      </div>
     </div>
-    <div class="base-stat">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.stats.armor"
-        [numberValueCurrent]="baseCharacterInfo.stats.armor"
-        [disableEdit]="true"
-      ></app-incrementer>
-      <div class="area-title">Armor</div>
+    <div class="base-stat-holder">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.stats.armor"
+          [numberValueCurrent]="baseCharacterInfo.stats.armor"
+          [disableEdit]="true"
+        ></app-incrementer>
+        <div class="area-title">{{!settings.usingAC ? "Armor" : "AC"}}</div>
+      </div>
     </div>
-    <div class="base-stat" *ngIf="!isCypher">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.stats.movement"
-        [numberValueCurrent]="baseCharacterInfo.stats.movement"
-        [disableEdit]="true"
-      ></app-incrementer>
-      <div class="area-title">Movement</div>
+    <div class="base-stat-holder" *ngIf="settings.usingSpeed">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.stats.movement"
+          [numberValueCurrent]="baseCharacterInfo.stats.movement"
+          [disableEdit]="true"
+        ></app-incrementer>
+        <div class="area-title">Movement</div>
+      </div>
     </div>
-  </div>
-  <div class="stat-info">
-    <div class="base-stat" *ngIf="!isCypher">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.stats.exhaustion"
-        [numberValueCurrent]="baseCharacterInfo.stats.exhaustion"
-        [showIncrementers]="true"
-        element="exhaustion"
-        (incrementerChange)="onStatChange($event)"
-      ></app-incrementer>
-      <div class="area-title">Exhaustion</div>
+    <div class="base-stat-holder" *ngIf="settings.usingExhaustion">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.stats.exhaustion"
+          [numberValueCurrent]="baseCharacterInfo.stats.exhaustion"
+          [showIncrementers]="true"
+          element="exhaustion"
+          (incrementerChange)="onStatChange($event)"
+        ></app-incrementer>
+        <div class="area-title">Exhaustion</div>
+      </div>
     </div>
-    <div class="base-stat">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.stats.effort"
-        [numberValueCurrent]="baseCharacterInfo.stats.effortCurrent"
-        [showIncrementers]="true"
-        element="effortCurrent"
-        (incrementerChange)="onStatChange($event)"
-      ></app-incrementer>
-      <div class="area-title">Effort</div>
+    <div class="base-stat-holder">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.stats.effort"
+          [numberValueCurrent]="baseCharacterInfo.stats.effortCurrent"
+          [showIncrementers]="true"
+          element="effortCurrent"
+          (incrementerChange)="onStatChange($event)"
+        ></app-incrementer>
+        <div class="area-title">Effort</div>
+      </div>
     </div>
-    <div class="base-stat">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.xp"
-        [numberValueCurrent]="baseCharacterInfo.xp"
-        [showIncrementers]="true"
-        element="xp"
-        (incrementerChange)="onInfoChange($event)"
-      ></app-incrementer>
-      <div class="area-title">XP</div>
+    <div class="base-stat-holder">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.xp"
+          [numberValueCurrent]="baseCharacterInfo.xp"
+          [showIncrementers]="true"
+          element="xp"
+          (incrementerChange)="onInfoChange($event)"
+        ></app-incrementer>
+        <div class="area-title">XP</div>
+      </div>
+    </div>
+    <div class="base-stat-holder" *ngIf="settings.usingSP">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.sp"
+          [numberValueCurrent]="baseCharacterInfo.sp"
+          [showIncrementers]="true"
+          element="sp"
+          (incrementerChange)="onInfoChange($event)"
+        ></app-incrementer>
+        <div class="area-title">SP</div>
+      </div>
     </div>
   </div>
 
-  <div class="pool-info" *ngIf="!isAltSheet">
+  <div class="pool-info" *ngIf="!settings.altSheet">
     <div class="pool-area">
       <app-pool-stat
         poolName="MIGHT"
@@ -99,7 +122,7 @@
         (statChange)="onStatChange($event)"
       ></app-pool-stat>
     </div>
-    <div class="pool-area" *ngIf="!isCypher">
+    <div class="pool-area" *ngIf="settings.usingCharm">
       <app-pool-stat
         poolName="CHARM"
         [poolTotal]="baseCharacterInfo.stats.charm"
@@ -112,7 +135,7 @@
     </div>
   </div>
 
-  <div class="pool-info" *ngIf="isAltSheet">
+  <div class="pool-info" *ngIf="settings.altSheet">
     <div class="pool-area">
       <app-alt-pool-stats
         poolName="HP"
@@ -161,7 +184,7 @@
         element="debilitated"
         (checkboxChange)="onDamageTrackChange($event)"
       ></app-checkbox>
-      <app-checkbox *ngIf="!isCypher"
+      <app-checkbox *ngIf="settings.usingCharm"
         [defaultValue]="baseCharacterInfo.stats.damageTrack.unconscious"
         checkedStyle="X"
         title="Unconscious"
@@ -169,57 +192,54 @@
         (checkboxChange)="onDamageTrackChange($event)"
       ></app-checkbox>
     </div>
-    <div class="base-stat" *ngIf="!isCypher">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.tier * 2"
-        [numberValueCurrent]="baseCharacterInfo.stats.breathers"
-        [showIncrementers]="true"
-        element="breathers"
-        (incrementerChange)="onStatChange($event)"
-      ></app-incrementer>
-      <div class="area-title">Breathers</div>
-    </div>
   </div>
-  <div class="recovery-rolls-section" *ngIf="isCypher">
-    <mat-card>
-      <div class="recovery-rolls-header">
-        <mat-card-title>Recovery Rolls - 1d6 + {{baseCharacterInfo.stats.recoveryBonus}}</mat-card-title>
+  <div class="recovery-rolls-section">
+    <div class="recovery-rolls-header">
+      <div>Recovery Rolls</div>
+      <div>1d6 + {{baseCharacterInfo.stats.recoveryBonus}}</div>
+    </div>
+    <div class="recovery-rolls" *ngIf="settings.usingBreathers">
+      <div class="breather-recovery">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.tier * 2"
+          [numberValueCurrent]="baseCharacterInfo.stats.breathers"
+          [showIncrementers]="true"
+          element="breathers"
+          (incrementerChange)="onStatChange($event)"
+        ></app-incrementer>
+        <div class="area-title">Breathers</div>
       </div>
-      <mat-card-content class="recovery-rolls">
-        <div class="recovery">
-          <mat-checkbox 
-            [checked]="baseCharacterInfo.stats.recovery1Action"
-            (change)="recoveryUsed($event, 'recovery1Minute')"
-            color="primary"
-          ></mat-checkbox>
-          <div>1 Action</div>
-        </div>
-        <div class="recovery">
-          <mat-checkbox
-            [checked]="baseCharacterInfo.stats.recovery10Minutes"
-            (change)="recoveryUsed($event, 'recovery10Minutes')"
-            color="primary"
-          ></mat-checkbox>
-          <div>10 Minutes</div>
-        </div>
-        <div class="recovery">
-          <mat-checkbox
-            [checked]="baseCharacterInfo.stats.recovery1Hour"
-            (change)="recoveryUsed($event, 'recovery1Hour')"
-            color="primary"
-          ></mat-checkbox>
-          <div>1 Hour</div>
-        </div>
-        <div class="recovery">
-          <mat-checkbox
-            [checked]="baseCharacterInfo.stats.recovery10Hours"
-            (change)="recoveryUsed($event, 'recovery10Hours')"
-            color="primary"
-          ></mat-checkbox>
-          <div>10 Hours</div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    </div>
+    <div class="recovery-rolls" *ngIf="!settings.usingBreathers">
+      <app-checkbox
+        [defaultValue]="baseCharacterInfo.stats.recovery1Action"
+        checkedStyle="X"
+        title="1 Action"
+        element="recovery1Action"
+        (checkboxChange)="recoveryUsed($event)"
+      ></app-checkbox>
+      <app-checkbox
+        [defaultValue]="baseCharacterInfo.stats.recovery10Minutes"
+        checkedStyle="X"
+        title="10 Minutes"
+        element="recovery10Minutes"
+        (checkboxChange)="recoveryUsed($event)"
+      ></app-checkbox>
+      <app-checkbox
+        [defaultValue]="baseCharacterInfo.stats.recovery1Hour"
+        checkedStyle="X"
+        title="1 Hour"
+        element="recovery1Hour"
+        (checkboxChange)="recoveryUsed($event)"
+      ></app-checkbox>
+      <app-checkbox
+        [defaultValue]="baseCharacterInfo.stats.recovery10Hours"
+        checkedStyle="X"
+        title="10 Hours"
+        element="recovery10Hours"
+        (checkboxChange)="recoveryUsed($event)"
+      ></app-checkbox>
+    </div>
   </div>
 </div>

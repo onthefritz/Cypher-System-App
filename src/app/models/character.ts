@@ -15,6 +15,7 @@ export class baseInfo {
     public focus: string = ''
     public tier: number = 0
     public xp: number = 0
+    public sp: number = 0
     public stats: stats = new stats
     public statHistory: statHistory[] = []
     public tierAdvancement: tierAdvancement = new tierAdvancement
@@ -172,4 +173,11 @@ export class skill {
 export class settings {
     public altSheet: boolean = false
     public cypherSystem: boolean = false
+    public usingCharm: boolean = false
+    public usingSpeed: boolean = false
+    public usingSP: boolean = false
+    public usingBreathers: boolean = false
+    public usingExhaustion: boolean = false
+    public usingAC: boolean = false
+    public usingTrees: boolean = false
 }
