@@ -1,78 +1,90 @@
 
 <div class="container" *ngIf="infoLoaded && settingsLoaded">
   <div class="stat-info">
-    <div class="base-stat">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.tier"
-        [numberValueCurrent]="baseCharacterInfo.tier"
-        [disableEdit]="true"
-      ></app-incrementer>
-      <div class="area-title">Tier</div>
+    <div class="base-stat-holder">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.tier"
+          [numberValueCurrent]="baseCharacterInfo.tier"
+          [disableEdit]="true"
+        ></app-incrementer>
+        <div class="area-title">Tier</div>
+      </div>
     </div>
-    <div class="base-stat">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.stats.armor"
-        [numberValueCurrent]="baseCharacterInfo.stats.armor"
-        [disableEdit]="true"
-      ></app-incrementer>
-      <div class="area-title">{{!settings.usingAC ? "Armor" : "AC"}}</div>
+    <div class="base-stat-holder">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.stats.armor"
+          [numberValueCurrent]="baseCharacterInfo.stats.armor"
+          [disableEdit]="true"
+        ></app-incrementer>
+        <div class="area-title">{{!settings.usingAC ? "Armor" : "AC"}}</div>
+      </div>
     </div>
-    <div class="base-stat" *ngIf="settings.usingSpeed">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.stats.movement"
-        [numberValueCurrent]="baseCharacterInfo.stats.movement"
-        [disableEdit]="true"
-      ></app-incrementer>
-      <div class="area-title">Movement</div>
+    <div class="base-stat-holder" *ngIf="settings.usingSpeed">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.stats.movement"
+          [numberValueCurrent]="baseCharacterInfo.stats.movement"
+          [disableEdit]="true"
+        ></app-incrementer>
+        <div class="area-title">Movement</div>
+      </div>
     </div>
-  </div>
-  <div class="stat-info">
-    <div class="base-stat" *ngIf="settings.usingExhaustion">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.stats.exhaustion"
-        [numberValueCurrent]="baseCharacterInfo.stats.exhaustion"
-        [showIncrementers]="true"
-        element="exhaustion"
-        (incrementerChange)="onStatChange($event)"
-      ></app-incrementer>
-      <div class="area-title">Exhaustion</div>
+    <div class="base-stat-holder" *ngIf="settings.usingExhaustion">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.stats.exhaustion"
+          [numberValueCurrent]="baseCharacterInfo.stats.exhaustion"
+          [showIncrementers]="true"
+          element="exhaustion"
+          (incrementerChange)="onStatChange($event)"
+        ></app-incrementer>
+        <div class="area-title">Exhaustion</div>
+      </div>
     </div>
-    <div class="base-stat">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.stats.effort"
-        [numberValueCurrent]="baseCharacterInfo.stats.effortCurrent"
-        [showIncrementers]="true"
-        element="effortCurrent"
-        (incrementerChange)="onStatChange($event)"
-      ></app-incrementer>
-      <div class="area-title">Effort</div>
+    <div class="base-stat-holder">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.stats.effort"
+          [numberValueCurrent]="baseCharacterInfo.stats.effortCurrent"
+          [showIncrementers]="true"
+          element="effortCurrent"
+          (incrementerChange)="onStatChange($event)"
+        ></app-incrementer>
+        <div class="area-title">Effort</div>
+      </div>
     </div>
-    <div class="base-stat">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.xp"
-        [numberValueCurrent]="baseCharacterInfo.xp"
-        [showIncrementers]="true"
-        element="xp"
-        (incrementerChange)="onInfoChange($event)"
-      ></app-incrementer>
-      <div class="area-title">XP</div>
+    <div class="base-stat-holder">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.xp"
+          [numberValueCurrent]="baseCharacterInfo.xp"
+          [showIncrementers]="true"
+          element="xp"
+          (incrementerChange)="onInfoChange($event)"
+        ></app-incrementer>
+        <div class="area-title">XP</div>
+      </div>
     </div>
-    <div class="base-stat" *ngIf="settings.usingSP">
-      <app-incrementer
-        [fontSize]="25"
-        [numberValueTotal]="baseCharacterInfo.sp"
-        [numberValueCurrent]="baseCharacterInfo.sp"
-        [showIncrementers]="true"
-        element="sp"
-        (incrementerChange)="onInfoChange($event)"
-      ></app-incrementer>
-      <div class="area-title">SP</div>
+    <div class="base-stat-holder" *ngIf="settings.usingSP">
+      <div class="base-stat">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.sp"
+          [numberValueCurrent]="baseCharacterInfo.sp"
+          [showIncrementers]="true"
+          element="sp"
+          (incrementerChange)="onInfoChange($event)"
+        ></app-incrementer>
+        <div class="area-title">SP</div>
+      </div>
     </div>
   </div>
 
