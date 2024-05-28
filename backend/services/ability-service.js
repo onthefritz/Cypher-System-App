@@ -1,3 +1,5 @@
+const fs = require('fs/promises')
+const constants = require('../helpers/constants')
 const characterService = require('../services/character-service')
 
 exports.updateSkill = async function(characterId, newSkill) {
@@ -159,4 +161,14 @@ exports.deleteSpecial = async function(characterId, abilityId) {
   character.abilities = character.abilities.filter((ability) => ability.id !== abilityId)
 
   await characterService.updateCharacter(characterId, character)
+}
+
+exports.getAllAbilities = async function() {
+  let ability_data
+  
+  await fs.readFile(`${constants.base_data_url}/abilities.json`, 'utf-8').then((data) => {
+    ability_data = JSON.parse(data)
+  })
+
+  return ability_data
 }

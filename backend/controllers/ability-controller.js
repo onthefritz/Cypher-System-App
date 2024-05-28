@@ -95,4 +95,12 @@ router.delete('/special/:characterId/:specialName', async (req, res) => {
   res.end()
 })
 
+router.get('/abilities', async (req, res) => {
+	let abilities = await abilityService.getAllAbilities()
+
+	res.status(200)
+	res.send(abilities)
+	res.end()
+})
+
 module.exports = router

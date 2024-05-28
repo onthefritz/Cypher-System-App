@@ -84,7 +84,7 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit, OnChang
     }
 
     const dialogRef = this.dialog.open(UpsertAbilityComponent, {
-      minWidth: '300px',
+      minWidth: '600px',
       data: dialogData
     })
 

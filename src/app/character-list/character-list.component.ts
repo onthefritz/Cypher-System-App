@@ -183,4 +183,8 @@ export class CharacterListComponent implements OnInit {
       this.loadCharacters()
     })
   }
+
+  AbilityPage() {
+    this.router.navigateByUrl(`/abilities-list/`)
+  }
 }

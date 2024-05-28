@@ -440,7 +440,7 @@ exports.deleteTier = async function(characterId, tier) {
 }
 
 exports.getAllCharacters = async function() {
-  let filesToIgnore = ['app-settings', 'characters']
+  let filesToIgnore = ['app-settings', 'characters', 'abilities']
   let foundFiles = []
   let characters = []
 
