@@ -196,7 +196,10 @@ exports.sumArrayField = function(array, field) {
 exports.addCharacter = async function(characterData) {
   let characters = await this.getAllCharacters()
 
-  characterData.sortOrder = characters.at(-1).sortOrder + 1
+  if (characters.length > 0) {
+    characterData.sortOrder = characters.at(-1).sortOrder + 1
+  }
+  
   characterData.baseInfo.tier = 1
   characterData.baseInfo.stats.movement = 30
   characterData.baseInfo.stats.breathers = 2
@@ -410,23 +413,25 @@ exports.levelUp = async function(characterId) {
 
   let tierHistory = {
     tier: character.baseInfo.tier,
-    advancements: character.baseInfo.tierAdvancement
+    advancements:  {
+      pointsToStatPools: character.baseInfo.tierAdvancement.pointsToStatPools,
+      pointToEdge: character.baseInfo.tierAdvancement.pointToEdge,
+      pointToEffort: character.baseInfo.tierAdvancement.pointToEffort,
+      trainSkill: character.baseInfo.tierAdvancement.trainSkill,
+      other: character.baseInfo.tierAdvancement.other
+    }
   }
 
   character.baseInfo.tierAdvancementHistory.push(tierHistory)
   character.baseInfo.tier += 1
 
-  await this.updateCharacter(characterId, character)
-
-  let resetCharacter = await this.getCharacter(characterId)
-
-  resetCharacter.baseInfo.tierAdvancement.pointsToStatPools = false
-  resetCharacter.baseInfo.tierAdvancement.pointToEdge = false
-  resetCharacter.baseInfo.tierAdvancement.pointToEffort = false
-  resetCharacter.baseInfo.tierAdvancement.trainSkill = false
-  resetCharacter.baseInfo.tierAdvancement.other = false
+  character.baseInfo.tierAdvancement.pointsToStatPools = false
+  character.baseInfo.tierAdvancement.pointToEdge = false
+  character.baseInfo.tierAdvancement.pointToEffort = false
+  character.baseInfo.tierAdvancement.trainSkill = false
+  character.baseInfo.tierAdvancement.other = false
   
-  await this.updateCharacter(characterId, resetCharacter)
+  await this.updateCharacter(characterId, character)
 }
 
 exports.deleteTier = async function(characterId, tier) {
