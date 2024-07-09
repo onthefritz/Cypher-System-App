@@ -57,7 +57,9 @@ export class stats {
     public exhaustion: number = 0
     public damageTrack: damageTrack = new damageTrack
     public breathers: number = 0
-    public shortRestsSinceLongRest: number = 0
+    public breathersCurrent: number = 0
+    public shortRests: number = 0
+    public shortRestsCurrent: number = 0
 
     public recovery1Action: boolean = false
     public recovery10Minutes: boolean = false

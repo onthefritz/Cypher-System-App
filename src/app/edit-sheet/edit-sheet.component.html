@@ -84,6 +84,17 @@
                 ></app-incrementer>
                 <div class="area-title">{{!characterInfo.settings.usingAC ? "Armor" : "AC"}}</div>
               </div>
+              <div class="base-stat">
+                <app-incrementer
+                  [fontSize]="25"
+                  [numberValueTotal]="characterInfo.baseInfo.stats.effort"
+                  [numberValueCurrent]="characterInfo.baseInfo.stats.effort"
+                  [showIncrementers]="true"
+                  element="effort"
+                  (incrementerChange)="onStatsArmorOrMovementChange($event)"
+                ></app-incrementer>
+                <div class="area-title">Effort</div>
+              </div>
               <div class="base-stat" *ngIf="characterInfo.settings.usingSpeed">
                 <app-incrementer
                   [fontSize]="25"
@@ -94,6 +105,19 @@
                   (incrementerChange)="onStatsArmorOrMovementChange($event)"
                 ></app-incrementer>
                 <div class="area-title">Movement</div>
+              </div>
+            </div>
+            <div class="stat-info">
+              <div class="base-stat">
+                <app-incrementer
+                  [fontSize]="25"
+                  [numberValueTotal]="characterInfo.equipment.cypherCount"
+                  [numberValueCurrent]="characterInfo.equipment.cypherCount"
+                  [showIncrementers]="true"
+                  element="cypherCount"
+                  (incrementerChange)="onCypherCountChange($event)"
+                ></app-incrementer>
+                <div class="area-title">Cypher Count</div>
               </div>
               <div class="base-stat">
                 <app-incrementer
@@ -106,27 +130,27 @@
                 ></app-incrementer>
                 <div class="area-title">Recovery Bonus</div>
               </div>
-              <div class="base-stat">
+              <div class="base-stat" *ngIf="characterInfo.settings.usingBreathers">
                 <app-incrementer
                   [fontSize]="25"
-                  [numberValueTotal]="characterInfo.baseInfo.stats.effort"
-                  [numberValueCurrent]="characterInfo.baseInfo.stats.effort"
+                  [numberValueTotal]="characterInfo.baseInfo.stats.breathers"
+                  [numberValueCurrent]="characterInfo.baseInfo.stats.breathers"
                   [showIncrementers]="true"
-                  element="effort"
+                  element="breathers"
                   (incrementerChange)="onStatsArmorOrMovementChange($event)"
                 ></app-incrementer>
-                <div class="area-title">Effort</div>
+                <div class="area-title">Breathers</div>
               </div>
-              <div class="base-stat">
+              <div class="base-stat" *ngIf="characterInfo.settings.usingBreathers">
                 <app-incrementer
                   [fontSize]="25"
-                  [numberValueTotal]="characterInfo.equipment.cypherCount"
-                  [numberValueCurrent]="characterInfo.equipment.cypherCount"
+                  [numberValueTotal]="characterInfo.baseInfo.stats.shortRests"
+                  [numberValueCurrent]="characterInfo.baseInfo.stats.shortRests"
                   [showIncrementers]="true"
-                  element="cypherCount"
-                  (incrementerChange)="onCypherCountChange($event)"
+                  element="shortRests"
+                  (incrementerChange)="onStatsArmorOrMovementChange($event)"
                 ></app-incrementer>
-                <div class="area-title">Cypher Count</div>
+                <div class="area-title">Short Rests</div>
               </div>
             </div>
 

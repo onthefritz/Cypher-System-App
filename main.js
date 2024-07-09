@@ -36,9 +36,16 @@ app.on('ready', () => {
 		theme: 'light'
 	}
 
-  let settingsFile = `${constants.base_data_url}/app-settings.json`
+  	let settingsFile = `${constants.base_data_url}/app-settings.json`
 	if (!fs.existsSync(settingsFile)) {
 		fs.writeFile(settingsFile, JSON.stringify(defaultSettings), () => {
+			console.log('File was created')
+		})
+	}
+
+	let abilitiesFile = `${constants.base_data_url}/abilities.json`
+	if (!fs.existsSync(abilitiesFile)) {
+		fs.writeFile(abilitiesFile, JSON.stringify([]), () => {
 			console.log('File was created')
 		})
 	}

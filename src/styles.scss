@@ -193,3 +193,25 @@ tr .mat-mdc-icon-button.mat-mdc-button-base {
 .mat-mdc-slide-toggle .mdc-label {
   color: var(--textColor) !important;
 }
+
+.mat-mdc-paginator-container {
+  background-color: var(--bgColorCard) !important;
+
+  & .mat-mdc-paginator-page-size-label {
+    color: var(--textColor) !important;
+  }
+
+  & .mat-mdc-paginator-range-actions {
+    color: var(--textColor) !important;
+  }
+
+  & .mat-mdc-icon-button {
+    & .mat-mdc-paginator-icon {
+      fill: var(--textColor) !important;
+    }
+
+    &[disabled] .mat-mdc-paginator-icon {
+      fill: var(--textColorDisabled) !important;
+    }
+  }
+}

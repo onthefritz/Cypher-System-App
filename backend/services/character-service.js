@@ -294,41 +294,26 @@ exports.deleteStats = async function(characterId, tier) {
   await this.updateCharacter(characterId, character)
 }
 
-exports.shortRest = async function(characterId, wellRested) {
+exports.shortRest = async function(characterId) {
   let character = await this.getCharacter(characterId)
 
   let stats = character.baseInfo.stats
 
-  if (wellRested.toLowerCase() === 'false') {
-    stats.hpCurrent = this.isLessThanHalf(stats.hpCurrent, stats.hp) ? Math.floor(stats.hp / 2) : stats.hpCurrent
-    stats.apCurrent = this.isLessThanHalf(stats.apCurrent, stats.ap) ? Math.floor(stats.ap / 2) : stats.apCurrent
-    stats.mightCurrent = this.isLessThanHalf(stats.mightCurrent, stats.might) ? Math.floor(stats.might / 2) : stats.mightCurrent
-    stats.speedCurrent = this.isLessThanHalf(stats.speedCurrent, stats.speed) ? Math.floor(stats.speed / 2) : stats.speedCurrent
-    stats.intellectCurrent = this.isLessThanHalf(stats.intellectCurrent, stats.intellect) ? Math.floor(stats.intellect / 2) : stats.intellectCurrent
-    stats.charmCurrent = this.isLessThanHalf(stats.charmCurrent, stats.charm) ? Math.floor(stats.charm / 2) : stats.charmCurrent
-  }
-  else {
-    stats.hpCurrent = stats.hp
-    stats.apCurrent = stats.ap
-    stats.mightCurrent = stats.might
-    stats.speedCurrent = stats.speed
-    stats.intellectCurrent = stats.intellect
-    stats.charmCurrent = stats.charm
-  }
-
+  stats.hpCurrent = this.isLessThanHalf(stats.hpCurrent, stats.hp) ? stats.hpCurrent + Math.floor(stats.hp / 2) : stats.hp
+  stats.apCurrent = this.isLessThanHalf(stats.apCurrent, stats.ap) ? stats.apCurrent + Math.floor(stats.ap / 2) : stats.ap
+  stats.mightCurrent = this.isLessThanHalf(stats.mightCurrent, stats.might) ? stats.mightCurrent + Math.floor(stats.might / 2) : stats.might
+  stats.speedCurrent = this.isLessThanHalf(stats.speedCurrent, stats.speed) ? stats.speedCurrent + Math.floor(stats.speed / 2) : stats.speed
+  stats.intellectCurrent = this.isLessThanHalf(stats.intellectCurrent, stats.intellect) ? stats.intellectCurrent + Math.floor(stats.intellect / 2) : stats.intellect
+  stats.charmCurrent = this.isLessThanHalf(stats.charmCurrent, stats.charm) ? stats.charmCurrent + Math.floor(stats.charm / 2) : stats.charm
+  
   stats.mightEdgeCurrent = stats.mightEdge
   stats.speedEdgeCurrent = stats.speedEdge
   stats.intellectEdgeCurrent = stats.intellectEdge
   stats.charmEdgeCurrent = stats.charmEdge
   stats.effortCurrent = stats.effort
 
-  stats.shortRestsSinceLongRest += 1
-  decimalBreathersToRegain = (character.baseInfo.tier * 2) / (2 * stats.shortRestsSinceLongRest)
-  breathersToRegain = decimalBreathersToRegain < 1 ? 0 : Math.ceil(decimalBreathersToRegain)
-  stats.breathers += breathersToRegain
-  if (stats.breathers > character.baseInfo.tier * 2) {
-    stats.breathers = character.baseInfo.tier * 2
-  }
+  stats.shortRestsCurrent -= 1
+  stats.breathersCurrent = stats.breathers
 
   character.baseInfo.stats = stats
 
@@ -336,7 +321,7 @@ exports.shortRest = async function(characterId, wellRested) {
 }
 
 exports.isLessThanHalf = function(current, total) {
-  if (current < Math.floor(total / 2)) {
+  if (current <= Math.floor(total / 2)) {
     return true
   }
 
@@ -364,8 +349,8 @@ exports.longRest = async function(characterId) {
   character.baseInfo.stats.exhaustion = character.baseInfo.stats.exhaustion - 2 < 0 
     ? 0 
     : character.baseInfo.stats.exhaustion - 2
-  character.baseInfo.stats.breathers = character.baseInfo.tier * 2
-  character.baseInfo.stats.shortRestsSinceLongRest = 0
+  character.baseInfo.stats.breathersCurrent = character.baseInfo.stats.breathers
+  character.baseInfo.stats.shortRestsCurrent = character.baseInfo.stats.shortRests
 
   await this.updateCharacter(characterId, character)
 }

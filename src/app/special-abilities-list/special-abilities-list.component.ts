@@ -6,7 +6,8 @@ import { BASE_URL } from '../helpers/constants';
 import { ability } from '../models/ability';
 import { MatTableDataSource } from '@angular/material/table';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-special-abilities-list',
@@ -24,29 +25,27 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
   abilitiesDisplayedColumns: string[] = [ 'name', 'cost', 'tier', 'costTime' ]
   columnsToDisplayWithExpand = [...this.abilitiesDisplayedColumns, 'expand']
 
-  abilitiesData: any
+  abilitiesData = new MatTableDataSource<any>([])
   abilitiesLoaded: boolean = false
   expandedElement!: ability | null
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private http: HttpClient, private dialog: Dialog,
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loadAbilites()
-    
-    this.abilitiesData = new MatTableDataSource(this.abilitiesData)
-    this.abilitiesData.filterPredicate = function(data: any, filter: string): boolean {
-      let costField = data.cost.toString() + ' ' + data.costType.toString()
-      return data.name.toLowerCase().includes(filter)
-          || data.source.toLowerCase().includes(filter)
-          || costField.toLowerCase().includes(filter)
-    }
   }
 
   ngAfterViewInit() {
-    this.abilitiesData.paginator = this.paginator;
+    this.abilitiesData.filterPredicate = function(data: any, filter: string): boolean {
+      let costField = data.cost.toString() + ' ' + data.costType.toString()
+      return data.name.toLowerCase().includes(filter)
+          || costField.toLowerCase().includes(filter)
+    }
+
     this.abilitiesLoaded = true
   }
 
@@ -55,12 +54,14 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
       return
     }
     let changedSkills = changes['abilitiesData'].currentValue
-    this.abilitiesData = new MatTableDataSource(changedSkills)
+    this.abilitiesData.data = changedSkills
   }
 
   loadAbilites() {
     this.http.get(`${BASE_URL}/ability/abilities`).subscribe((res) => {
-      this.abilitiesData = res as ability[]
+      this.abilitiesData.data = res as ability[]
+      this.abilitiesData.paginator = this.paginator
+      this.abilitiesData.sort = this.sort
     })
   }
 
@@ -79,5 +80,9 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
     this.abilitiesData.filter = filterValue.trim().toLowerCase()
+    
+    if (this.abilitiesData.paginator) {
+      this.abilitiesData.paginator.firstPage();
+    }
   }
 }
