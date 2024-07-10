@@ -9,6 +9,7 @@ exports.updateSettings = async function(characterId, newSettings) {
   settings.usingCharm = newSettings.usingCharm
   settings.usingSpeed = newSettings.usingSpeed
   settings.usingSP = newSettings.usingSP
+  settings.usingRests = newSettings.usingRests
   settings.usingBreathers = newSettings.usingBreathers
   settings.usingExhaustion = newSettings.usingExhaustion
   settings.usingAC = newSettings.usingAC

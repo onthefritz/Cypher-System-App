@@ -1,6 +1,6 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BASE_URL } from '../helpers/constants';
 import { ability } from '../models/ability';
@@ -22,8 +22,10 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./special-abilities-list.component.scss']
 })
 export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnChanges {
+  @Output() selectAbilityParent = new EventEmitter()
+
   abilitiesDisplayedColumns: string[] = [ 'name', 'cost', 'tier', 'costTime' ]
-  columnsToDisplayWithExpand = [...this.abilitiesDisplayedColumns, 'expand']
+  columnsToDisplayWithExpand = [...this.abilitiesDisplayedColumns, 'menu', 'expand']
 
   abilitiesData = new MatTableDataSource<any>([])
   abilitiesLoaded: boolean = false
@@ -36,6 +38,10 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log(this.selectAbilityParent)
+    if (this.selectAbilityParent != new EventEmitter()) {
+      this.columnsToDisplayWithExpand = [...this.abilitiesDisplayedColumns, 'expand', 'select']
+    }
     this.loadAbilites()
   }
 
@@ -74,6 +80,10 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
   }
 
   deleteAbility(id: string) {
+
+  }
+
+  selectAbility(id: string) {
 
   }
 

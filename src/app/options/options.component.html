@@ -16,7 +16,10 @@
     <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingSpeed">
         Using Speed
     </mat-slide-toggle>
-    <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingBreathers">
+    <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingRests" (change)="changedRests($event)">
+        Using Rests
+    </mat-slide-toggle>
+    <mat-slide-toggle class="indent" color="accent" [(ngModel)]="characterSettings.usingBreathers" [disabled]="!characterSettings.usingRests">
         Using Breathers
     </mat-slide-toggle>
     <mat-slide-toggle color="accent" [(ngModel)]="characterSettings.usingExhaustion">

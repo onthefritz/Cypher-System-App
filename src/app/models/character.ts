@@ -178,6 +178,7 @@ export class settings {
     public usingCharm: boolean = false
     public usingSpeed: boolean = false
     public usingSP: boolean = false
+    public usingRests: boolean = false
     public usingBreathers: boolean = false
     public usingExhaustion: boolean = false
     public usingAC: boolean = false

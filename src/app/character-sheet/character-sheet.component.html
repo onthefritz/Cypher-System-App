@@ -2,8 +2,8 @@
   <div class="toolbar-buttons">
     <button mat-raised-button color="accent" (click)="characterList()">Character List</button>
     <button mat-raised-button color="accent" (click)="editSheet()">Edit Character</button>
-    <button mat-raised-button color="accent" (click)="shortRest()">Short Rest</button>
-    <button mat-raised-button color="accent" (click)="longRest()">Long Rest</button>
+    <button *ngIf="characterInfo.settings.usingRests" mat-raised-button color="accent" (click)="shortRest()">Short Rest</button>
+    <button *ngIf="characterInfo.settings.usingRests" mat-raised-button color="accent" (click)="longRest()">Long Rest</button>
     <button mat-raised-button color="accent" (click)="refreshEdgeAndEffort()">Refresh Edge and Effort</button>
     <button mat-raised-button color="accent" (click)="levelUp()" [disabled]="!canLevelUp">Level Up</button>
   </div>
