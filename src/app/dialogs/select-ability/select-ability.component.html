@@ -1,0 +1,10 @@
+<mat-card>
+    <mat-card-content class="custom-dialog">
+        <app-special-abilities-list
+            (selectAbilityParent)="selectAbility($event)"
+        ></app-special-abilities-list>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button (click)="close()">CANCEL</button>
+    </mat-card-actions>
+</mat-card>

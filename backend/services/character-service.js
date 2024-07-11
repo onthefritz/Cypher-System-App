@@ -380,11 +380,13 @@ exports.importCharacter = async function(data) {
   let characterId = data.id
 
   let characters = await this.getAllCharacters()
-  characters = characters.sort((a, b) => a.sortOrder - b.sortOrder)
+  if (characters.length > 0) {
+    characters = characters.sort((a, b) => a.sortOrder - b.sortOrder)
+  }
   let foundCharacter = characters.find(x => x.id == characterId)
 
   if (!foundCharacter) {
-    data.sortOrder = characters.at(-1).sortOrder + 1
+    data.sortOrder = characters.length > 0 ? characters.at(-1).sortOrder + 1 : 0
   }
   else {
     data.sortOrder = foundCharacter.sortOrder

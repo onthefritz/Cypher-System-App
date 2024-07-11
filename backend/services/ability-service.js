@@ -100,6 +100,8 @@ exports.updateSpecial = async function(characterId, newSpecial) {
   }
 
   await characterService.updateCharacter(characterId, character)
+
+  await this.addToAllAbilities(newSpecial)
 }
 
 exports.updateSpecialSort = async function(characterId, specialId, sortInfo) {
@@ -171,4 +173,23 @@ exports.getAllAbilities = async function() {
   })
 
   return ability_data
+}
+
+exports.addToAllAbilities = async function(ability) {
+  let abilities = await this.getAllAbilities()
+
+  let newAbility = {
+    name: ability.name,
+    description: ability.description,
+    cost: ability.cost.toString(),
+    costType: ability.costType,
+    tier: ability.tier,
+    costTime: ability.costTime
+  }
+
+  if (abilities.filter(x => x.name === newAbility.name).length === 0) {
+    abilities.push(newAbility)
+
+    await fs.writeFile(`${constants.base_data_url}/abilities.json`, JSON.stringify(abilities))
+  }
 }

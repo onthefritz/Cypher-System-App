@@ -85,17 +85,17 @@ router.delete('/attack/:characterId/:attackName', async (req, res) => {
   res.end()
 })
 
-router.delete('/special/:characterId/:specialName', async (req, res) => {
+router.delete('/special/:characterId/:specialId', async (req, res) => {
   let characterId = req.params.characterId
-  let specialName = req.params.specialName
+  let specialId = req.params.specialId
 
-  await abilityService.deleteSpecial(characterId, specialName)
+  await abilityService.deleteSpecial(characterId, specialId)
 
   res.status(200)
   res.end()
 })
 
-router.get('/abilities', async (req, res) => {
+router.get('/specials', async (req, res) => {
 	let abilities = await abilityService.getAllAbilities()
 
 	res.status(200)

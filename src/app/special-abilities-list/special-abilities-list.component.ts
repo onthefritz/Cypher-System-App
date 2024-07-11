@@ -27,6 +27,8 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
   abilitiesDisplayedColumns: string[] = [ 'name', 'cost', 'tier', 'costTime' ]
   columnsToDisplayWithExpand = [...this.abilitiesDisplayedColumns, 'menu', 'expand']
 
+  showTitle = true
+
   abilitiesData = new MatTableDataSource<any>([])
   abilitiesLoaded: boolean = false
   expandedElement!: ability | null
@@ -38,18 +40,23 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(this.selectAbilityParent)
-    if (this.selectAbilityParent != new EventEmitter()) {
+    if (this.selectAbilityParent.observed) {
       this.columnsToDisplayWithExpand = [...this.abilitiesDisplayedColumns, 'expand', 'select']
+      this.showTitle = false
     }
     this.loadAbilites()
   }
 
   ngAfterViewInit() {
     this.abilitiesData.filterPredicate = function(data: any, filter: string): boolean {
-      let costField = data.cost.toString() + ' ' + data.costType.toString()
-      return data.name.toLowerCase().includes(filter)
-          || costField.toLowerCase().includes(filter)
+      let nameColumn = 'name: ' + data.name
+      let costColumn = 'cost: ' + data.cost.toString() + ' ' + data.costType.toString()
+      let costColumnType = 'cost: ' + data.costType.toString()
+      let tierColumn = 'tier: ' + data.tier
+      return nameColumn.toLowerCase().includes(filter)
+          || costColumn.toLowerCase().includes(filter)
+          || costColumnType.toLowerCase().includes(filter)
+          || tierColumn.toLowerCase().includes(filter)
     }
 
     this.abilitiesLoaded = true
@@ -64,7 +71,7 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
   }
 
   loadAbilites() {
-    this.http.get(`${BASE_URL}/ability/abilities`).subscribe((res) => {
+    this.http.get(`${BASE_URL}/ability/specials`).subscribe((res) => {
       this.abilitiesData.data = res as ability[]
       this.abilitiesData.paginator = this.paginator
       this.abilitiesData.sort = this.sort
@@ -79,12 +86,16 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
 
   }
 
-  deleteAbility(id: string) {
+  deleteAbility(name: string) {
 
   }
 
-  selectAbility(id: string) {
+  selectAbility(name: string) {
+    let ability = this.abilitiesData.data.filter(x => x.name == name)
 
+    console.log(ability)
+
+    this.selectAbilityParent.emit(ability)
   }
 
   applyFilter(event: Event) {

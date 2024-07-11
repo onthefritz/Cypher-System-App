@@ -120,6 +120,8 @@ export class ability {
     public source: string = ''
     public description: string = ''
     public sortOrder: number = 0
+    public tier: string = ''
+    public costTime: string = ''
 }
 
 export class equipment {
