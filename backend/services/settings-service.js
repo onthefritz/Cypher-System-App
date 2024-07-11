@@ -5,7 +5,6 @@ exports.updateSettings = async function(characterId, newSettings) {
 
   let settings = character.settings
   settings.altSheet = newSettings.altSheet
-  settings.cypherSystem = newSettings.cypherSystem
   settings.usingCharm = newSettings.usingCharm
   settings.usingSpeed = newSettings.usingSpeed
   settings.usingSP = newSettings.usingSP

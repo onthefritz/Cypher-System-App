@@ -4,6 +4,11 @@
         <mat-card-subtitle><i>No Fields are required.</i></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
+        <mat-slide-toggle color="accent" [(ngModel)]="isTreeCypher">
+            Using Tree Cypher System
+        </mat-slide-toggle>
+        <br/>
+        <br/>
         <mat-form-field class="full-width">
             <mat-label>Name</mat-label>
             <input matInput [(ngModel)]="name" />
@@ -14,6 +19,11 @@
             <input matInput [(ngModel)]="descriptor" />
         </mat-form-field>
         <br/>
+        <mat-form-field class="full-width" *ngIf="!isTreeCypher">
+            <mat-label>Class</mat-label>
+            <input matInput [(ngModel)]="class" />
+        </mat-form-field>
+        <br *ngIf="!isTreeCypher" />
         <mat-form-field class="full-width">
             <mat-label>Focus</mat-label>
             <input matInput [(ngModel)]="focus" />

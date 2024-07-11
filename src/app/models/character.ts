@@ -176,7 +176,6 @@ export class skill {
 
 export class settings {
     public altSheet: boolean = false
-    public cypherSystem: boolean = false
     public usingCharm: boolean = false
     public usingSpeed: boolean = false
     public usingSP: boolean = false
