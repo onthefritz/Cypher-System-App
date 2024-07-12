@@ -47,4 +47,10 @@ export class OptionsComponent implements OnInit {
       this.characterSettings.altSheet = false
     }
   }
+
+  changedRests(event: any) {
+    if (!event.checked) {
+      this.characterSettings.usingBreathers = false
+    }
+  }
 }

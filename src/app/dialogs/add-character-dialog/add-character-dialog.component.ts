@@ -13,6 +13,9 @@ export class AddCharacterDialogComponent {
   @Input() name!: string
   @Input() descriptor!: string
   @Input() focus!: string
+  @Input() class!: string
+
+  isTreeCypher = false
 
   constructor(private http: HttpClient, private dialogRef: DialogRef) { }
 
@@ -21,7 +24,9 @@ export class AddCharacterDialogComponent {
     characterInfo.id = crypto.randomUUID()
     characterInfo.baseInfo.name = this.name
     characterInfo.baseInfo.descriptor = this.descriptor
+    characterInfo.baseInfo.class = this.class
     characterInfo.baseInfo.focus = this.focus
+    characterInfo.settings.usingTrees = this.isTreeCypher
     this.http.post(`${BASE_URL}/character/add`, characterInfo).subscribe({
         next: () => {
             this.dialogRef.close()

@@ -51,7 +51,9 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatMenuModule } from '@angular/material/menu'
 import { AltPoolStatsComponent } from './alt-pool-stats/alt-pool-stats.component'
 import { MatSortModule } from '@angular/material/sort';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { SpecialAbilitiesListComponent } from './special-abilities-list/special-abilities-list.component'
+import { SelectAbilityComponent } from './dialogs/select-ability/select-ability.component'
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
     UpsertCypherComponent,
     InsertMoneyComponent,
     AltPoolStatsComponent,
-    OptionsComponent
+    OptionsComponent,
+    SpecialAbilitiesListComponent,
+    SelectAbilityComponent
   ],
   imports: [
     BrowserModule,

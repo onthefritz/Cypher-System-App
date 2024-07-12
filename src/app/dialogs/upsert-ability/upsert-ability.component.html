@@ -7,34 +7,58 @@
         <mat-label>Name</mat-label>
         <input matInput [(ngModel)]="name" />
     </mat-form-field>
-    <br/>
-    <mat-form-field class="full-width">
+    <br *ngIf="isCharacterAbility" />
+    <mat-form-field class="full-width" *ngIf="isCharacterAbility">
         <mat-label>Source</mat-label>
         <input type="text" matInput [(ngModel)]="source" />
     </mat-form-field>
     <br/>
-    <mat-form-field class="full-width">
-        <mat-label>Cost</mat-label>
-        <input type="number" matInput [(ngModel)]="cost" />
-    </mat-form-field>
+    <div class="row">
+        <mat-form-field class="third-width" *ngIf="isCharacterAbility">
+            <mat-label>Cost</mat-label>
+            <input type="number" matInput [(ngModel)]="cost" />
+        </mat-form-field>
+
+        <mat-form-field class="third-width" *ngIf="!isCharacterAbility">
+            <mat-label>Cost</mat-label>
+            <input type="text" matInput [(ngModel)]="costString" />
+        </mat-form-field>
+    
+        <mat-form-field class="two-third-width">
+            <mat-label>Cost Type</mat-label>
+            <mat-select [(ngModel)]="costType">
+              <mat-option value="Might">Might</mat-option>
+              <mat-option value="Speed">Speed</mat-option>
+              <mat-option value="Intellect">Intellect</mat-option>
+              <mat-option value="Charm">Charm</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <br/>
-    <mat-form-field class="full-width">
-        <mat-label>Cost Type</mat-label>
-        <mat-select [(ngModel)]="costType">
-          <mat-option value="Might">Might</mat-option>
-          <mat-option value="Speed">Speed</mat-option>
-          <mat-option value="Intellect">Intellect</mat-option>
-          <mat-option value="Charm">Charm</mat-option>
-        </mat-select>
-    </mat-form-field>
+    <div class="row">
+        <mat-form-field class="third-width">
+            <mat-label>Tier</mat-label>
+            <mat-select [(ngModel)]="tier">
+            <mat-option value="Low">Low</mat-option>
+            <mat-option value="Mid">Mid</mat-option>
+            <mat-option value="High">High</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="two-third-width">
+            <mat-label>Cost Time</mat-label>
+            <input type="text" matInput [(ngModel)]="costTime" />
+        </mat-form-field>
+    </div>
     <br/>
     <mat-form-field class="full-width">
         <mat-label>Description</mat-label>
         <textarea matInput [(ngModel)]="description"></textarea>
     </mat-form-field>
-  </mat-card-content>
-  <mat-card-actions align="end">
-      <button mat-button (click)="addAbility()">SAVE</button>
-      <button mat-button (click)="close()">CANCEL</button>
-  </mat-card-actions>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-flat-button color="primary" (click)="openAbilitiesModal()">SELECT EXISTING</button>
+        <button mat-button (click)="addAbility()">SAVE</button>
+        <button mat-button (click)="close()">CANCEL</button>
+    </mat-card-actions>
 </mat-card>

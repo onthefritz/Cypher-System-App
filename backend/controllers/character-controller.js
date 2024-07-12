@@ -75,11 +75,10 @@ router.delete('/removeStats/:characterId/:tier', async (req, res) => {
   res.end()
 })
 
-router.get('/shortRest/:characterId/:wellRested', async (req, res) => {
+router.get('/shortRest/:characterId', async (req, res) => {
   let characterId = req.params.characterId
-  let wellRested = req.params.wellRested
 
-  await characterService.shortRest(characterId, wellRested)
+  await characterService.shortRest(characterId)
 
   res.status(200)
   res.end()

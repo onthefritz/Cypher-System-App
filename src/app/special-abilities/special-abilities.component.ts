@@ -57,10 +57,10 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit, OnChang
           || data.source.toLowerCase().includes(filter)
           || costField.toLowerCase().includes(filter)
     }
+    this.abilitiesData.sort = this.sort
   }
 
   ngAfterViewInit() {
-    this.abilitiesData.sort = this.sort
     this.loaded = true
   }
 
@@ -70,6 +70,7 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit, OnChang
     }
     let changedSkills = changes['abilitiesData'].currentValue
     this.abilitiesData = new MatTableDataSource(changedSkills)
+    this.abilitiesData.sort = this.sort
   }
 
   getDisplayTitle(column: string) {
@@ -80,11 +81,12 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit, OnChang
     let dialogData = {
       isAdd: isAdd,
       characterId: this.characterId,
-      special: special
+      special: special,
+      isCharacterAbility: true
     }
 
     const dialogRef = this.dialog.open(UpsertAbilityComponent, {
-      minWidth: '300px',
+      minWidth: '600px',
       data: dialogData
     })
 

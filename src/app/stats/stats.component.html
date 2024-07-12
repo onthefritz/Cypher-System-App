@@ -202,13 +202,24 @@
       <div class="breather-recovery">
         <app-incrementer
           [fontSize]="25"
-          [numberValueTotal]="baseCharacterInfo.tier * 2"
-          [numberValueCurrent]="baseCharacterInfo.stats.breathers"
+          [numberValueTotal]="baseCharacterInfo.stats.breathers"
+          [numberValueCurrent]="baseCharacterInfo.stats.breathersCurrent"
           [showIncrementers]="true"
-          element="breathers"
+          element="breathersCurrent"
           (incrementerChange)="onStatChange($event)"
         ></app-incrementer>
         <div class="area-title">Breathers</div>
+      </div>
+      <div class="breather-recovery">
+        <app-incrementer
+          [fontSize]="25"
+          [numberValueTotal]="baseCharacterInfo.stats.shortRests"
+          [numberValueCurrent]="baseCharacterInfo.stats.shortRestsCurrent"
+          [showIncrementers]="true"
+          element="shortRestsCurrent"
+          (incrementerChange)="onStatChange($event)"
+        ></app-incrementer>
+        <div class="area-title">Short Rests</div>
       </div>
     </div>
     <div class="recovery-rolls" *ngIf="!settings.usingBreathers">

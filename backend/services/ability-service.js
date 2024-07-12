@@ -1,3 +1,5 @@
+const fs = require('fs/promises')
+const constants = require('../helpers/constants')
 const characterService = require('../services/character-service')
 
 exports.updateSkill = async function(characterId, newSkill) {
@@ -34,6 +36,8 @@ exports.updateSkillSort = async function(characterId, skillId, sortInfo) {
   let currentSkillSort = foundSkill.sortOrder
   foundSkill.sortOrder = otherSkill.sortOrder
   otherSkill.sortOrder = currentSkillSort
+
+  character.skills.sort((a, b) => a.sortOrder - b.sortOrder)
 
   await characterService.updateCharacter(character.id, character)
 }
@@ -72,6 +76,8 @@ exports.updateAttackSort = async function(characterId, attackId, sortInfo) {
   foundAttack.sortOrder = otherAttack.sortOrder
   otherAttack.sortOrder = currentSkillSort
 
+  character.attacks.sort((a, b) => a.sortOrder - b.sortOrder)
+
   await characterService.updateCharacter(character.id, character)
 }
 
@@ -98,6 +104,8 @@ exports.updateSpecial = async function(characterId, newSpecial) {
   }
 
   await characterService.updateCharacter(characterId, character)
+
+  await this.addToAllAbilities(newSpecial)
 }
 
 exports.updateSpecialSort = async function(characterId, specialId, sortInfo) {
@@ -109,6 +117,8 @@ exports.updateSpecialSort = async function(characterId, specialId, sortInfo) {
   let currentSkillSort = foundAbility.sortOrder
   foundAbility.sortOrder = otherAbility.sortOrder
   otherAbility.sortOrder = currentSkillSort
+
+  character.abilities.sort((a, b) => a.sortOrder - b.sortOrder)
 
   await characterService.updateCharacter(character.id, character)
 }
@@ -159,4 +169,61 @@ exports.deleteSpecial = async function(characterId, abilityId) {
   character.abilities = character.abilities.filter((ability) => ability.id !== abilityId)
 
   await characterService.updateCharacter(characterId, character)
+}
+
+exports.getAllAbilities = async function() {
+  let ability_data
+  
+  await fs.readFile(`${constants.base_data_url}/abilities.json`, 'utf-8').then((data) => {
+    ability_data = JSON.parse(data)
+  })
+
+  return ability_data
+}
+
+exports.addToAllAbilities = async function(ability) {
+  let abilities = await this.getAllAbilities()
+
+  let newAbility = {
+    name: ability.name,
+    description: ability.description,
+    cost: ability.cost.toString(),
+    costType: ability.costType,
+    tier: ability.tier,
+    costTime: ability.costTime
+  }
+
+  if (abilities.filter(x => x.name === newAbility.name).length === 0) {
+    abilities.push(newAbility)
+
+    await fs.writeFile(`${constants.base_data_url}/abilities.json`, JSON.stringify(abilities))
+  }
+}
+
+exports.upsertBaseAbility = async function(oldAbilityName, newAbility) {
+  let abilities = await this.getAllAbilities()
+
+  let foundSpecial = abilities.find((ability) => ability.name.toLowerCase() === oldAbilityName.toLowerCase())
+
+  if (oldAbilityName !== 'empty_string' && foundSpecial) {
+    foundSpecial.name = newAbility.name
+    foundSpecial.description = newAbility.description
+    foundSpecial.cost = newAbility.cost
+    foundSpecial.costType = newAbility.costType
+    foundSpecial.tier = newAbility.tier
+    foundSpecial.costTime = newAbility.costTime
+
+    await fs.writeFile(`${constants.base_data_url}/abilities.json`, JSON.stringify(abilities))
+  }
+  else {
+    this.addToAllAbilities(newAbility)
+  }
+}
+
+exports.deleteBaseAbility = async function(name) {
+  let abilities = await this.getAllAbilities()
+
+  abilities = abilities.filter((ability) => ability.name !== name)
+
+  await fs.writeFile(`${constants.base_data_url}/abilities.json`, JSON.stringify(abilities))
 }

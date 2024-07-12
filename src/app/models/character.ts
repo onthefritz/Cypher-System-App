@@ -57,7 +57,9 @@ export class stats {
     public exhaustion: number = 0
     public damageTrack: damageTrack = new damageTrack
     public breathers: number = 0
-    public shortRestsSinceLongRest: number = 0
+    public breathersCurrent: number = 0
+    public shortRests: number = 0
+    public shortRestsCurrent: number = 0
 
     public recovery1Action: boolean = false
     public recovery10Minutes: boolean = false
@@ -118,6 +120,8 @@ export class ability {
     public source: string = ''
     public description: string = ''
     public sortOrder: number = 0
+    public tier: string = ''
+    public costTime: string = ''
 }
 
 export class equipment {
@@ -172,10 +176,10 @@ export class skill {
 
 export class settings {
     public altSheet: boolean = false
-    public cypherSystem: boolean = false
     public usingCharm: boolean = false
     public usingSpeed: boolean = false
     public usingSP: boolean = false
+    public usingRests: boolean = false
     public usingBreathers: boolean = false
     public usingExhaustion: boolean = false
     public usingAC: boolean = false

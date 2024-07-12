@@ -63,30 +63,7 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
   }
 
   shortRest() {
-    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-        minWidth: '300px',
-        data: {
-          title: "Are you Well Rested?",
-          message: "Are your wounds being treated or are you eating food?",
-          okayButton: "WELL RESTED",
-          cancelButton: "NOT WELL RESTED"
-        }
-    })
-
-    dialogRef.closed.subscribe(result => {
-      if (result) {
-        this.http.get(`${BASE_URL}/character/shortRest/${this.characterId}/true`).subscribe((res) => {
-          this.characterLoaded = false
-          this.loadCharacter()
-        })
-      }
-      else if (!result) {
-        this.http.get(`${BASE_URL}/character/shortRest/${this.characterId}/false`).subscribe((res) => {
-          this.characterLoaded = false
-          this.loadCharacter()
-        })
-      }
-    })
+    this.child.shortRest()
   }
 
   longRest() {

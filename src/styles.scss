@@ -18,10 +18,13 @@ $tableColor_even_light: #fff;
 $tableColor_even_dark: $bgColor_dark;
 
 $card_bgColor_light: #fff;
-$card_bgColor_dark: #363636;
+$card_bgColor_dark: #393939;
 
 $focusColor_light: #673ab7;
 $focusColor_dark: #c0abe5;
+
+$form_control_color_light: #e6e6e6;
+$form_control_color_dark: #464646;
 
 // mixin that enables css variables in light mode
 @mixin lighten() {
@@ -35,6 +38,8 @@ $focusColor_dark: #c0abe5;
   --tableEvenRowColor: #{$tableColor_even_light};
 
   --bgColorCard: #{$card_bgColor_light};
+
+  --bgColorFormControl: #{$form_control_color_light};
 
   --focusColor: #{$focusColor_light};
 }
@@ -51,6 +56,8 @@ $focusColor_dark: #c0abe5;
   --tableEvenRowColor: #{$tableColor_even_dark};
   
   --bgColorCard: #{$card_bgColor_dark};
+
+  --bgColorFormControl: #{$form_control_color_dark};
   
   --focusColor: #{$focusColor_dark};
 }
@@ -128,7 +135,7 @@ tr .mat-mdc-icon-button.mat-mdc-button-base {
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  background-color: var(--bgColorCard) !important;
+  background-color: var(--bgColorFormControl) !important;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
@@ -192,4 +199,26 @@ tr .mat-mdc-icon-button.mat-mdc-button-base {
 
 .mat-mdc-slide-toggle .mdc-label {
   color: var(--textColor) !important;
+}
+
+.mat-mdc-paginator-container {
+  background-color: var(--bgColorCard) !important;
+
+  & .mat-mdc-paginator-page-size-label {
+    color: var(--textColor) !important;
+  }
+
+  & .mat-mdc-paginator-range-actions {
+    color: var(--textColor) !important;
+  }
+
+  & .mat-mdc-icon-button {
+    & .mat-mdc-paginator-icon {
+      fill: var(--textColor) !important;
+    }
+
+    &[disabled] .mat-mdc-paginator-icon {
+      fill: var(--textColorDisabled) !important;
+    }
+  }
 }

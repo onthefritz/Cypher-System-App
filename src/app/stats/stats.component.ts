@@ -79,6 +79,25 @@ export class StatsComponent implements OnInit {
     })
   }
 
+  shortRest() {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+        minWidth: '300px',
+        data: {
+          title: "Are you sure?",
+          message: "This action cannot be undone.",
+          okayButton: "YES"
+        }
+    })
+
+    dialogRef.closed.subscribe(result => {
+      if (result) {
+        this.http.get(`${BASE_URL}/character/shortRest/${this.characterId}`).subscribe((res) => {
+          this.getBaseInfo()
+        })
+      }
+    })
+  }
+
   longRest() {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
         minWidth: '300px',

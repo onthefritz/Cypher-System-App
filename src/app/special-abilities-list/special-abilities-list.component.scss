@@ -1,0 +1,93 @@
+.custom-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.toolbar-buttons {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    justify-content: flex-start;
+}
+
+.toolbar-title {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.add-button {
+    margin: 5px 0;
+}
+
+.ability-table {
+    width: 95%;
+    margin: 10px auto;
+}
+
+.mat-column-cost {
+    width: 200px;
+}
+
+.mat-column-tier {
+    width: 100px;
+}
+
+.mat-column-costTime {
+    width: 250px;
+}
+
+.mat-column-menu {
+    width: 20px;
+}
+
+.mat-column-expand {
+    width: 20px;
+}
+
+.mat-column-select {
+    width: 60px;
+}
+
+.mat-mdc-row, .mat-mdc-header-row {
+    color: var(--tableTextColor) !important;
+}
+
+.mat-mdc-row:nth-child(4n-3), .mat-mdc-row:nth-child(4n-2) {
+    background-color: var(--tableOddRowColor);
+}
+
+.mat-mdc-row:nth-child(4n-1), .mat-mdc-row:nth-child(4n), .mat-mdc-header-row {
+    background-color: var(--tableEvenRowColor);
+}
+
+tr.detail-row {
+    height: 0;
+}
+
+.element-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.element-description {
+    padding: 16px;
+}
+
+.element-row td {
+    border-bottom-width: 0;
+}
+
+.scrollable {
+    overflow-y: auto;
+    max-height: 575px;
+}
+
+.mat-mdc-form-field {
+    margin-top: 10px;
+    font-size: 14px;
+    width: 100%;
+}
