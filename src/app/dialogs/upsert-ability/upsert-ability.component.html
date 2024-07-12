@@ -7,16 +7,21 @@
         <mat-label>Name</mat-label>
         <input matInput [(ngModel)]="name" />
     </mat-form-field>
-    <br/>
-    <mat-form-field class="full-width">
+    <br *ngIf="isCharacterAbility" />
+    <mat-form-field class="full-width" *ngIf="isCharacterAbility">
         <mat-label>Source</mat-label>
         <input type="text" matInput [(ngModel)]="source" />
     </mat-form-field>
     <br/>
     <div class="row">
-        <mat-form-field class="third-width">
+        <mat-form-field class="third-width" *ngIf="isCharacterAbility">
             <mat-label>Cost</mat-label>
             <input type="number" matInput [(ngModel)]="cost" />
+        </mat-form-field>
+
+        <mat-form-field class="third-width" *ngIf="!isCharacterAbility">
+            <mat-label>Cost</mat-label>
+            <input type="text" matInput [(ngModel)]="costString" />
         </mat-form-field>
     
         <mat-form-field class="two-third-width">

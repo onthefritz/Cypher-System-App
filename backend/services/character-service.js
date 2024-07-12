@@ -452,6 +452,8 @@ exports.getAllCharacters = async function() {
     })
   }
 
+  characters.sort((a, b) => a.sortOrder - b.sortOrder)
+
   return characters
 }
 

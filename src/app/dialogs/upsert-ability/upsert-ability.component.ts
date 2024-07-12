@@ -15,11 +15,13 @@ export class UpsertAbilityComponent {
   name!: string
   source!: string
   cost!: number
+  costString!: string
   costType!: string
   description!: string
   abilityId!: string
   tier!: string
   costTime!: string
+  isCharacterAbility!: boolean
 
   constructor(private http: HttpClient, private dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: any, private dialog: Dialog) { }
@@ -27,12 +29,14 @@ export class UpsertAbilityComponent {
   ngOnInit(): void {
     this.upsertType = this.data.isAdd ? 'Add' : 'Edit'
     this.characterId = this.data.characterId
+    this.isCharacterAbility = this.data.isCharacterAbility
 
     if (!this.data.isAdd) {
       this.abilityId = this.data.special.id
       this.name = this.data.special.name
       this.source = this.data.special.source
       this.cost = this.data.special.cost
+      this.costString = this.data.special.cost
       this.costType = this.data.special.costType
       this.description = this.data.special.description
       this.tier = this.data.special.tier
@@ -42,6 +46,7 @@ export class UpsertAbilityComponent {
       this.name = ''
       this.source = ''
       this.cost = 0
+      this.costString = ''
       this.costType = ''
       this.description = ''
       this.tier = ''
@@ -54,7 +59,7 @@ export class UpsertAbilityComponent {
       id: !this.abilityId ? crypto.randomUUID() : this.abilityId,
       name: this.name,
       source: this.source,
-      cost: this.cost,
+      cost: this.isCharacterAbility ? this.cost : this.costString,
       costType: this.costType,
       description: this.description,
       tier: this.tier,
@@ -75,6 +80,7 @@ export class UpsertAbilityComponent {
         let selectedAbility = result as ability
         this.name = selectedAbility.name
         this.cost = parseInt(selectedAbility.cost)
+        this.costString = selectedAbility.cost
         this.costType = selectedAbility.costType
         this.description = selectedAbility.description
         this.tier = selectedAbility.tier

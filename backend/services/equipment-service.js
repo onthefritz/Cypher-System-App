@@ -47,6 +47,8 @@ exports.updateItemSort = async function(characterId, itemId, sortInfo) {
   foundItem.sortOrder = otherItem.sortOrder
   otherItem.sortOrder = currentSort
 
+  character.equipment.items.sort((a, b) => a.sortOrder - b.sortOrder)
+
   await characterService.updateCharacter(character.id, character)
 }
 
@@ -84,6 +86,8 @@ exports.updateWeaponSort = async function(characterId, weaponId, sortInfo) {
   foundWeapon.sortOrder = otherWeapon.sortOrder
   otherWeapon.sortOrder = currentSort
 
+  character.equipment.weapons.sort((a, b) => a.sortOrder - b.sortOrder)
+
   await characterService.updateCharacter(character.id, character)
 }
 
@@ -120,6 +124,8 @@ exports.updateOdditySort = async function(characterId, oddityId, sortInfo) {
   foundOddity.sortOrder = otherOddity.sortOrder
   otherOddity.sortOrder = currentSort
 
+  character.equipment.oddities.sort((a, b) => a.sortOrder - b.sortOrder)
+
   await characterService.updateCharacter(character.id, character)
 }
 
@@ -155,6 +161,8 @@ exports.updateCypherSort = async function(characterId, cypherId, sortInfo) {
   let currentSort = foundCypher.sortOrder
   foundCypher.sortOrder = otherCypher.sortOrder
   otherCypher.sortOrder = currentSort
+
+  character.equipment.cyphers.sort((a, b) => a.sortOrder - b.sortOrder)
 
   await characterService.updateCharacter(character.id, character)
 }

@@ -81,7 +81,8 @@ export class SpecialAbilitiesComponent implements AfterViewInit, OnInit, OnChang
     let dialogData = {
       isAdd: isAdd,
       characterId: this.characterId,
-      special: special
+      special: special,
+      isCharacterAbility: true
     }
 
     const dialogRef = this.dialog.open(UpsertAbilityComponent, {

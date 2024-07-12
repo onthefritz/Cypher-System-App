@@ -95,12 +95,31 @@ router.delete('/special/:characterId/:specialId', async (req, res) => {
   res.end()
 })
 
-router.get('/specials', async (req, res) => {
+router.get('/base-specials', async (req, res) => {
 	let abilities = await abilityService.getAllAbilities()
 
 	res.status(200)
 	res.send(abilities)
 	res.end()
+})
+
+router.post('/base-special/:name', async (req, res) => {
+  let abilityName = req.params.name
+  let special = req.body
+
+  await abilityService.upsertBaseAbility(abilityName, special)
+
+  res.status(202)
+  res.end()
+})
+
+router.delete('/base-special/:name', async (req, res) => {
+  let abilityName = req.params.name
+
+  await abilityService.deleteBaseAbility(abilityName)
+
+  res.status(200)
+  res.end()
 })
 
 module.exports = router

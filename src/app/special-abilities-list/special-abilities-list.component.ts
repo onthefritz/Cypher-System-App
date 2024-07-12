@@ -8,6 +8,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { UpsertAbilityComponent } from '../dialogs/upsert-ability/upsert-ability.component';
+import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-special-abilities-list',
@@ -44,6 +46,15 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
       this.columnsToDisplayWithExpand = [...this.abilitiesDisplayedColumns, 'expand', 'select']
       this.showTitle = false
     }
+
+    this.abilitiesData.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+      if (typeof data[sortHeaderId] === 'string') {
+        return data[sortHeaderId].toLocaleLowerCase();
+      }
+    
+      return data[sortHeaderId];
+    };
+
     this.loadAbilites()
   }
 
@@ -71,7 +82,7 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
   }
 
   loadAbilites() {
-    this.http.get(`${BASE_URL}/ability/specials`).subscribe((res) => {
+    this.http.get(`${BASE_URL}/ability/base-specials`).subscribe((res) => {
       this.abilitiesData.data = res as ability[]
       this.abilitiesData.paginator = this.paginator
       this.abilitiesData.sort = this.sort
@@ -82,18 +93,47 @@ export class SpecialAbilitiesListComponent implements AfterViewInit, OnInit, OnC
     this.router.navigateByUrl(`/`)
   }
 
-  upsertAbility(isAdd: boolean, special: any) {
+  upsertAbility(isAdd: boolean, special: any, name: string) {
+    let dialogData = {
+      isAdd: isAdd,
+      special: special,
+      isCharacterAbility: false
+    }
 
+    const dialogRef = this.dialog.open(UpsertAbilityComponent, {
+      minWidth: '600px',
+      data: dialogData
+    })
+
+    dialogRef.closed.subscribe(result => {
+      if (result) {
+        this.http.post(`${BASE_URL}/ability/base-special/${name}`, result).subscribe((res) => {
+          this.loadAbilites()
+        })
+      }
+    })
   }
 
   deleteAbility(name: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+        minWidth: '300px',
+        data: {
+          title: "Are you sure?",
+          message: "This action cannot be undone."
+        }
+    })
 
+    dialogRef.closed.subscribe(result => {
+      if (result) {
+        this.http.delete(`${BASE_URL}/ability/base-special/${name}`).subscribe((res) => {
+            this.loadAbilites()
+        })
+      }
+    })
   }
 
   selectAbility(name: string) {
     let ability = this.abilitiesData.data.filter(x => x.name == name)
-
-    console.log(ability)
 
     this.selectAbilityParent.emit(ability)
   }

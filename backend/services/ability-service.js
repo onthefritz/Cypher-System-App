@@ -37,6 +37,8 @@ exports.updateSkillSort = async function(characterId, skillId, sortInfo) {
   foundSkill.sortOrder = otherSkill.sortOrder
   otherSkill.sortOrder = currentSkillSort
 
+  character.skills.sort((a, b) => a.sortOrder - b.sortOrder)
+
   await characterService.updateCharacter(character.id, character)
 }
 
@@ -73,6 +75,8 @@ exports.updateAttackSort = async function(characterId, attackId, sortInfo) {
   let currentSkillSort = foundAttack.sortOrder
   foundAttack.sortOrder = otherAttack.sortOrder
   otherAttack.sortOrder = currentSkillSort
+
+  character.attacks.sort((a, b) => a.sortOrder - b.sortOrder)
 
   await characterService.updateCharacter(character.id, character)
 }
@@ -113,6 +117,8 @@ exports.updateSpecialSort = async function(characterId, specialId, sortInfo) {
   let currentSkillSort = foundAbility.sortOrder
   foundAbility.sortOrder = otherAbility.sortOrder
   otherAbility.sortOrder = currentSkillSort
+
+  character.abilities.sort((a, b) => a.sortOrder - b.sortOrder)
 
   await characterService.updateCharacter(character.id, character)
 }
@@ -192,4 +198,32 @@ exports.addToAllAbilities = async function(ability) {
 
     await fs.writeFile(`${constants.base_data_url}/abilities.json`, JSON.stringify(abilities))
   }
+}
+
+exports.upsertBaseAbility = async function(oldAbilityName, newAbility) {
+  let abilities = await this.getAllAbilities()
+
+  let foundSpecial = abilities.find((ability) => ability.name.toLowerCase() === oldAbilityName.toLowerCase())
+
+  if (oldAbilityName !== 'empty_string' && foundSpecial) {
+    foundSpecial.name = newAbility.name
+    foundSpecial.description = newAbility.description
+    foundSpecial.cost = newAbility.cost
+    foundSpecial.costType = newAbility.costType
+    foundSpecial.tier = newAbility.tier
+    foundSpecial.costTime = newAbility.costTime
+
+    await fs.writeFile(`${constants.base_data_url}/abilities.json`, JSON.stringify(abilities))
+  }
+  else {
+    this.addToAllAbilities(newAbility)
+  }
+}
+
+exports.deleteBaseAbility = async function(name) {
+  let abilities = await this.getAllAbilities()
+
+  abilities = abilities.filter((ability) => ability.name !== name)
+
+  await fs.writeFile(`${constants.base_data_url}/abilities.json`, JSON.stringify(abilities))
 }

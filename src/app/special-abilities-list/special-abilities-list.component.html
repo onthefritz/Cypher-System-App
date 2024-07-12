@@ -1,6 +1,7 @@
 <mat-toolbar color="primary" class="custom-toolbar" *ngIf="showTitle">
     <div class="toolbar-buttons">
       <button mat-raised-button color="accent" (click)="characterList()">Character List</button>
+      <button mat-raised-button color="accent" (click)="upsertAbility(true, null, 'empty_string')">Add Ability</button>
     </div>
     <div class="toolbar-title">
       <div>Tree Cypher System</div>
@@ -43,7 +44,7 @@
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="upsertAbility(false, element)">
+                        <button mat-menu-item (click)="upsertAbility(false, element, element.name)">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>
