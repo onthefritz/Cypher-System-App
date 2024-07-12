@@ -32,7 +32,7 @@ jobs:
       with:
           name: dist-without-markdown
           path: |
-            Cypher-System-App/out/make/**/*.deb
+            /home/**/Cypher-System-App/out/make/**/*.deb
   job-windows:
     runs-on: windows-latest
 
@@ -55,5 +55,5 @@ jobs:
       with:
           name: dist-without-markdown
           path: |
-            Cypher-System-App\out\make\**\*.exe
+            D:\**\Cypher-System-App\out\make\**\*.exe
             
