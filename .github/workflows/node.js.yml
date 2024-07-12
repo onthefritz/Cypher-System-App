@@ -34,4 +34,11 @@ jobs:
           name: dist-without-markdown
           path: |
             /home/runner/work/Cypher-System-App/Cypher-System-App/out/make/**/*.deb
+    - run: npm run make --platform win64 --if-present
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v4
+      with:
+          name: dist-without-markdown
+          path: |
+            /home/runner/work/Cypher-System-App/Cypher-System-App/out/make/**/*.exe
             
