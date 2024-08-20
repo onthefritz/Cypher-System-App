@@ -28,6 +28,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm i --global yarn
+    - run: npm i --global @angular/cli
     - run: ng build
     - run: yarn dist -l --publish=never
     - name: Archive production artifacts
@@ -53,6 +54,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm i --global yarn
+    - run: npm i --global @angular/cli
     - run: ng build
     - run: yarn dist -w --publish=never
     - name: Archive production artifacts
