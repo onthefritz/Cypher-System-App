@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/release
 
 # Node
 /node_modules
@@ -42,5 +43,5 @@ testem.log
 Thumbs.db
 
 # Application
-/data/**
-/out/**
+/data
+/out

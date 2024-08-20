@@ -27,13 +27,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run make -- --platform linux --arch x64 --if-present
+    - run: npm i --global yarn
+    - run: yarn dist -l
     - name: Archive production artifacts
       uses: actions/upload-artifact@v4
       with:
           name: cypher-debian
           path: |
-            /home/runner/work/Cypher-System-App/Cypher-System-App/out/make/**/*.deb
+            /home/runner/work/Cypher-System-App/Cypher-System-App/release/**/*.AppImage
   job-windows:
     runs-on: windows-latest
 
@@ -50,11 +51,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run make -- --platform win32 --arch x64 --if-present
+    - run: npm i --global yarn
+    - run: yarn dist -w
     - name: Archive production artifacts
       uses: actions/upload-artifact@v4
       with:
           name: cypher-windows
           path: |
-            D:\a\Cypher-System-App\Cypher-System-App\out\make\**\*.exe
+            D:\a\Cypher-System-App\Cypher-System-App\release\**\*.exe
             
