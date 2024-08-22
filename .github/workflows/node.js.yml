@@ -34,7 +34,7 @@ jobs:
     - name: Archive production artifacts
       uses: actions/upload-artifact@v4
       with:
-          name: cypher-debian
+          name: cypher-linux
           path: |
             /home/runner/work/Cypher-System-App/Cypher-System-App/release/*.AppImage
   job-windows:
