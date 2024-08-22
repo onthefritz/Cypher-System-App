@@ -79,7 +79,7 @@ export class UpsertAbilityComponent {
       if (result) {
         let selectedAbility = result as ability
         this.name = selectedAbility.name
-        this.cost = parseInt(selectedAbility.cost)
+        this.cost = selectedAbility.cost ? parseInt(selectedAbility.cost) : 0
         this.costString = selectedAbility.cost
         this.costType = selectedAbility.costType
         this.description = selectedAbility.description
