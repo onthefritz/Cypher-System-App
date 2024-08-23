@@ -1,0 +1,88 @@
+.title {
+    width: 100%;
+    text-align: center;
+    font-size: large;
+    height: 35px;
+    margin: 5px 0 5px 0;
+}
+
+.tracker-text-editable {
+    background: rgba(0, 0, 0, 0);
+    width: 120px;
+    border: none;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 9px;
+    margin-bottom: 3px;
+  
+    border-bottom: 1px solid;
+    border-color: var(--borderColor);
+    color: var(--textColor);
+}
+
+.tracker {
+    position: relative;
+}
+
+.tracker-info {
+    width: 45%;
+    min-width: 125px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid;
+    border-color: var(--borderColor);
+    border-radius: 10px;
+    margin-right: 5px;
+}
+
+.tracker-content-info {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.delete-tracker {
+    position: absolute;
+    background-color: var(--bgColor);
+    border-radius: 15px;
+    width: 15px;
+    height: 15px;
+    right: 6px;
+    top: 1px;
+    border: 1px solid;
+    font-size: 14px;
+    border-color: var(--borderColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--textColor);
+}
+
+.reset-tracker {
+    position: absolute;
+    background-color: var(--bgColor);
+    border-radius: 15px;
+    width: 15px;
+    height: 15px;
+    right: 6px;
+    top: 45px;
+    border: 1px solid;
+    font-size: 14px;
+    border-color: var(--borderColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--textColor);
+
+    & .material-icons {
+        font-size: 14px !important;
+    }
+
+    & .mat-icon {
+        height: 14px;
+        width: 14px;
+    }
+}

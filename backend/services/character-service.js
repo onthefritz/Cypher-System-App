@@ -123,6 +123,37 @@ exports.getCharacterSettings = async function(id) {
   return character.settings
 }
 
+exports.getCharacterTrackers = async function(id) {
+  let character = await this.getCharacter(id)
+
+  return character.trackers
+}
+
+exports.createCharacterTracker = async function(id, trackerData) {
+  let character = await this.getCharacter(id)
+
+  if (!character.trackers) {
+    character.trackers = []
+  }
+
+  character.trackers.push({
+    id: trackerData.trackerId,
+    name: '',
+    total: 0,
+    current: 0
+  })
+
+  await this.updateCharacter(id, character)
+}
+
+exports.deleteCharacterTracker = async function(characterId, trackerId) {
+  let character = await this.getCharacter(characterId)
+
+  character.trackers = character.trackers.filter((tracker) => tracker.id !== trackerId)
+
+  await this.updateCharacter(characterId, character)
+}
+
 exports.updateStatsHistory = async function(id, statHistory) {
   let character = await this.getCharacter(id)
   let foundStatHistory = character.baseInfo.statHistory.find(x => x.tier === statHistory.tier)

@@ -1,0 +1,30 @@
+<div class="tracker">
+    <div class="tracker-info">
+        <div class="title">
+            <input type="text" class="tracker-text-editable" 
+                [value]="trackerName" (focusin)="nameClearText()"
+                (blur)="nameLoseFocus($event)" #nameInput />
+        </div>
+        <div class="tracker-content-info">
+            <app-incrementer 
+                [numberValueTotal]="trackerTotal" 
+                [numberValueCurrent]="trackerCurrent" 
+                [fontSize]="30"
+                [showIncrementers]="true"
+                element="current"
+                (incrementerChange)="onTrackerChange($event)"
+            ></app-incrementer>
+            <app-incrementer 
+                [numberValueTotal]="trackerTotal" 
+                [numberValueCurrent]="trackerTotal" 
+                [fontSize]="20"
+                element="total"
+                (incrementerChange)="onTrackerChange($event)"
+            ></app-incrementer>
+        </div>
+    </div>
+    <span class="delete-tracker" (click)="deleteTracker(trackerId)">X</span>
+    <span class="reset-tracker" (click)="resetTracker(trackerId)">
+        <mat-icon>autorenew</mat-icon>
+    </span>
+</div>  

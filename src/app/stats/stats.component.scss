@@ -101,3 +101,21 @@
   background-color: var(--bgColorCard);
   color: var(--textColor);
 }
+
+.trackers-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  padding: 16px 16px 0;
+  color: var(--textColor)
+}
+
+.trackers-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 16px 0;
+}

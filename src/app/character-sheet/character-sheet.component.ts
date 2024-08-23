@@ -71,23 +71,7 @@ export class CharacterSheetComponent implements OnInit, AfterViewInit {
   }
 
   refreshEdgeAndEffort() {
-    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-        minWidth: '300px',
-        data: {
-          title: "Are you sure?",
-          message: "This action cannot be undone.",
-          okayButton: "YES"
-        }
-    })
-
-    dialogRef.closed.subscribe(result => {
-      if (result) {
-        this.http.get(`${BASE_URL}/character/refreshEdgeAndEffort/${this.characterId}`).subscribe((res) => {
-          this.characterLoaded = false
-          this.loadCharacter()
-        })
-      }
-    })
+    this.child.refreshEdgeAndEffort()
   }
 
   tierAdvanced(event: MatCheckboxChange, element: string) {

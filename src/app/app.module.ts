@@ -53,7 +53,8 @@ import { AltPoolStatsComponent } from './alt-pool-stats/alt-pool-stats.component
 import { MatSortModule } from '@angular/material/sort';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SpecialAbilitiesListComponent } from './special-abilities-list/special-abilities-list.component'
-import { SelectAbilityComponent } from './dialogs/select-ability/select-ability.component'
+import { SelectAbilityComponent } from './dialogs/select-ability/select-ability.component';
+import { AltTrackerComponent } from './alt-tracker/alt-tracker.component'
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { SelectAbilityComponent } from './dialogs/select-ability/select-ability.
     AltPoolStatsComponent,
     OptionsComponent,
     SpecialAbilitiesListComponent,
-    SelectAbilityComponent
+    SelectAbilityComponent,
+    AltTrackerComponent
   ],
   imports: [
     BrowserModule,

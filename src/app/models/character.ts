@@ -5,6 +5,7 @@ export class character {
     public abilities: ability[] = []
     public equipment: equipment = new equipment
     public skills: skill[] = []
+    public trackers: tracker[] = []
     public settings: settings = new settings
 }
 
@@ -184,4 +185,11 @@ export class settings {
     public usingExhaustion: boolean = false
     public usingAC: boolean = false
     public usingTrees: boolean = false
+}
+
+export class tracker {
+    public id: string = ''
+    public name: string = ''
+    public total: number = 0
+    public current: number = 0
 }

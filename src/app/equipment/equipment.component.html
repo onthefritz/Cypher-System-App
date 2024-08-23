@@ -1,18 +1,18 @@
 <div *ngIf="equipmentLoaded">
     <div class="money">
-    <span class="money-amount" *ngFor="let money of equipmentData.money">
-        {{money.name}} <app-incrementer
-            [numberValueTotal]="money.amount"
-            [numberValueCurrent]="money.amount"
-            [fontSize]="15"
-            [element]="money.name"
-            (incrementerChange)="updateMoney($event, money.name, money.id)"
-        ></app-incrementer>
-        <span class="delete-money" (click)="deleteMoney(money.id)">X</span>
-    </span>
-    <span class="money-amount">
-        <span class="add-money" (click)="insertMoney()">+</span>
-    </span>
+        <span class="money-amount" *ngFor="let money of equipmentData.money">
+            {{money.name}} <app-incrementer
+                [numberValueTotal]="money.amount"
+                [numberValueCurrent]="money.amount"
+                [fontSize]="15"
+                [element]="money.name"
+                (incrementerChange)="updateMoney($event, money.name, money.id)"
+            ></app-incrementer>
+            <span class="delete-money" (click)="deleteMoney(money.id)">X</span>
+        </span>
+        <span class="money-amount">
+            <span class="add-money" (click)="insertMoney()">+</span>
+        </span>
     </div>
     <div class="money-title">
     Currency

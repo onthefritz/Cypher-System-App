@@ -4,7 +4,7 @@ import { BASE_URL } from '../helpers/constants';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component';
 import { Dialog } from '@angular/cdk/dialog';
-import { baseInfo, equipment, settings } from '../models/character';
+import { baseInfo, equipment, settings, tracker } from '../models/character';
 
 @Component({
   selector: 'app-stats',
@@ -16,9 +16,11 @@ export class StatsComponent implements OnInit {
 
   baseCharacterInfo: baseInfo = new baseInfo
   settings: settings = new settings
+  trackers: any
 
   infoLoaded: boolean = false
   settingsLoaded: boolean = false
+  trackersLoaded: boolean = false
 
   constructor(private http: HttpClient, private dialog: Dialog,
     private ref: ChangeDetectorRef) { }
@@ -40,6 +42,15 @@ export class StatsComponent implements OnInit {
     this.http.get(`${BASE_URL}/character/settings/${this.characterId}`).subscribe((res) => {
       this.settings = res as settings
       this.settingsLoaded = true
+
+      this.getTrackers()
+    })
+  }
+
+  getTrackers() {
+    this.http.get(`${BASE_URL}/character/trackers/${this.characterId}`).subscribe((res) => {
+      this.trackers = res as tracker[]
+      this.trackersLoaded = true
     })
   }
 
@@ -114,6 +125,41 @@ export class StatsComponent implements OnInit {
           this.getBaseInfo()
         })
       }
+    })
+  }
+
+  refreshEdgeAndEffort() {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+        minWidth: '300px',
+        data: {
+          title: "Are you sure?",
+          message: "This action cannot be undone.",
+          okayButton: "YES"
+        }
+    })
+
+    dialogRef.closed.subscribe(result => {
+      if (result) {
+        this.http.get(`${BASE_URL}/character/refreshEdgeAndEffort/${this.characterId}`).subscribe((res) => {
+          this.getBaseInfo()
+        })
+      }
+    })
+  }
+
+  addTracker() {
+    let newTracker = {
+      trackerId: crypto.randomUUID()
+    }
+
+    this.http.put(`${BASE_URL}/character/tracker/${this.characterId}`, newTracker).subscribe((res) => {
+      this.getTrackers()
+    })
+  }
+
+  deleteTracker(data: any) {
+    this.http.delete(`${BASE_URL}/character/tracker/${this.characterId}/${data.trackerId}`).subscribe((res) => {
+      this.getTrackers()
     })
   }
 }
