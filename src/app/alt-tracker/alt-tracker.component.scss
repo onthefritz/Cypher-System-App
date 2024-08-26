@@ -14,7 +14,7 @@
     text-align: center;
     padding-top: 9px;
     margin-bottom: 3px;
-  
+
     border-bottom: 1px solid;
     border-color: var(--borderColor);
     color: var(--textColor);
@@ -27,6 +27,7 @@
 .tracker-info {
     width: 45%;
     min-width: 125px;
+    min-height: 95px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -67,7 +68,7 @@
     width: 15px;
     height: 15px;
     right: 6px;
-    top: 45px;
+    top: 37px;
     border: 1px solid;
     font-size: 14px;
     border-color: var(--borderColor);
@@ -82,7 +83,44 @@
     }
 
     & .mat-icon {
+        margin-right: 2px;
         height: 14px;
         width: 14px;
     }
+}
+
+.tracker-settings {
+    position: absolute;
+    background-color: var(--bgColor);
+    border-radius: 15px;
+    width: 15px;
+    height: 15px;
+    right: 21px;
+    top: 0px;
+    border: 1px solid;
+    font-size: 14px;
+    border-color: var(--borderColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--textColor);
+
+    & .material-icons {
+        font-size: 14px !important;
+    }
+
+    & .mat-icon {
+        margin-right: 2px;
+        height: 14px;
+        width: 14px;
+    }
+}
+
+.can-reset-checkbox {
+
+}
+
+.can-reset-label {
+  color: var(--textColor);
 }

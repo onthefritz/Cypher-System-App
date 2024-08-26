@@ -67,6 +67,16 @@ router.delete('/tracker/:characterId/:trackerId', async (req, res) => {
   res.end()
 })
 
+router.post('/tracker/:characterId/:trackerId', async (req, res) => {
+  let characterId = req.params.characterId
+  let trackerId = req.params.trackerId
+  let data = req.body
+  await characterService.updateCharacterTracker(characterId, trackerId, data)
+
+  res.status(201)
+  res.end()
+})
+
 router.post('/saveHistoryStats/:characterId', async (req, res) => {
   let characterId = req.params.characterId
   let statHistory = req.body

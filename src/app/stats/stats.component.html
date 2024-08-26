@@ -268,7 +268,9 @@
         [trackerCurrent]="tracker.current"
         [trackerTotal]="tracker.total"
         [trackerId]="tracker.id"
+        [canReset]="tracker.canReset"
         (trackerDelete)="deleteTracker($event)"
+        (trackerChange)="updateTracker($event)"
       ></app-alt-tracker>
     </div>
   </div>

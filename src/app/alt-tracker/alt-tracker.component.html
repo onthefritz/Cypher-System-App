@@ -1,30 +1,39 @@
 <div class="tracker">
     <div class="tracker-info">
         <div class="title">
-            <input type="text" class="tracker-text-editable" 
-                [value]="trackerName" (focusin)="nameClearText()"
-                (blur)="nameLoseFocus($event)" #nameInput />
+          <input type="text" class="tracker-text-editable" placeholder="Tracker Name"
+            [value]="trackerName" (focusin)="nameClearText()"
+            (keydown.enter)="nameApplyChange($event)" (blur)="nameLoseFocus($event)"
+            #nameInput />
         </div>
-        <div class="tracker-content-info">
-            <app-incrementer 
-                [numberValueTotal]="trackerTotal" 
-                [numberValueCurrent]="trackerCurrent" 
+        <div class="tracker-content-info" *ngIf="!showSettings">
+            <app-incrementer
+                [numberValueTotal]="trackerTotal"
+                [numberValueCurrent]="trackerCurrent"
                 [fontSize]="30"
                 [showIncrementers]="true"
                 element="current"
                 (incrementerChange)="onTrackerChange($event)"
             ></app-incrementer>
-            <app-incrementer 
-                [numberValueTotal]="trackerTotal" 
-                [numberValueCurrent]="trackerTotal" 
+            <app-incrementer
+                *ngIf="canReset"
+                [numberValueTotal]="trackerTotal"
+                [numberValueCurrent]="trackerTotal"
                 [fontSize]="20"
                 element="total"
                 (incrementerChange)="onTrackerChange($event)"
             ></app-incrementer>
         </div>
+        <div class="tracker-content-info" *ngIf="showSettings">
+            <input class="can-reset-checkbox" type="checkbox" name="canReset" [checked]="canReset" (change)="onCanResetChange($event)">
+            <label class="can-reset-label" for="canReset"> Can Reset</label><br>
+        </div>
     </div>
     <span class="delete-tracker" (click)="deleteTracker(trackerId)">X</span>
-    <span class="reset-tracker" (click)="resetTracker(trackerId)">
+    <span class="reset-tracker" (click)="resetTracker(trackerId)" *ngIf="canReset">
         <mat-icon>autorenew</mat-icon>
     </span>
-</div>  
+    <span class="tracker-settings" (click)="showSettings = !showSettings">
+        <mat-icon>settings</mat-icon>
+    </span>
+</div>

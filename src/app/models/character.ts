@@ -51,7 +51,7 @@ export class stats {
 
     public effort: number = 0
     public effortCurrent: number = 0
-    
+
     public armor: number = 0
     public movement: number = 0
     public recoveryBonus: number = 0
@@ -192,4 +192,5 @@ export class tracker {
     public name: string = ''
     public total: number = 0
     public current: number = 0
+    public canReset: boolean = true
 }

@@ -1,10 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '../helpers/constants';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { DeleteConfirmationComponent } from '../dialogs/delete-confirmation/delete-confirmation.component';
 import { Dialog } from '@angular/cdk/dialog';
-import { baseInfo, equipment, settings, tracker } from '../models/character';
+import { baseInfo, settings, tracker } from '../models/character';
 
 @Component({
   selector: 'app-stats',
@@ -159,6 +158,12 @@ export class StatsComponent implements OnInit {
 
   deleteTracker(data: any) {
     this.http.delete(`${BASE_URL}/character/tracker/${this.characterId}/${data.trackerId}`).subscribe((res) => {
+      this.getTrackers()
+    })
+  }
+
+  updateTracker(data: any) {
+    this.http.post(`${BASE_URL}/character/tracker/${this.characterId}/${data.id}`, data).subscribe((res) => {
       this.getTrackers()
     })
   }
