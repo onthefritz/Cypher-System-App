@@ -98,7 +98,7 @@ exports.getCharacter = async function(id) {
     somethingUpdated = somethingUpdated || checkList(selected_character.equipment.oddities)
     somethingUpdated = somethingUpdated || checkList(selected_character.equipment.weapons)
     somethingUpdated = somethingUpdated || checkList(selected_character.equipment.cyphers)
-    
+
     if (!selected_character.baseInfo.sp) {
       selected_character.baseInfo.sp = 0
       somethingUpdated = true
@@ -121,6 +121,50 @@ exports.getCharacterSettings = async function(id) {
   let character = await this.getCharacter(id)
 
   return character.settings
+}
+
+exports.getCharacterTrackers = async function(id) {
+  let character = await this.getCharacter(id)
+
+  return character.trackers
+}
+
+exports.createCharacterTracker = async function(id, trackerData) {
+  let character = await this.getCharacter(id)
+
+  if (!character.trackers) {
+    character.trackers = []
+  }
+
+  character.trackers.push({
+    id: trackerData.trackerId,
+    name: '',
+    total: 0,
+    current: 0,
+    canReset: true
+  })
+
+  await this.updateCharacter(id, character)
+}
+
+exports.deleteCharacterTracker = async function(characterId, trackerId) {
+  let character = await this.getCharacter(characterId)
+
+  character.trackers = character.trackers.filter((tracker) => tracker.id !== trackerId)
+
+  await this.updateCharacter(characterId, character)
+}
+
+exports.updateCharacterTracker = async function(characterId, trackerId, data) {
+  let character = await this.getCharacter(characterId)
+
+  let tracker = character.trackers.find((tracker) => tracker.id === trackerId)
+  tracker.name = data.name
+  tracker.total = data.total
+  tracker.current = data.current
+  tracker.canReset = data.canReset
+
+  await this.updateCharacter(characterId, character)
 }
 
 exports.updateStatsHistory = async function(id, statHistory) {
@@ -172,7 +216,7 @@ exports.updateStatsHistory = async function(id, statHistory) {
   character.baseInfo.stats.speed = this.sumArrayField(character.baseInfo.statHistory, 'pointsToSpeed')
   character.baseInfo.stats.intellect = this.sumArrayField(character.baseInfo.statHistory, 'pointsToIntellect')
   character.baseInfo.stats.charm = this.sumArrayField(character.baseInfo.statHistory, 'pointsToCharm')
-  
+
   character.baseInfo.stats.mightEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToMightEdge')
   character.baseInfo.stats.speedEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToSpeedEdge')
   character.baseInfo.stats.intellectEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToIntellectEdge')
@@ -189,7 +233,7 @@ exports.sumArrayField = function(array, field) {
   array.forEach((element) => {
     total += element[field]
   })
-  
+
   return total
 }
 
@@ -199,7 +243,7 @@ exports.addCharacter = async function(characterData) {
   if (characters.length > 0) {
     characterData.sortOrder = characters.at(-1).sortOrder + 1
   }
-  
+
   characterData.baseInfo.tier = 1
   characterData.baseInfo.stats.movement = 30
   characterData.baseInfo.stats.breathers = 2
@@ -213,7 +257,7 @@ exports.addCharacter = async function(characterData) {
   characterData.baseInfo.stats.speedCurrent = 7
   characterData.baseInfo.stats.intellectCurrent = 7
   characterData.baseInfo.stats.charmCurrent = 7
-  
+
   characterData.baseInfo.stats.hp = characterData.baseInfo.stats.might + characterData.baseInfo.stats.speed
   characterData.baseInfo.stats.hpCurrent = characterData.baseInfo.stats.hp
   characterData.baseInfo.stats.ap = characterData.baseInfo.stats.intellect + characterData.baseInfo.stats.charm
@@ -285,7 +329,7 @@ exports.deleteStats = async function(characterId, tier) {
 
   character.baseInfo.stats.hp = character.baseInfo.stats.might + character.baseInfo.stats.speed
   character.baseInfo.stats.ap = character.baseInfo.stats.intellect + character.baseInfo.stats.charm
-  
+
   character.baseInfo.stats.mightEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToMightEdge')
   character.baseInfo.stats.speedEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToSpeedEdge')
   character.baseInfo.stats.intellectEdge = this.sumArrayField(character.baseInfo.statHistory, 'pointsToIntellectEdge')
@@ -305,7 +349,7 @@ exports.shortRest = async function(characterId) {
   stats.speedCurrent = this.isLessThanHalf(stats.speedCurrent, stats.speed) ? stats.speedCurrent + Math.floor(stats.speed / 2) : stats.speed
   stats.intellectCurrent = this.isLessThanHalf(stats.intellectCurrent, stats.intellect) ? stats.intellectCurrent + Math.floor(stats.intellect / 2) : stats.intellect
   stats.charmCurrent = this.isLessThanHalf(stats.charmCurrent, stats.charm) ? stats.charmCurrent + Math.floor(stats.charm / 2) : stats.charm
-  
+
   stats.mightEdgeCurrent = stats.mightEdge
   stats.speedEdgeCurrent = stats.speedEdge
   stats.intellectEdgeCurrent = stats.intellectEdge
@@ -345,9 +389,9 @@ exports.longRest = async function(characterId) {
   character.baseInfo.stats.charmEdgeCurrent = character.baseInfo.stats.charmEdge
 
   character.baseInfo.stats.effortCurrent = character.baseInfo.stats.effort
-  
-  character.baseInfo.stats.exhaustion = character.baseInfo.stats.exhaustion - 2 < 0 
-    ? 0 
+
+  character.baseInfo.stats.exhaustion = character.baseInfo.stats.exhaustion - 2 < 0
+    ? 0
     : character.baseInfo.stats.exhaustion - 2
   character.baseInfo.stats.breathersCurrent = character.baseInfo.stats.breathers
   character.baseInfo.stats.shortRestsCurrent = character.baseInfo.stats.shortRests
@@ -417,7 +461,7 @@ exports.levelUp = async function(characterId) {
   character.baseInfo.tierAdvancement.pointToEffort = false
   character.baseInfo.tierAdvancement.trainSkill = false
   character.baseInfo.tierAdvancement.other = false
-  
+
   await this.updateCharacter(characterId, character)
 }
 

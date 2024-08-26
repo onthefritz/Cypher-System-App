@@ -1,5 +1,5 @@
 
-<div class="container" *ngIf="infoLoaded && settingsLoaded">
+<div class="container" *ngIf="infoLoaded && settingsLoaded && trackersLoaded">
   <div class="stat-info">
     <div class="base-stat-holder">
       <div class="base-stat">
@@ -193,6 +193,7 @@
       ></app-checkbox>
     </div>
   </div>
+
   <div class="recovery-rolls-section">
     <div class="recovery-rolls-header">
       <div>Recovery Rolls</div>
@@ -251,6 +252,26 @@
         element="recovery10Hours"
         (checkboxChange)="recoveryUsed($event)"
       ></app-checkbox>
+    </div>
+  </div>
+
+  <div class="tracker-info">
+    <div class="trackers-header">
+      <div>Trackers</div>
+      <div>
+        <button mat-raised-button color="primary" (click)="addTracker()">Add Stat Tracker</button>
+      </div>
+    </div>
+    <div class="trackers-data">
+      <app-alt-tracker *ngFor="let tracker of trackers"
+        [trackerName]="tracker.name"
+        [trackerCurrent]="tracker.current"
+        [trackerTotal]="tracker.total"
+        [trackerId]="tracker.id"
+        [canReset]="tracker.canReset"
+        (trackerDelete)="deleteTracker($event)"
+        (trackerChange)="updateTracker($event)"
+      ></app-alt-tracker>
     </div>
   </div>
 </div>

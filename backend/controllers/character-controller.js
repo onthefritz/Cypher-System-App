@@ -41,6 +41,42 @@ router.get('/settings/:characterId', async (req, res) => {
   res.end()
 })
 
+router.get('/trackers/:characterId', async (req, res) => {
+  let trackers = await characterService.getCharacterTrackers(req.params.characterId)
+
+  res.status(200)
+  res.send(trackers)
+  res.end()
+})
+
+router.put('/tracker/:characterId', async (req, res) => {
+  let characterId = req.params.characterId
+  let trackerData = req.body
+  await characterService.createCharacterTracker(characterId, trackerData)
+
+  res.status(201)
+  res.end()
+})
+
+router.delete('/tracker/:characterId/:trackerId', async (req, res) => {
+  let characterId = req.params.characterId
+  let trackerId = req.params.trackerId
+  await characterService.deleteCharacterTracker(characterId, trackerId)
+
+  res.status(202)
+  res.end()
+})
+
+router.post('/tracker/:characterId/:trackerId', async (req, res) => {
+  let characterId = req.params.characterId
+  let trackerId = req.params.trackerId
+  let data = req.body
+  await characterService.updateCharacterTracker(characterId, trackerId, data)
+
+  res.status(201)
+  res.end()
+})
+
 router.post('/saveHistoryStats/:characterId', async (req, res) => {
   let characterId = req.params.characterId
   let statHistory = req.body
